@@ -1,25 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
+enum PlayerState
+{
+    Attacked,Attacking,Death,Run,Idle
+}
 public class PlayerController : CharacterController
 {
     private Vector3 moveVector;
     [SerializeField]private FixedJoystick _joystick;
-    bool isAttack = false;
-    bool isAttacking = false;
+    PlayerState myState;
+    //bool isAttack = false;
+    //bool isAttacking = false;
+    //bool isDeath = false;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        OnInit();
+    }
+    void OnInit()
+    {
+        myState = PlayerState.Idle;
         ChangeAnim("idle");
     }
 
     // Update is called once per frame
     protected override void  Update()
     {
-        if (isAttack)
+        if (myState is PlayerState.Attacked || myState is PlayerState.Death)
         {
             return;
         }
@@ -57,29 +69,44 @@ public class PlayerController : CharacterController
         {
             StopAllCoroutines();
             isReadyAttack = true;
-            isAttacking = false;
+            myState = PlayerState.Run;
             timer = 0;
             Vector3 direction = Vector3.RotateTowards(transform.forward, moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(direction);
             ChangeAnim("run");
         }
-        else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0 && !isAttacking)
+        else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
         {
-            timer += Time.deltaTime;
-            ChangeAnim("idle");
+            if (myState == PlayerState.Attacked || myState == PlayerState.Attacking)
+            {
+
+            }
+            else
+            {
+                timer += Time.deltaTime;
+                myState = PlayerState.Idle;
+                ChangeAnim("idle");
+            }
         }
         transform.position = Vector3.Lerp(transform.position, transform.position + moveVector, 1f);
     }
     IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(attackTime);
-        isAttack = false;
-        isAttacking = false;
+        //isAttack = false;
+        //isAttacking = false;
+        myState = PlayerState.Idle;
     }
     IEnumerator ActiveAttack()
     {
         yield return new WaitForSeconds(waitThrow);
-        isAttack = true;
+        //isAttack = true;
+        myState = PlayerState.Attacked;
+    }
+    public override void OnDeath()
+    {
+        myState = PlayerState.Death;
+        base.OnDeath();
     }
     public override void Attack()
     {
@@ -88,7 +115,8 @@ public class PlayerController : CharacterController
             return;
         }
         base.Attack();
-        isAttacking = true;
+        //isAttacking = true;
+        myState = PlayerState.Attacking;
         StartCoroutine(ActiveAttack());
         StartCoroutine(ResetAttack());
     }

@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class BotController : CharacterController
 {
     [SerializeField] Transform spawnPosTrans;
+    [SerializeField] GameObject skin;
     Vector3 spawnPos;
     private NavMeshAgent agent;
     private Vector3 destination;
@@ -22,23 +23,39 @@ public class BotController : CharacterController
         agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;
         spawnPos = spawnPosTrans.position;
-        foreach (Transform t in GameController.GetInstance().L_character)
-        {
-            if(!t.Equals(transform))
-                l_targetFollow.Add(t);
-        }
         OnInit();
         
     }
     public void SetRandomTargetFollow()
     {
         ChangeAnim("run");
-        targetFollow = l_targetFollow[Random.Range(0,l_targetFollow.Count)];
+        List<Transform> targets = new List<Transform>();
+        BotController bot;
+        foreach(Transform t in l_targetFollow)
+        {
+            if(t.gameObject.TryGetComponent<BotController>(out bot))
+            {
+                if(bot.CurrentState is not DieState)
+                    targets.Add(t);
+            }
+            else
+            {
+                targets.Add(t);
+            }
+        }
+        targetFollow = targets[Random.Range(0,targets.Count)];
         destination = targetFollow.position;
         agent.destination = destination;
     }
     public void OnInit()
     {
+        foreach (Transform t in GameController.GetInstance().L_character)
+        {
+            if (!t.Equals(transform) && !l_targetFollow.Contains(t))
+                l_targetFollow.Add(t);
+        }
+        skin.SetActive(true);
+        Debug.Log(l_targetFollow.Count);
         CharacterCollider.enabled = true;
         ChangeState(new IdleState());
     }
@@ -67,13 +84,21 @@ public class BotController : CharacterController
     }
     public void DeSpawn()
     {
+        skin.SetActive(false);
+        if (!GameController.GetInstance().isSpawnEnemy())
+        {
+            return;
+        }
+        GameController.GetInstance().NumSpawn -= 1;
         OnInit();
-
         transform.position = spawnPos;
     }
     public override void OnDeath()
     {
+        
         base.OnDeath();
+        GameController.GetInstance().UpdateAliveText();
+
     }
     public void StopMoving()
     {

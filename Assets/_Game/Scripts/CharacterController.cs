@@ -69,7 +69,6 @@ public class CharacterController : MonoBehaviour
         
         if (currentAnimName != animName)
         {
-            Debug.Log(animName);
             anim.ResetTrigger(animName);
 
             currentAnimName = animName;

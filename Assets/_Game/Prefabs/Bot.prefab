@@ -313,9 +313,9 @@ MonoBehaviour:
   anim: {fileID: 1208451737735519888}
   bulletPrefab: {fileID: 8297970951185640464, guid: fb9cab4b02ba7bf4b9d12e1b2fc5cce5, type: 3}
   throwPoint: {fileID: 1208451737004530107}
-  characterCollider: {fileID: 1208451737823287466}
   l_AttackTarget: []
   spawnPosTrans: {fileID: 649689263}
+  skin: {fileID: 5834567189898782493}
   targetFollow: {fileID: 0}
 --- !u!195 &1208451737823287462
 NavMeshAgent:
@@ -430,3 +430,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &5834567189898782493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4594301083077232248, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
+  m_PrefabInstance: {fileID: 1208451737735519893}
+  m_PrefabAsset: {fileID: 0}
