@@ -13,6 +13,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] protected Transform throwPoint;
+    [SerializeField] private string tagWeapon;
     private Collider characterCollider;
     protected CharacterController targetAttack;
     protected float delayAttack = 0.1f;
@@ -20,6 +21,7 @@ public class CharacterController : MonoBehaviour
     protected float timer = 0;
     protected bool isReadyAttack=false;
     protected float waitThrow = 0.8f;
+
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -60,7 +62,9 @@ public class CharacterController : MonoBehaviour
     public IEnumerator Throw(Vector3 direct)
     {
         yield return new WaitForSeconds(waitThrow);
-        GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
+        //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
+        GameObject bullet = GameObjectPools.GetInstance().GetFromPool(tagWeapon,throwPoint.position);
+        bullet.GetComponent<BulletController>().tagWeapon = tagWeapon;
         bullet.transform.rotation = transform.rotation;
         bullet.GetComponent<Rigidbody>().AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
     }

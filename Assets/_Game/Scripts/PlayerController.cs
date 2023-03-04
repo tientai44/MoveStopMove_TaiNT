@@ -20,10 +20,13 @@ public class PlayerController : CharacterController
     protected override void Start()
     {
         base.Start();
+        _joystick = FindObjectOfType<FixedJoystick>();
+        GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
         OnInit();
     }
     void OnInit()
     {
+        
         myState = PlayerState.Idle;
         ChangeAnim("idle");
     }

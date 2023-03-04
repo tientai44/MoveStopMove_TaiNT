@@ -8,7 +8,6 @@ public class IdleState : IState
     private float ranTime;
     public void OnEnter(BotController bot)
     {
-        Debug.Log("idle");
         ranTime = Random.Range(0.5f, 1f);
         bot.ChangeAnim("idle");
         bot.StopMoving();

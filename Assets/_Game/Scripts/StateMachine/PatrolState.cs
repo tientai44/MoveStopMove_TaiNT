@@ -6,7 +6,6 @@ public class PatrolState : IState
 {
     public void OnEnter(BotController bot)
     {
-        Debug.Log("Run");
         bot.SetRandomTargetFollow();
     }
 

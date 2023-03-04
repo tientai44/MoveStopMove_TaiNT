@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour
     private float timer=0;
     private float timeExist = 3f;
     CharacterController character;
-
+    public string tagWeapon;
     public float Timer { get => timer; set => timer = value; }
 
     private void Start()
@@ -22,7 +22,8 @@ public class BulletController : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > timeExist)
         {
-            BulletPool.GetInstance().ReturnGameObject(this.gameObject);
+            //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
+            GameObjectPools.GetInstance().ReturnToPool(tagWeapon,gameObject);
         }
         transform.Rotate(rotateSpeed, 0, 0);
     }
@@ -35,12 +36,19 @@ public class BulletController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            character = other.GetComponent<CharacterController>();
-            BulletPool.GetInstance().ReturnGameObject(this.gameObject);
-            if(character is BotController)
-            {
-                other.GetComponent<BotController>().ChangeState(new DieState());
-            }
+            //character = other.GetComponent<CharacterController>();
+            //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
+            GameObjectPools.GetInstance().ReturnToPool(tagWeapon,gameObject);
+            //if(character is BotController)
+            //{
+            //    other.GetComponent<BotController>().ChangeState(new DieState());
+            //}
+        }
+        if(other.tag == "Bot")
+        {
+            GameObjectPools.GetInstance().ReturnToPool(tagWeapon, gameObject);
+            other.GetComponent<BotController>().ChangeState(new DieState());
+
         }
     }
     

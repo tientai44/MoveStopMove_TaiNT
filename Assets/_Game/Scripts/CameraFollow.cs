@@ -12,4 +12,8 @@ public class CameraFollow : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, player.position+offset,0.5f);
     }
+    public void SetTargetFollow(Transform target)
+    {
+        player = target;
+    }
 }

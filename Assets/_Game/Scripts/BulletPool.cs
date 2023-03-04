@@ -40,7 +40,7 @@ public class BulletPool : GOSingleton<BulletPool>
         go.SetActive(false);
     }
 
-    public void ClearBrickActive()
+    public void ClearActive()
     {
         while (activePools.Count > 0)
         {

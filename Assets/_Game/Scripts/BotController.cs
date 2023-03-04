@@ -22,7 +22,6 @@ public class BotController : CharacterController
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;
-        spawnPos = spawnPosTrans.position;
         OnInit();
         
     }
@@ -43,6 +42,7 @@ public class BotController : CharacterController
                 targets.Add(t);
             }
         }
+        
         targetFollow = targets[Random.Range(0,targets.Count)];
         destination = targetFollow.position;
         agent.destination = destination;
@@ -55,7 +55,6 @@ public class BotController : CharacterController
                 l_targetFollow.Add(t);
         }
         skin.SetActive(true);
-        Debug.Log(l_targetFollow.Count);
         CharacterCollider.enabled = true;
         ChangeState(new IdleState());
     }
@@ -63,6 +62,14 @@ public class BotController : CharacterController
     public void FollowTarget()
     {
         ChangeAnim("run");
+        BotController bot;
+        if (targetFollow.TryGetComponent<BotController>(out bot))
+        {
+            if(bot.CurrentState is DieState)
+            {
+                SetRandomTargetFollow();
+            }
+        }
         if (Vector3.Distance(destination, targetFollow.position) > 1.0f)
         {
             destination = targetFollow.position;
@@ -85,13 +92,14 @@ public class BotController : CharacterController
     public void DeSpawn()
     {
         skin.SetActive(false);
+        
         if (!GameController.GetInstance().isSpawnEnemy())
         {
             return;
         }
         GameController.GetInstance().NumSpawn -= 1;
         OnInit();
-        transform.position = spawnPos;
+        transform.position = GameController.GetInstance().GetRandomSpawnPos();
     }
     public override void OnDeath()
     {

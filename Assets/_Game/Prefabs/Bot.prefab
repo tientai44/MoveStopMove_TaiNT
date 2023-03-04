@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1208451737823287462}
   m_Layer: 0
   m_Name: Bot
-  m_TagString: Player
+  m_TagString: Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,6 +313,7 @@ MonoBehaviour:
   anim: {fileID: 1208451737735519888}
   bulletPrefab: {fileID: 8297970951185640464, guid: fb9cab4b02ba7bf4b9d12e1b2fc5cce5, type: 3}
   throwPoint: {fileID: 1208451737004530107}
+  tagWeapon: Stick
   l_AttackTarget: []
   spawnPosTrans: {fileID: 649689263}
   skin: {fileID: 5834567189898782493}
