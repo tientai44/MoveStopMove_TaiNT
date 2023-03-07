@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    private float rotateSpeed=5f;
-    private Rigidbody rb;
-    private float timer=0;
-    private float timeExist = 3f;
+    [SerializeField] protected float rotateSpeed=10f;
+    protected Rigidbody rb;
+    protected float timer=0;
+    protected float timeExist = 3f;
     CharacterController character;
     public string tagWeapon;
     public float Timer { get => timer; set => timer = value; }
@@ -17,7 +17,7 @@ public class BulletController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-    void Update()
+    protected virtual void Update()
     {
         timer += Time.deltaTime;
         if (timer > timeExist)
@@ -25,20 +25,20 @@ public class BulletController : MonoBehaviour
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon,gameObject);
         }
-        transform.Rotate(rotateSpeed, 0, 0);
     }
     public void ResetForce()
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             //character = other.GetComponent<CharacterController>();
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon,gameObject);
+            other.GetComponent<PlayerController>().OnDeath();
             //if(character is BotController)
             //{
             //    other.GetComponent<BotController>().ChangeState(new DieState());

@@ -309,7 +309,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1208451737823287469}
   _moveSpeed: 0
   _rotateSpeed: 0
-  force_Throw: 200
+  force_Throw: 250
   anim: {fileID: 1208451737735519888}
   bulletPrefab: {fileID: 8297970951185640464, guid: fb9cab4b02ba7bf4b9d12e1b2fc5cce5, type: 3}
   throwPoint: {fileID: 1208451737004530107}
@@ -328,7 +328,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

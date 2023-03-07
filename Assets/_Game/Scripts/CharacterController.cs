@@ -17,10 +17,10 @@ public class CharacterController : MonoBehaviour
     private Collider characterCollider;
     protected CharacterController targetAttack;
     protected float delayAttack = 0.1f;
-    protected float attackTime = 2f;
+    protected float attackTime = 1f;
     protected float timer = 0;
     protected bool isReadyAttack=false;
-    protected float waitThrow = 0.8f;
+    protected float waitThrow = 0.4f;
 
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
