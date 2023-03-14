@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum CharacterType
+{
+    Player,Bot, 
+}
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] protected Rigidbody _rigidbody;
@@ -13,7 +17,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] protected Transform throwPoint;
-    [SerializeField] private string tagWeapon;
+    [SerializeField] protected WeaponType currentWeapon;
     private Collider characterCollider;
     protected CharacterController targetAttack;
     protected float delayAttack = 0.1f;
@@ -21,7 +25,7 @@ public class CharacterController : MonoBehaviour
     protected float timer = 0;
     protected bool isReadyAttack=false;
     protected float waitThrow = 0.4f;
-
+    protected int point=0;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -63,10 +67,12 @@ public class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitThrow);
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
-        GameObject bullet = GameObjectPools.GetInstance().GetFromPool(tagWeapon,throwPoint.position);
-        bullet.GetComponent<BulletController>().tagWeapon = tagWeapon;
+        GameObject bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position);
+        bullet.GetComponent<BulletController>().tagWeapon = currentWeapon;
         bullet.transform.rotation = transform.rotation;
         bullet.GetComponent<Rigidbody>().AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
+        bullet.GetComponent<BulletController>().SetOwner(this);
+        bullet.transform.localScale *= (1 + 0.1f * point);
     }
     public void ChangeAnim(string animName)
     {
@@ -80,5 +86,18 @@ public class CharacterController : MonoBehaviour
             anim.SetTrigger(currentAnimName);
         }
     }
-    
+    public void ChangeEquipment()
+    {
+
+    }
+    public void UpPoint(int point)
+    {
+        this.point += point;
+        if(this is PlayerController)
+        {
+            GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
+        }
+        this.transform.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
+        
+    }
 }

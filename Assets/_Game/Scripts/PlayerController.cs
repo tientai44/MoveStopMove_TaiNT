@@ -13,6 +13,9 @@ public class PlayerController : CharacterController
     private Vector3 moveVector;
     [SerializeField]private FixedJoystick _joystick;
     PlayerState myState;
+
+    internal PlayerState MyState { get => myState; set => myState = value; }
+
     //bool isAttack = false;
     //bool isAttacking = false;
     //bool isDeath = false;
@@ -108,8 +111,17 @@ public class PlayerController : CharacterController
     }
     public override void OnDeath()
     {
+        if(myState is PlayerState.Death)
+        {
+            return;
+        }
         myState = PlayerState.Death;
         base.OnDeath();
+        SaveLoadManager.GetInstance().Data1.Coin+= point;
+        SaveLoadManager.GetInstance().Data1.WeaponCurrent = currentWeapon.ToString();
+        SaveLoadManager.GetInstance().Save();
+        Debug.Log("Now Coin: "+SaveLoadManager.GetInstance().Data1.Coin);
+        Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
     }
     public override void Attack()
     {

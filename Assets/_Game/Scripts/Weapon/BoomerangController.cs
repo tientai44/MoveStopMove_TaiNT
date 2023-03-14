@@ -13,7 +13,7 @@ public class BoomerangController : BulletController
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void  Update()
     {
         timer += Time.deltaTime;
         if(timer > timeExist)
@@ -25,7 +25,7 @@ public class BoomerangController : BulletController
         if (timer > timeExist*2)
         {
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
-            GameObjectPools.GetInstance().ReturnToPool(tagWeapon, gameObject);
+            GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
         }
         transform.Rotate(0, rotateSpeed, 0);
     }

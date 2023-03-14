@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
@@ -35,7 +36,8 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             activeObjectPools[pool.tag] = new List<GameObject>();
             //objectPools.Add(pool.tag, l);
         }
-        GameController.GetInstance().L_character = SpawnManager.GetInstance().SpawnBot(GameController.GetInstance().numBot);
+        LevelManager.GetInstance().LoadLevel();
+        //GameController.GetInstance().L_character = SpawnManager.GetInstance().SpawnBot(GameController.GetInstance().numBot);
         
     }
 
@@ -71,7 +73,6 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     public GameObject GetFromPool(string tag,Vector3 pos)
     {
         Pool tempPool = new Pool();
-        
         foreach (Pool pool in poolList)
         {
             if (tag == pool.tag)
@@ -88,7 +89,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             go.transform.position = pos;
             go.SetActive(true);
             objectPools[tag].RemoveAt(0);
-            switch (tag)
+            switch(tag)
             {
                 case "Boomerang":
                     go.GetComponent<BoomerangController>().SetFirstPoint(pos);
@@ -148,6 +149,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 activeObjectPools[tag].Remove(go);
                 objectPools[tag].Add(go);
                 go.SetActive(false);
+                
                 break;
             case "Candy1":
                 go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
@@ -180,6 +182,15 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 activeObjectPools[tag].Remove(go);
                 objectPools[tag].Add(go);
                 go.SetActive(false);
+                break;
+            case "Axe":
+                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
+                go.GetComponent<BulletController>().ResetForce();
+                go.GetComponent<BulletController>().Timer = 0;
+                activeObjectPools[tag].Remove(go);
+                objectPools[tag].Add(go);
+                go.SetActive(false);
+                go.transform.localScale = Vector3.one;
                 break;
 
         }

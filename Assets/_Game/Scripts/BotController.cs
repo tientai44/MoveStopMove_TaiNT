@@ -42,10 +42,12 @@ public class BotController : CharacterController
                 targets.Add(t);
             }
         }
-        
-        targetFollow = targets[Random.Range(0,targets.Count)];
-        destination = targetFollow.position;
-        agent.destination = destination;
+        if (targets.Count > 0)
+        {
+            targetFollow = targets[Random.Range(0, targets.Count)];
+            destination = targetFollow.position;
+            agent.destination = destination;
+        }
     }
     public void OnInit()
     {
@@ -62,6 +64,11 @@ public class BotController : CharacterController
     public void FollowTarget()
     {
         ChangeAnim("run");
+        if(targetFollow ==null)
+        {
+            SetRandomTargetFollow();
+            return;
+        }
         BotController bot;
         if (targetFollow.TryGetComponent<BotController>(out bot))
         {
@@ -92,9 +99,9 @@ public class BotController : CharacterController
     public void DeSpawn()
     {
         skin.SetActive(false);
-        
         if (!GameController.GetInstance().isSpawnEnemy())
         {
+            GameObjectPools.GetInstance().ReturnToPool(CharacterType.Bot.ToString(), this.gameObject);
             return;
         }
         GameController.GetInstance().NumSpawn -= 1;

@@ -11,7 +11,6 @@ public class DieState : IState
         bot.CharacterCollider.enabled = false;
         bot.StopMoving();
         bot.OnDeath();
-        
     }
 
     public void OnExecute(BotController bot)
