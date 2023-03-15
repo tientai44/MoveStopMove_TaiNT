@@ -26,6 +26,11 @@ public class CharacterController : MonoBehaviour
     protected bool isReadyAttack=false;
     protected float waitThrow = 0.4f;
     protected int point=0;
+    [SerializeField]private float rangeDetect;
+    private float intialRadiusSightZone;
+    [SerializeField] SphereCollider sightZone;
+    [SerializeField] private Transform weaponPos;
+    [SerializeField] private GameObject weaponHold;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -35,6 +40,8 @@ public class CharacterController : MonoBehaviour
     protected virtual void Start()
     {
         characterCollider = GetComponent<Collider>();
+        intialRadiusSightZone = sightZone.radius;
+        sightZone.radius = intialRadiusSightZone * rangeDetect;
     }
 
     // Update is called once per frame
@@ -66,6 +73,7 @@ public class CharacterController : MonoBehaviour
     public IEnumerator Throw(Vector3 direct)
     {
         yield return new WaitForSeconds(waitThrow);
+        weaponHold.SetActive(false);
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
         GameObject bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position);
         bullet.GetComponent<BulletController>().tagWeapon = currentWeapon;
@@ -73,6 +81,9 @@ public class CharacterController : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
         bullet.GetComponent<BulletController>().SetOwner(this);
         bullet.transform.localScale *= (1 + 0.1f * point);
+        yield return new WaitForSeconds(attackTime*0.5f);
+        weaponHold.SetActive(true);
+
     }
     public void ChangeAnim(string animName)
     {
@@ -86,9 +97,16 @@ public class CharacterController : MonoBehaviour
             anim.SetTrigger(currentAnimName);
         }
     }
-    public void ChangeEquipment()
+    public void ChangeEquipment(WeaponType weapon)
     {
-
+        SetWeapon(weapon);
+    }
+    public void SetWeapon(WeaponType weapon)
+    {
+        GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(),weaponHold);
+        this.currentWeapon = weapon; 
+        this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
+        this.weaponHold.transform.SetParent(weaponPos);
     }
     public void UpPoint(int point)
     {

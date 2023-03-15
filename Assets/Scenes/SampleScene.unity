@@ -168,6 +168,8 @@ MonoBehaviour:
   - {fileID: 0}
   cameraFollow: {fileID: 963194229}
   numBot: 10
+  numSpawn: 0
+  currentPlayer: {fileID: 0}
 --- !u!4 &45522857
 Transform:
   m_ObjectHideFlags: 0
@@ -1391,16 +1393,16 @@ MonoBehaviour:
     tag: Stick
   - poolObjectPrefab: {fileID: 1208451737823287471, guid: aeb77d19cc015824b96f5fdb6871a70c, type: 3}
     poolCount: 10
-    canGrow: 0
+    canGrow: 1
     tag: Bot
   - poolObjectPrefab: {fileID: 4617855062696380405, guid: bbe759303c4362e4ca4f5d7ffa8b6950, type: 3}
     poolCount: 1
-    canGrow: 0
+    canGrow: 1
     tag: Player
   - poolObjectPrefab: {fileID: 4396931011573250342, guid: 7e90a77a49f3ce84bbdab10704031f47, type: 3}
     poolCount: 0
     canGrow: 1
-    tag: Candy1
+    tag: Candy0
   - poolObjectPrefab: {fileID: 946233787590092880, guid: 6dd9b9f1198908444827f5929b668865, type: 3}
     poolCount: 0
     canGrow: 1
@@ -1417,6 +1419,22 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: Axe
+  - poolObjectPrefab: {fileID: 1552826459206216778, guid: 1b81662b1c7e297458b61f422770397e, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: AxeHold
+  - poolObjectPrefab: {fileID: 4357845458237364570, guid: c1714f3538f50104ea59ed29ee0132f7, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: BoomerangHold
+  - poolObjectPrefab: {fileID: 7184835345252925890, guid: 7bef2933a9f5f89448cde674d999f4f1, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Candy0Hold
+  - poolObjectPrefab: {fileID: 6671123221040096211, guid: 8c5c2b0eda9a17045b4057248f6d1644, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: KnifeHold
 --- !u!114 &1909673599
 MonoBehaviour:
   m_ObjectHideFlags: 0

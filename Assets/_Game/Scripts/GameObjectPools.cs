@@ -4,7 +4,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
-
+public enum WeaponHold
+{
+    AxeHold,
+    //Stick,
+    KnifeHold,
+    BoomerangHold,
+    //ArrowHold,
+    Candy0Hold,
+    //UziHold
+};
 public class GameObjectPools : GOSingleton<GameObjectPools>
 {
     [System.Serializable]
@@ -15,13 +24,24 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         public bool canGrow;
         public string tag;
     }
+    public List<WeaponType> weapons;
     public List<Pool> poolList = new List<Pool>();
     BulletController bullet;
     Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
     Dictionary<string, List<GameObject>> activeObjectPools = new Dictionary<string, List<GameObject>>();
+    public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
     void Start()
     {
         GetInstance();
+        weapons.Add(WeaponType.Axe);
+        weapons.Add(WeaponType.Candy0);
+        weapons.Add(WeaponType.Knife);
+        weapons.Add(WeaponType.Boomerang);
+        weaponHolds[WeaponType.Axe] = WeaponHold.AxeHold;
+        weaponHolds[WeaponType.Knife] = WeaponHold.KnifeHold;
+        weaponHolds[WeaponType.Boomerang] = WeaponHold.BoomerangHold;
+        weaponHolds[WeaponType.Candy0] = WeaponHold.Candy0Hold;
+        //weaponHolds[WeaponType.Uzi] = WeaponHold.UziHold;
         foreach (Pool pool in poolList)
         {
             List<GameObject> l = new List<GameObject>();
@@ -149,9 +169,8 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 activeObjectPools[tag].Remove(go);
                 objectPools[tag].Add(go);
                 go.SetActive(false);
-                
                 break;
-            case "Candy1":
+            case "Candy0":
                 go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
                 go.GetComponent<BulletController>().ResetForce();
                 go.GetComponent<BulletController>().Timer = 0;
@@ -192,7 +211,12 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 go.SetActive(false);
                 go.transform.localScale = Vector3.one;
                 break;
-
-        }
+            default:
+                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
+                activeObjectPools[tag].Remove(go);
+                objectPools[tag].Add(go);
+                go.SetActive(false);
+                break;
+        }   
     }
 }

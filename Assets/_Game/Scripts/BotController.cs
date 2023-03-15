@@ -51,6 +51,7 @@ public class BotController : CharacterController
     }
     public void OnInit()
     {
+        ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0,GameObjectPools.GetInstance().weapons.Count)]);
         foreach (Transform t in GameController.GetInstance().L_character)
         {
             if (!t.Equals(transform) && !l_targetFollow.Contains(t))

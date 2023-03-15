@@ -7,6 +7,7 @@ public class GameController : GOSingleton<GameController>
     [SerializeField] private int Alive;
     [SerializeField] private List<Transform> l_character = new List<Transform>();
     [SerializeField] private List<Transform> l_SpawnBot = new List<Transform>();
+    
     public CameraFollow cameraFollow;
     public int numBot = 10;
     public int numSpawn;
@@ -25,10 +26,10 @@ public class GameController : GOSingleton<GameController>
         L_character.Clear();
         Alive = level.Alive;
         numBot = level.NumBot;
+        numSpawn = Alive - numBot;
         L_SpawnBot = level.L_SpawnPos;
         L_character = SpawnManager.GetInstance().SpawnBot(numBot);
         UIManager.GetInstance().SetAliveText(Alive);
-        numSpawn = Alive - numBot;
     }
     public bool isSpawnEnemy()
     {
@@ -41,7 +42,7 @@ public class GameController : GOSingleton<GameController>
         if (Alive == 0)
         {
             GameObjectPools.GetInstance().ReturnToPool(CharacterType.Player.ToString(),currentPlayer.gameObject);
-            LevelManager.GetInstance().NextLevel();
+            Win();
         }
     }
     public Vector3 GetRandomSpawnPos()
@@ -61,5 +62,9 @@ public class GameController : GOSingleton<GameController>
             Debug.Log("No Space Pos");
             return l_SpawnBot[Random.Range(0, l_SpawnBot.Count)].position;
         }
+    }
+    public void Win()
+    {
+        LevelManager.GetInstance().NextLevel();
     }
 }

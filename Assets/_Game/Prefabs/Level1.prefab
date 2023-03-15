@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f45edb8fdc41a44e8c5334f9deffe0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Alive: 10
+  Alive: 20
   NumBot: 10
   l_SpawnPos:
   - {fileID: 3023995919838970041}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7321197555109638941}
   - component: {fileID: -2954199364464218438}
   m_Layer: 0
-  m_Name: Candy1
+  m_Name: Candy0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 10
-  tagWeapon: 
+  tagWeapon: 0
 --- !u!1001 &1402434974736580670
 PrefabInstance:
   m_ObjectHideFlags: 0

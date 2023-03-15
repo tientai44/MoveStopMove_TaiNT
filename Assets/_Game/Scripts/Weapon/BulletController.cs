@@ -6,12 +6,12 @@ using UnityEngine;
 public enum WeaponType
 {
     Axe,
-    Stick,
+    //Stick,
     Knife,
     Boomerang,
-    Arrow,
-    Candy1,
-    Uzi
+    //Arrow,
+    Candy0,
+    //Uzi
 };
 
 public class BulletController : MonoBehaviour
@@ -24,6 +24,7 @@ public class BulletController : MonoBehaviour
     CharacterController owner;
     //public string tagWeapon;
     public WeaponType tagWeapon;
+    [SerializeField] float range;
     public float Timer { get => timer; set => timer = value; }
 
     private void Start()

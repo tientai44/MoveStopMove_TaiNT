@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpawnPosController : MonoBehaviour
 {
-    bool isHaveCharacter=false;
     public List<CharacterController> l_charac = new List<CharacterController>();
     public bool ISHAVEPLAYER = false;
     //private void OnTriggerStay(Collider other)
@@ -53,7 +52,6 @@ public class SpawnPosController : MonoBehaviour
     {
         if (other.tag == "Player" || other.tag == "Bot")
         {
-            isHaveCharacter = false;
             if (l_charac.Contains(other.GetComponent<CharacterController>()))
                 l_charac.Remove(other.GetComponent<CharacterController>());
         }
