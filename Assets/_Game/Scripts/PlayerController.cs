@@ -13,7 +13,7 @@ public class PlayerController : CharacterController
     private Vector3 moveVector;
     [SerializeField]private FixedJoystick _joystick;
     PlayerState myState;
-
+    float timerDeath = 0f;
     internal PlayerState MyState { get => myState; set => myState = value; }
 
     //bool isAttack = false;
@@ -23,13 +23,14 @@ public class PlayerController : CharacterController
     protected override void Start()
     {
         base.Start();
-        _joystick = FindObjectOfType<FixedJoystick>();
-        GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
         OnInit();
     }
-    void OnInit()
+    public override void OnInit()
     {
-        
+        base.OnInit();
+        _joystick = GameController.GetInstance().joystick;
+        GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
+        timerDeath = 0;
         myState = PlayerState.Idle;
         ChangeAnim("idle");
     }
@@ -37,7 +38,17 @@ public class PlayerController : CharacterController
     // Update is called once per frame
     protected override void  Update()
     {
-        if (myState is PlayerState.Attacked || myState is PlayerState.Death)
+        if( myState is PlayerState.Death)
+        {
+            timerDeath +=Time.deltaTime;
+            if (timerDeath > 2f)
+            {
+                GameObjectPools.GetInstance().ReturnToPool(CharacterType.Player.ToString(), this.gameObject);
+                GameController.GetInstance().Lose();
+            }
+            return;
+        }
+        if (myState is PlayerState.Attacked )
         {
             return;
         }
@@ -122,6 +133,7 @@ public class PlayerController : CharacterController
         SaveLoadManager.GetInstance().Save();
         Debug.Log("Now Coin: "+SaveLoadManager.GetInstance().Data1.Coin);
         Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
+        
     }
     public override void Attack()
     {

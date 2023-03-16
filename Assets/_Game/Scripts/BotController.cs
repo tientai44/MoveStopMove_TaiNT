@@ -32,9 +32,9 @@ public class BotController : CharacterController
         BotController bot;
         foreach(Transform t in l_targetFollow)
         {
-            if(t.gameObject.TryGetComponent<BotController>(out bot))
+            if (t.gameObject.TryGetComponent<BotController>(out bot))
             {
-                if(bot.CurrentState is not DieState)
+                if (bot.CurrentState is not DieState && bot.gameObject.activeSelf==true)
                     targets.Add(t);
             }
             else
@@ -49,14 +49,15 @@ public class BotController : CharacterController
             agent.destination = destination;
         }
     }
-    public void OnInit()
+    public override void OnInit()
     {
-        ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0,GameObjectPools.GetInstance().weapons.Count)]);
+        base.OnInit();
         foreach (Transform t in GameController.GetInstance().L_character)
         {
             if (!t.Equals(transform) && !l_targetFollow.Contains(t))
                 l_targetFollow.Add(t);
         }
+        weaponHold.SetActive(true);
         skin.SetActive(true);
         CharacterCollider.enabled = true;
         ChangeState(new IdleState());
@@ -91,7 +92,12 @@ public class BotController : CharacterController
         if(targetAttack.GetComponent<BotController>().CurrentState is DieState)
         {
             l_AttackTarget.Remove(targetAttack);
-        }   
+        }
+        if (targetAttack != null && targetAttack.GetComponent<CharacterController>() is PlayerController)
+            if (targetAttack.GetComponent<PlayerController>().MyState is PlayerState.Death)
+            {
+                l_AttackTarget.Remove(targetAttack);
+            }
         if (currentState != null)
         {
             currentState.OnExecute(this);

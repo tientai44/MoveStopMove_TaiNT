@@ -9,6 +9,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
         List<Transform> transforms = new List<Transform>();
         PlayerController playerController = GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(), LevelManager.GetInstance().CurrentLevel.L_SpawnPos[numBot].position).GetComponent<PlayerController>();
         transforms.Add(playerController.transform);
+        playerController.OnInit();
         GameController.GetInstance().CurrentPlayer = playerController;
         for (int i = 0; i < numBot; i++)
         {
@@ -17,6 +18,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
                 break;
             }
             GameObject go= GameObjectPools.GetInstance().GetFromPool(CharacterType.Bot.ToString(), LevelManager.GetInstance().CurrentLevel.L_SpawnPos[i].position);
+            go.GetComponent<BotController>().ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0, GameObjectPools.GetInstance().weapons.Count)]);
             transforms.Add(go.transform);
         }
         return transforms;

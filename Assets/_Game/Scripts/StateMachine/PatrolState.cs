@@ -5,16 +5,22 @@ using UnityEngine;
 public class PatrolState : IState
 {
     float timer=0;
+    float duration;
     public void OnEnter(BotController bot)
     {
         bot.SetRandomTargetFollow();
+        duration = Random.Range(1f, 4f);
     }
 
     public void OnExecute(BotController bot)
     {
         timer+=Time.deltaTime;
         bot.FollowTarget();
-        if (bot.IsHaveTargetInRange() && timer >0.5f)
+        if (timer > duration)
+        {
+            bot.ChangeState(new IdleState());
+        }
+        if (bot.IsHaveTargetInRange() && timer >1f)
         {
             // thuc hien tan cong
             bot.ChangeState(new AttackState());

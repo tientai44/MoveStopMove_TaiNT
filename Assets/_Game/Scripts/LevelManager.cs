@@ -10,10 +10,6 @@ public class LevelManager : GOSingleton<LevelManager>
 
     public LevelController CurrentLevel { get => currentLevel; set => currentLevel = value; }
 
-    private void Start()
-    {
-
-    }
     void Goto(int level)
     {
         SpawnManager.GetInstance().SpawnBot(10);
@@ -27,6 +23,11 @@ public class LevelManager : GOSingleton<LevelManager>
     {
         Destroy(currentLevel.gameObject);
         levelId++;
+        LoadLevel();
+    }
+    public void Replay()
+    {
+        Destroy(currentLevel.gameObject);
         LoadLevel();
     }
 }

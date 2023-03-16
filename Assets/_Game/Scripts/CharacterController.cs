@@ -29,8 +29,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField]private float rangeDetect;
     private float intialRadiusSightZone;
     [SerializeField] SphereCollider sightZone;
-    [SerializeField] private Transform weaponPos;
-    [SerializeField] private GameObject weaponHold;
+    [SerializeField] protected Transform weaponPos;
+    [SerializeField] protected GameObject weaponHold;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -41,13 +41,20 @@ public class CharacterController : MonoBehaviour
     {
         characterCollider = GetComponent<Collider>();
         intialRadiusSightZone = sightZone.radius;
-        sightZone.radius = intialRadiusSightZone * rangeDetect;
+        
     }
 
     // Update is called once per frame
     virtual protected void Update()
     {
-        
+
+    }
+    public virtual void OnInit()
+    {
+        point = 0;
+        ChangeEquipment(currentWeapon);
+        weaponHold.SetActive(true);
+        L_AttackTarget.Clear();
     }
     public virtual void Run() { }
     public virtual void SetTargetDirect(Vector3 targetPos)
@@ -103,10 +110,14 @@ public class CharacterController : MonoBehaviour
     }
     public void SetWeapon(WeaponType weapon)
     {
-        GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(),weaponHold);
+        
+         GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
+        
+        
         this.currentWeapon = weapon; 
         this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
         this.weaponHold.transform.SetParent(weaponPos);
+        sightZone.transform.localScale =new Vector3(1f,1f,1f)*StaticData.RangeWeapon[weapon];
     }
     public void UpPoint(int point)
     {

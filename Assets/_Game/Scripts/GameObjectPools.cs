@@ -30,6 +30,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
     Dictionary<string, List<GameObject>> activeObjectPools = new Dictionary<string, List<GameObject>>();
     public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
+
     void Start()
     {
         GetInstance();
@@ -109,6 +110,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             go.transform.position = pos;
             go.SetActive(true);
             objectPools[tag].RemoveAt(0);
+            activeObjectPools[tag].Add(go);
             switch(tag)
             {
                 case "Boomerang":
@@ -124,6 +126,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             go.transform.position=pos;
             go.SetActive(true);
             objectPools[tag].Remove(go);
+            activeObjectPools[tag].Add(go);
             switch (tag)
             {
                 case "Boomerang":
@@ -150,73 +153,67 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             }
         }
         switch (tag) {
+            
             case "Bot":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+
+                go.GetComponent<BotController>().OnInit();
+                BasicReset(tag,go, tempPool);
                 break;
             case "Player":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                BasicReset(tag,go,tempPool);
+                go.GetComponent<PlayerController>().OnInit();
+                
                 break;
             case "Stick":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                WeaponReset(tag,go, tempPool);
                 break;
             case "Candy0":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                WeaponReset(tag, go, tempPool); ;
                 break;
             case "Boomerang":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                WeaponReset(tag, go, tempPool);
                 break;
             case "Uzi":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                WeaponReset(tag, go, tempPool);
                 break;
             case "Knife":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                WeaponReset(tag, go, tempPool);
                 break;
             case "Axe":
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                go.GetComponent<BulletController>().ResetForce();
-                go.GetComponent<BulletController>().Timer = 0;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
-                go.transform.localScale = Vector3.one;
+                WeaponReset(tag, go, tempPool);
                 break;
             default:
-                go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
-                activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
-                go.SetActive(false);
+                BasicReset(tag, go, tempPool);
                 break;
         }   
+    }
+    public void BasicReset(string tag,GameObject go,Pool tempPool)
+    {
+        go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
+        go.transform.localScale = tempPool.poolObjectPrefab.transform.localScale;
+        activeObjectPools[tag].Remove(go);
+        objectPools[tag].Add(go);
+        go.SetActive(false);
+    }
+    public void WeaponReset(string tag,GameObject go, Pool tempPool)
+    {
+        go.GetComponent<BulletController>().ResetForce();
+        go.GetComponent<BulletController>().Timer = 0;
+        BasicReset(tag,go,tempPool);
+    }
+    public void ClearObjectActive(string tag)
+    {
+        if (tag == "Player")
+        {
+            Debug.Log("Return");
+        }
+        while (activeObjectPools[tag].Count > 0)
+        {
+            if (tag == "Player")
+            {
+                Debug.Log("Return");
+            }
+            ReturnToPool(tag, activeObjectPools[tag][0]);
+        }
     }
 }

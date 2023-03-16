@@ -7,7 +7,7 @@ public class GameController : GOSingleton<GameController>
     [SerializeField] private int Alive;
     [SerializeField] private List<Transform> l_character = new List<Transform>();
     [SerializeField] private List<Transform> l_SpawnBot = new List<Transform>();
-    
+    public FixedJoystick joystick;
     public CameraFollow cameraFollow;
     public int numBot = 10;
     public int numSpawn;
@@ -41,7 +41,6 @@ public class GameController : GOSingleton<GameController>
         UIManager.GetInstance().SetAliveText(Alive);
         if (Alive == 0)
         {
-            GameObjectPools.GetInstance().ReturnToPool(CharacterType.Player.ToString(),currentPlayer.gameObject);
             Win();
         }
     }
@@ -65,6 +64,15 @@ public class GameController : GOSingleton<GameController>
     }
     public void Win()
     {
-        LevelManager.GetInstance().NextLevel();
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
+        UIManager.GetInstance().DisplayWinPanel();
+    }
+
+    public void Lose()
+    {
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
+        UIManager.GetInstance().DisplayLosePanel();
     }
 }

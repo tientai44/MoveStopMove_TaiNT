@@ -10,7 +10,7 @@ public class SightController : MonoBehaviour
     {
         if (other.TryGetComponent<CharacterController>(out character))
         {
-            if(characterOwner is BotController)
+            if (characterOwner is BotController)
             {
                 characterOwner.GetComponent<BotController>().targetFollow = character.transform;
             }

@@ -52,15 +52,21 @@ public class BulletController : MonoBehaviour
         {
             //character = other.GetComponent<CharacterController>();
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
+            owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(),gameObject);
             other.GetComponent<PlayerController>().OnDeath();
-            owner.UpPoint(1);
+            
+            
+            
         }
         if(other.tag == "Bot")
         {
+            owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
             other.GetComponent<BotController>().ChangeState(new DieState());
-            owner.UpPoint(1);
+          
+            
+            
         }
     }
     public void SetOwner(CharacterController character)
