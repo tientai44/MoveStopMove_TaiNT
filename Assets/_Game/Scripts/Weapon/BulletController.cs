@@ -48,6 +48,10 @@ public class BulletController : MonoBehaviour
     }
     protected void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Obstacle")
+        {
+            GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
+        }
         if (other.tag == "Player")
         {
             //character = other.GetComponent<CharacterController>();
@@ -55,20 +59,25 @@ public class BulletController : MonoBehaviour
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(),gameObject);
             other.GetComponent<PlayerController>().OnDeath();
-            
-            
-            
+            SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
+
+
         }
         if(other.tag == "Bot")
         {
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
             other.GetComponent<BotController>().ChangeState(new DieState());
-          
-            
-            
+            SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
+            if(owner is PlayerController)
+            {
+                SaveLoadManager.GetInstance().Data1.Coin += 1;
+                SaveLoadManager.GetInstance().Save();
+            }
+
         }
     }
+    
     public void SetOwner(CharacterController character)
     {
         owner = character;

@@ -128,11 +128,7 @@ public class PlayerController : CharacterController
         }
         myState = PlayerState.Death;
         base.OnDeath();
-        SaveLoadManager.GetInstance().Data1.Coin+= point;
-        SaveLoadManager.GetInstance().Data1.WeaponCurrent = currentWeapon.ToString();
-        SaveLoadManager.GetInstance().Save();
-        Debug.Log("Now Coin: "+SaveLoadManager.GetInstance().Data1.Coin);
-        Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
+        
         
     }
     public override void Attack()
@@ -147,4 +143,6 @@ public class PlayerController : CharacterController
         StartCoroutine(ActiveAttack());
         StartCoroutine(ResetAttack());
     }
+
+
 }

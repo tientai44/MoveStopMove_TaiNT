@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class SaveLoadManager : GOSingleton<SaveLoadManager>
@@ -34,6 +35,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         {
             Load();
         }
+        UIManager.GetInstance().DisplayMainMenuPanel();
         Debug.Log(saveFileName);
     }
 

@@ -16,6 +16,8 @@ public class LevelManager : GOSingleton<LevelManager>
     }
     public void LoadLevel()
     {
+        GameController.GetInstance().cameraFollow.ResetOffset();
+        GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
         GameController.GetInstance().OnInit(currentLevel);
     }

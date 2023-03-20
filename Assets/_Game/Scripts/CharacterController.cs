@@ -81,6 +81,7 @@ public class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitThrow);
         weaponHold.SetActive(false);
+        SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().attackSound);
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
         GameObject bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position);
         bullet.GetComponent<BulletController>().tagWeapon = currentWeapon;

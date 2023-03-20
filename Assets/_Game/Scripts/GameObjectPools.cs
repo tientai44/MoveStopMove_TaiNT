@@ -57,7 +57,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             activeObjectPools[pool.tag] = new List<GameObject>();
             //objectPools.Add(pool.tag, l);
         }
-        LevelManager.GetInstance().LoadLevel();
+        //LevelManager.GetInstance().LoadLevel();
         //GameController.GetInstance().L_character = SpawnManager.GetInstance().SpawnBot(GameController.GetInstance().numBot);
         
     }
@@ -203,16 +203,8 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     }
     public void ClearObjectActive(string tag)
     {
-        if (tag == "Player")
-        {
-            Debug.Log("Return");
-        }
         while (activeObjectPools[tag].Count > 0)
         {
-            if (tag == "Player")
-            {
-                Debug.Log("Return");
-            }
             ReturnToPool(tag, activeObjectPools[tag][0]);
         }
     }

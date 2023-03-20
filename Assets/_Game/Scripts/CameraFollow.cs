@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform player;
+    Vector3 intialOffset = new Vector3(0, 15, -30);
     Vector3 offset = new Vector3(0, 15, -30);
 
     public Vector3 Offset { get => offset; set => offset = value; }
@@ -18,5 +19,9 @@ public class CameraFollow : MonoBehaviour
     public void SetTargetFollow(Transform target)
     {
         player = target;
+    }
+    public void ResetOffset()
+    {
+        offset = intialOffset;
     }
 }

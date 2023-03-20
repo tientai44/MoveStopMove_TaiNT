@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class GameController : GOSingleton<GameController>
@@ -47,7 +48,7 @@ public class GameController : GOSingleton<GameController>
     public Vector3 GetRandomSpawnPos()
     {
         List<Vector3> l_Spawn = new List<Vector3>();
-        foreach(Transform tran in l_SpawnBot)
+        foreach (Transform tran in l_SpawnBot)
         {
             if (!tran.GetComponent<SpawnPosController>().IsAnyPlayer())
             {
@@ -67,6 +68,11 @@ public class GameController : GOSingleton<GameController>
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
         UIManager.GetInstance().DisplayWinPanel();
+        //SaveLoadManager.GetInstance().Data1.Coin += point;
+        //SaveLoadManager.GetInstance().Data1.WeaponCurrent = currentWeapon.ToString();
+        SaveLoadManager.GetInstance().Save();
+        Debug.Log("Now Coin: " + SaveLoadManager.GetInstance().Data1.Coin);
+        Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
     }
 
     public void Lose()
@@ -74,5 +80,17 @@ public class GameController : GOSingleton<GameController>
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
         UIManager.GetInstance().DisplayLosePanel();
+        SaveLoadManager.GetInstance().Save();
+        Debug.Log("Now Coin: " + SaveLoadManager.GetInstance().Data1.Coin);
+        Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
+    }
+    public void ClearObjectSpawn()
+    {
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Knife.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Boomerang.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Candy0.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Axe.ToString());
     }
 }
