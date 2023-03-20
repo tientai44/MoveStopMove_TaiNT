@@ -47,6 +47,7 @@ public class GameController : GOSingleton<GameController>
     }
     public Vector3 GetRandomSpawnPos()
     {
+        //TODO: dung for thay the, bot viec getcomponent o day
         List<Vector3> l_Spawn = new List<Vector3>();
         foreach (Transform tran in l_SpawnBot)
         {

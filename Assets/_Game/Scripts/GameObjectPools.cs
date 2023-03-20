@@ -165,20 +165,10 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 
                 break;
             case "Stick":
-                WeaponReset(tag,go, tempPool);
-                break;
             case "Candy0":
-                WeaponReset(tag, go, tempPool); ;
-                break;
             case "Boomerang":
-                WeaponReset(tag, go, tempPool);
-                break;
             case "Uzi":
-                WeaponReset(tag, go, tempPool);
-                break;
             case "Knife":
-                WeaponReset(tag, go, tempPool);
-                break;
             case "Axe":
                 WeaponReset(tag, go, tempPool);
                 break;

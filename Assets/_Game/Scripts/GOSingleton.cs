@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class GOSingleton<T> : MonoBehaviour where T : Component
 {
-    private static T Instance;
+    private static T instance;
     public static T GetInstance()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = GameObject.FindObjectOfType<T>();
-            if (Instance == null) {
+            instance = GameObject.FindObjectOfType<T>();
+            if (instance == null) {
                 GameObject gameObject = new GameObject();
-                
-                Instance = gameObject.AddComponent<T>();
+
+                instance = gameObject.AddComponent<T>();
             }
-            DontDestroyOnLoad(Instance.gameObject);
+            DontDestroyOnLoad(instance.gameObject);
         }
-        return Instance;
+        return instance;
 
     }
 }

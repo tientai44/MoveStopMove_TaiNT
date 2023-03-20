@@ -8,6 +8,7 @@ public class SightController : MonoBehaviour
     CharacterController character;
     private void OnTriggerEnter(Collider other)
     {
+        //Cache getcomponent
         if (other.TryGetComponent<CharacterController>(out character))
         {
             if (characterOwner is BotController)

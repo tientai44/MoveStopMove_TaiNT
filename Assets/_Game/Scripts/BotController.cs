@@ -27,9 +27,11 @@ public class BotController : CharacterController
     }
     public void SetRandomTargetFollow()
     {
+        //TODO: cach string
         ChangeAnim("run");
         List<Transform> targets = new List<Transform>();
         BotController bot;
+        //TODO: neu co the thi dung fot thay foreach
         foreach(Transform t in l_targetFollow)
         {
             if (t.gameObject.TryGetComponent<BotController>(out bot))
@@ -88,8 +90,9 @@ public class BotController : CharacterController
     protected override void Update()
     {
         //base.Update();
+        //TODO: lam the nao de bot phai getcomponent o day
         if (targetAttack!=null&&targetAttack.GetComponent<CharacterController>() is BotController) 
-        if(targetAttack.GetComponent<BotController>().CurrentState is DieState)
+        if(targetAttack.GetComponent<BotController>().IsDead)
         {
             l_AttackTarget.Remove(targetAttack);
         }
@@ -113,7 +116,7 @@ public class BotController : CharacterController
         }
         GameController.GetInstance().NumSpawn -= 1;
         OnInit();
-        transform.position = GameController.GetInstance().GetRandomSpawnPos();
+        TF.position = GameController.GetInstance().GetRandomSpawnPos();
     }
     public override void OnDeath()
     {
@@ -125,21 +128,16 @@ public class BotController : CharacterController
     public void StopMoving()
     {
         ChangeAnim("idle");
-        destination = transform.position;
+        destination = TF.position;
         agent.destination = destination;
     }
+
     public void ChangeState(IState newState)
     {
-
-        if (currentState != null)
-        {
-            currentState.OnExit(this);
-        }
+        //TODO: check null nang cao
+        currentState?.OnExit(this);
         currentState = newState;
-        if (currentState != null)
-        {
-            currentState.OnEnter(this);
-        }
+        currentState?.OnEnter(this);
     }
     public bool IsHaveTargetInRange()
     {

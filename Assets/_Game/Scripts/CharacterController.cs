@@ -36,6 +36,23 @@ public class CharacterController : MonoBehaviour
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
     public Collider CharacterCollider { get => characterCollider; set => characterCollider = value; }
 
+
+    private Transform tf;
+    public Transform TF
+    {
+        get 
+        {
+            //tf ??= GetComponent<Transform>();
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf; 
+        }
+    }
+
+    public bool IsDead = false;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -55,6 +72,7 @@ public class CharacterController : MonoBehaviour
         ChangeEquipment(currentWeapon);
         weaponHold.SetActive(true);
         L_AttackTarget.Clear();
+        IsDead = false;
     }
     public virtual void Run() { }
     public virtual void SetTargetDirect(Vector3 targetPos)
@@ -67,6 +85,7 @@ public class CharacterController : MonoBehaviour
     {
         StopAllCoroutines();
         ChangeAnim("die");
+        IsDead = true;
     }
     public virtual void Attack() {
         
@@ -74,20 +93,20 @@ public class CharacterController : MonoBehaviour
         ChangeAnim("attack");
         isReadyAttack = false;
         Vector3 direct = throwPoint.position - transform.position;
-        StartCoroutine(Throw(direct));
+        StartCoroutine(IEThrow(direct));
 
     }
-    public IEnumerator Throw(Vector3 direct)
+    public IEnumerator IEThrow(Vector3 direct)
     {
         yield return new WaitForSeconds(waitThrow);
         weaponHold.SetActive(false);
         SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().attackSound);
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
-        GameObject bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position);
-        bullet.GetComponent<BulletController>().tagWeapon = currentWeapon;
+        BulletController bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position).GetComponent<BulletController>();
+        bullet/*.GetComponent<BulletController>()*/.tagWeapon = currentWeapon;
         bullet.transform.rotation = transform.rotation;
-        bullet.GetComponent<Rigidbody>().AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
-        bullet.GetComponent<BulletController>().SetOwner(this);
+        bullet/*.GetComponent<Rigidbody>()*/.AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
+        bullet/*.GetComponent<BulletController>()*/.SetOwner(this);
         bullet.transform.localScale *= (1 + 0.1f * point);
         yield return new WaitForSeconds(attackTime*0.5f);
         weaponHold.SetActive(true);
@@ -95,7 +114,7 @@ public class CharacterController : MonoBehaviour
     }
     public void ChangeAnim(string animName)
     {
-        
+        //doan nay a sai
         if (currentAnimName != animName)
         {
             anim.ResetTrigger(animName);
@@ -113,10 +132,9 @@ public class CharacterController : MonoBehaviour
     {
         
          GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
-        
-        
         this.currentWeapon = weapon; 
         this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
+        //TODO: cache transform
         this.weaponHold.transform.SetParent(weaponPos);
         sightZone.transform.localScale =new Vector3(1f,1f,1f)*StaticData.RangeWeapon[weapon];
     }
@@ -125,9 +143,10 @@ public class CharacterController : MonoBehaviour
         this.point += point;
         if(this is PlayerController)
         {
+            //TODO: vi phong nguyen tac dong goi
             GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
         }
-        this.transform.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
+        TF.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
         
     }
 }

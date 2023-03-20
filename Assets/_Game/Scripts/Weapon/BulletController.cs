@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,8 +17,8 @@ public enum WeaponType
 
 public class BulletController : MonoBehaviour
 {
+    private Transform tf;
     [SerializeField] protected float rotateSpeed=10f;
-    protected Rigidbody rb;
     protected float timer=0;
     protected float timeExist = 1.5f;
     CharacterController character;
@@ -25,11 +26,34 @@ public class BulletController : MonoBehaviour
     //public string tagWeapon;
     public WeaponType tagWeapon;
     [SerializeField] float range;
+    protected Rigidbody rbWeapon;
+    public Transform TF
+    {
+        get
+        {
+            //tf ??= GetComponent<Transform>();
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
+    }
+    public Rigidbody RbWeapon
+    {
+        get
+        {
+            if (rbWeapon == null)
+            {
+                rbWeapon = GetComponent<Rigidbody>();
+            }
+            return rbWeapon;
+        }
+    }
     public float Timer { get => timer; set => timer = value; }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
     protected virtual void Update()
     {
@@ -43,21 +67,23 @@ public class BulletController : MonoBehaviour
     }
     public void ResetForce()
     {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        rbWeapon.velocity = Vector3.zero;
+        rbWeapon.angularVelocity = Vector3.zero;
     }
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Obstacle")
+        //TODO: comp?etag + cach string
+        if (other.CompareTag(Constant.TAG_OBSTACLE))
         {
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
         }
-        if (other.tag == "Player")
+        if (other.CompareTag(Constant.TAG_PLAYER))
         {
             //character = other.GetComponent<CharacterController>();
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(),gameObject);
+            //TODO: cache getcomponent dictionary
             other.GetComponent<PlayerController>().OnDeath();
             SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
 
@@ -81,5 +107,10 @@ public class BulletController : MonoBehaviour
     public void SetOwner(CharacterController character)
     {
         owner = character;
+    }
+
+    public void AddForce(float v1, float v2, float v3)
+    {
+        RbWeapon.AddForce(v1, v2, v3);
     }
 }

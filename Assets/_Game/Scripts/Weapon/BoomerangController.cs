@@ -9,7 +9,6 @@ public class BoomerangController : BulletController
     [SerializeField]float speedBack;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

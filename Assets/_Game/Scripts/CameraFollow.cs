@@ -24,4 +24,6 @@ public class CameraFollow : MonoBehaviour
     {
         offset = intialOffset;
     }
+
+
 }
