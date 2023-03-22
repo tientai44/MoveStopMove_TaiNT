@@ -84,12 +84,13 @@ public class BulletController : MonoBehaviour
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(),gameObject);
             //TODO: cache getcomponent dictionary
-            other.GetComponent<PlayerController>().OnDeath();
+            //other.GetComponent<PlayerController>().OnDeath();
+            Cache.GetCharacter(other).OnDeath();
             SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
 
 
         }
-        if(other.tag == "Bot")
+        if(other.CompareTag(Constant.TAG_BOT))
         {
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);

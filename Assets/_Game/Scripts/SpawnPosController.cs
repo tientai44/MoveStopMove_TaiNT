@@ -19,19 +19,9 @@ public class SpawnPosController : MonoBehaviour
         List<CharacterController> list = new List<CharacterController>();
         foreach(CharacterController c in l_charac)
         {
-            if(c is BotController)
+            if (c.IsDead)
             {
-                if(c.GetComponent<BotController>().CurrentState is DieState)
-                {
-                    list.Add(c);
-                }
-            }
-            else
-            {
-                if (c.GetComponent<PlayerController>().MyState is PlayerState.Death)
-                {
-                    list.Add(c);
-                }
+                list.Add(c);
             }
         }
         foreach(CharacterController c in list)
@@ -42,18 +32,18 @@ public class SpawnPosController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Bot")
+        if (other.CompareTag(Constant.TAG_PLAYER) || other.CompareTag(Constant.TAG_BOT))
         {
-            if(!l_charac.Contains(other.GetComponent<CharacterController>()))
-                l_charac.Add(other.GetComponent<CharacterController>());
+            if(!l_charac.Contains(Cache.GetCharacter(other)))
+                l_charac.Add(Cache.GetCharacter(other));
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Bot")
+        if (other.CompareTag(Constant.TAG_PLAYER) || other.CompareTag(Constant.TAG_BOT))
         {
-            if (l_charac.Contains(other.GetComponent<CharacterController>()))
-                l_charac.Remove(other.GetComponent<CharacterController>());
+            if (l_charac.Contains(Cache.GetCharacter(other)))
+                l_charac.Remove(Cache.GetCharacter(other));
         }
     }
     public bool IsAnyPlayer()

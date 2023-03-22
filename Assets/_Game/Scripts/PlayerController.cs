@@ -29,10 +29,11 @@ public class PlayerController : CharacterController
     {
         base.OnInit();
         _joystick = GameController.GetInstance().joystick;
+        _joystick.OnInit();
         GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
         timerDeath = 0;
         myState = PlayerState.Idle;
-        ChangeAnim("idle");
+        ChangeAnim(Constant.ANIM_IDLE);
     }
 
     // Update is called once per frame
@@ -54,7 +55,7 @@ public class PlayerController : CharacterController
         }
        
         Run();
-        if (targetAttack != null && targetAttack.GetComponent<BotController>().CurrentState is DieState)
+        if (targetAttack != null && targetAttack.GetComponent<CharacterController>().IsDead)
         {
             L_AttackTarget.Remove(targetAttack);
             if (l_AttackTarget.Count > 0)
@@ -62,7 +63,6 @@ public class PlayerController : CharacterController
         }
         if (l_AttackTarget.Count > 0  )
         {
-            
             if (!l_AttackTarget.Contains(targetAttack))
                 targetAttack = l_AttackTarget[Random.Range(0, l_AttackTarget.Count)];
         }
@@ -72,9 +72,7 @@ public class PlayerController : CharacterController
             Attack();
             timer = 0;
         }
-        if (Input.GetKeyDown(KeyCode.J)){
-            Attack();
-        }
+       
     }
     public override void Run()
     {
@@ -90,7 +88,7 @@ public class PlayerController : CharacterController
             timer = 0;
             Vector3 direction = Vector3.RotateTowards(transform.forward, moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
             transform.rotation = Quaternion.LookRotation(direction);
-            ChangeAnim("run");
+            ChangeAnim(Constant.ANIM_RUN);
         }
         else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
         {
@@ -102,7 +100,7 @@ public class PlayerController : CharacterController
             {
                 timer += Time.deltaTime;
                 myState = PlayerState.Idle;
-                ChangeAnim("idle");
+                ChangeAnim(Constant.ANIM_IDLE);
             }
         }
         transform.position = Vector3.Lerp(transform.position, transform.position + moveVector, 1f);

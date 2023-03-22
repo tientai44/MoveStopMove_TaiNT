@@ -38,6 +38,8 @@ public class CharacterController : MonoBehaviour
 
 
     private Transform tf;
+    private Transform weaponHoldTransform;
+    private Transform sightZoneTransform;
     public Transform TF
     {
         get 
@@ -50,7 +52,28 @@ public class CharacterController : MonoBehaviour
             return tf; 
         }
     }
-
+    public Transform WeaponHoldTransform
+    {
+        get
+        {
+            if (weaponHoldTransform == null)
+            {
+                weaponHoldTransform = weaponHold.transform;
+            }
+            return weaponHoldTransform;
+        }
+    }
+    public Transform SightZoneTransform
+    {
+        get
+        {
+            if(sightZoneTransform == null)
+            {
+                sightZoneTransform = sightZone.transform;
+            }
+            return sightZoneTransform;
+        }
+    }
     public bool IsDead = false;
 
     // Start is called before the first frame update
@@ -84,13 +107,13 @@ public class CharacterController : MonoBehaviour
     public virtual void OnDeath()
     {
         StopAllCoroutines();
-        ChangeAnim("die");
+        ChangeAnim(Constant.ANIM_DIE);
         IsDead = true;
     }
     public virtual void Attack() {
         
         SetTargetDirect(targetAttack.transform.position);
-        ChangeAnim("attack");
+        ChangeAnim(Constant.ANIM_ATTACK);
         isReadyAttack = false;
         Vector3 direct = throwPoint.position - transform.position;
         StartCoroutine(IEThrow(direct));
@@ -104,13 +127,12 @@ public class CharacterController : MonoBehaviour
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
         BulletController bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position).GetComponent<BulletController>();
         bullet/*.GetComponent<BulletController>()*/.tagWeapon = currentWeapon;
-        bullet.transform.rotation = transform.rotation;
+        bullet.TF.rotation = transform.rotation;
         bullet/*.GetComponent<Rigidbody>()*/.AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
         bullet/*.GetComponent<BulletController>()*/.SetOwner(this);
-        bullet.transform.localScale *= (1 + 0.1f * point);
+        bullet.TF.localScale *= (1 + 0.1f * point);
         yield return new WaitForSeconds(attackTime*0.5f);
         weaponHold.SetActive(true);
-
     }
     public void ChangeAnim(string animName)
     {
@@ -136,7 +158,8 @@ public class CharacterController : MonoBehaviour
         this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
         //TODO: cache transform
         this.weaponHold.transform.SetParent(weaponPos);
-        sightZone.transform.localScale =new Vector3(1f,1f,1f)*StaticData.RangeWeapon[weapon];
+        //this.WeaponHoldTransform.SetParent(weaponPos);
+        SightZoneTransform.localScale =new Vector3(1f,1f,1f)*StaticData.RangeWeapon[weapon];
     }
     public void UpPoint(int point)
     {

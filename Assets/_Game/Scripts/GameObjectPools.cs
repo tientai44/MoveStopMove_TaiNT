@@ -162,7 +162,6 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             case "Player":
                 BasicReset(tag,go,tempPool);
                 go.GetComponent<PlayerController>().OnInit();
-                
                 break;
             case "Stick":
             case "Candy0":

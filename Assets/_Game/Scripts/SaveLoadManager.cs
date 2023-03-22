@@ -20,7 +20,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         public int LevelID { get; set; }
     }
 
-    [SerializeField] private string saveFileName = "savegame.ss";
+    [SerializeField] private string saveFileName = Constant.SAVE_FILE_NAME;
     [SerializeField] private bool loadOnStart = true;
     private Data data;
     private BinaryFormatter formatter;

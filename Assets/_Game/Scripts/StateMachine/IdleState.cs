@@ -9,7 +9,7 @@ public class IdleState : IState
     public void OnEnter(BotController bot)
     {
         ranTime = Random.Range(0.5f, 1f);
-        bot.ChangeAnim("idle");
+        bot.ChangeAnim(Constant.ANIM_IDLE);
         bot.StopMoving();
     }
 

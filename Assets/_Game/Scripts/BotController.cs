@@ -23,25 +23,18 @@ public class BotController : CharacterController
         agent = GetComponent<NavMeshAgent>();
         destination = agent.destination;
         OnInit();
-        
     }
     public void SetRandomTargetFollow()
     {
         //TODO: cach string
-        ChangeAnim("run");
+        ChangeAnim(Constant.ANIM_RUN);
         List<Transform> targets = new List<Transform>();
-        BotController bot;
         //TODO: neu co the thi dung fot thay foreach
-        foreach(Transform t in l_targetFollow)
+        for(int i = 0; i < l_targetFollow.Count; i++)
         {
-            if (t.gameObject.TryGetComponent<BotController>(out bot))
+            if (!l_targetFollow[i].GetComponent<CharacterController>().IsDead)
             {
-                if (bot.CurrentState is not DieState && bot.gameObject.activeSelf==true)
-                    targets.Add(t);
-            }
-            else
-            {
-                targets.Add(t);
+                targets.Add(l_targetFollow[i]);
             }
         }
         if (targets.Count > 0)
@@ -67,19 +60,15 @@ public class BotController : CharacterController
     // Update is called once per frame
     public void FollowTarget()
     {
-        ChangeAnim("run");
+        ChangeAnim(Constant.ANIM_RUN);
         if(targetFollow ==null)
         {
             SetRandomTargetFollow();
             return;
         }
-        BotController bot;
-        if (targetFollow.TryGetComponent<BotController>(out bot))
+        if (targetFollow.GetComponent<CharacterController>().IsDead)
         {
-            if(bot.CurrentState is DieState)
-            {
-                SetRandomTargetFollow();
-            }
+            SetRandomTargetFollow();
         }
         if (Vector3.Distance(destination, targetFollow.position) > 1.0f)
         {
@@ -91,16 +80,14 @@ public class BotController : CharacterController
     {
         //base.Update();
         //TODO: lam the nao de bot phai getcomponent o day
-        if (targetAttack!=null&&targetAttack.GetComponent<CharacterController>() is BotController) 
-        if(targetAttack.GetComponent<BotController>().IsDead)
+        if (targetAttack != null)
         {
-            l_AttackTarget.Remove(targetAttack);
-        }
-        if (targetAttack != null && targetAttack.GetComponent<CharacterController>() is PlayerController)
-            if (targetAttack.GetComponent<PlayerController>().MyState is PlayerState.Death)
+            CharacterController charTarget = targetAttack.GetComponent<CharacterController>();
+            if (charTarget.IsDead)
             {
                 l_AttackTarget.Remove(targetAttack);
             }
+        }
         if (currentState != null)
         {
             currentState.OnExecute(this);
@@ -120,14 +107,13 @@ public class BotController : CharacterController
     }
     public override void OnDeath()
     {
-        
         base.OnDeath();
         GameController.GetInstance().UpdateAliveText();
 
     }
     public void StopMoving()
     {
-        ChangeAnim("idle");
+        ChangeAnim(Constant.ANIM_IDLE);
         destination = TF.position;
         agent.destination = destination;
     }
