@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SoundManager :GOSingleton<SoundManager>
 {
+    [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioSource audioBackGround;
     [SerializeField] public AudioClip attackSound;
     [SerializeField] AudioSource audioEffect;
@@ -17,7 +19,7 @@ public class SoundManager :GOSingleton<SoundManager>
     {
         if (audio.isPlaying)
         {
-            audio.Pause();
+            audio.Stop();
         }
         else
         {

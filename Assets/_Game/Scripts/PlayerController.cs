@@ -34,6 +34,7 @@ public class PlayerController : CharacterController
         timerDeath = 0;
         myState = PlayerState.Idle;
         ChangeAnim(Constant.ANIM_IDLE);
+        ChangeEquipment(WeaponType.Knife);
     }
 
     // Update is called once per frame

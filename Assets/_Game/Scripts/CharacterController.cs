@@ -107,6 +107,7 @@ public class CharacterController : MonoBehaviour
     public virtual void OnDeath()
     {
         StopAllCoroutines();
+        SoundManager2.GetInstance().PlaySound(Constant.DEATH_MUSIC_NAME);
         ChangeAnim(Constant.ANIM_DIE);
         IsDead = true;
     }
@@ -123,7 +124,8 @@ public class CharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitThrow);
         weaponHold.SetActive(false);
-        SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().attackSound);
+        //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().attackSound);
+        SoundManager2.GetInstance().PlaySound("Nem vu khi");
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
         BulletController bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position).GetComponent<BulletController>();
         bullet/*.GetComponent<BulletController>()*/.tagWeapon = currentWeapon;

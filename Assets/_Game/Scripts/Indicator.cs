@@ -65,18 +65,23 @@ public class Indicator : MonoBehaviour
                 Vector2 middlePoint = new Vector2(Screen.width / 2, Screen.height / 2);
                 Vector2 direction = new Vector2(screenPos.x - middlePoint.x / 2, screenPos.y - middlePoint.y);
 
+                float goc = Mathf.Acos(CalCosin(direction.x,direction.y,0,1))/Mathf.PI*180;
+                if (x > Screen.width / 2)
+                {
+                    goc = -goc;
+                }
 
                 Vector3 posSpawn = new Vector3(x,y,z);
                 GameObject indicator = Instantiate(indicatorPrefab, posSpawn, Quaternion.identity, indicatorCanvas.transform) as GameObject;
-                indicator.transform.Rotate(new Vector3(0,0,90));
+                indicator.transform.Rotate(new Vector3(0,0,goc));
                 indicators.Add(indicator);
 
             }
         }
     }
-    private double CalCosin(float x1,float y1,float x2,float y2)
+    private float CalCosin(float x1,float y1,float x2,float y2)
     {
-        return (x1 * x2 + y1 * y2) / (Math.Sqrt(x1 * x1 + y1 * y1) * Math.Sqrt(x2 * x2 + y2 * y2));
+        return (x1 * x2 + y1 * y2) / (Mathf.Sqrt(x1 * x1 + y1 * y1) * Mathf.Sqrt(x2 * x2 + y2 * y2));
     }
 
 }

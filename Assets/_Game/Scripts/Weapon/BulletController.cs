@@ -86,7 +86,7 @@ public class BulletController : MonoBehaviour
             //TODO: cache getcomponent dictionary
             //other.GetComponent<PlayerController>().OnDeath();
             Cache.GetCharacter(other).OnDeath();
-            SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
+            //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
 
 
         }
@@ -95,7 +95,7 @@ public class BulletController : MonoBehaviour
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
             other.GetComponent<BotController>().ChangeState(new DieState());
-            SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
+            //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
             if(owner is PlayerController)
             {
                 SaveLoadManager.GetInstance().Data1.Coin += 1;

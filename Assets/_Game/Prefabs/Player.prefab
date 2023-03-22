@@ -178,6 +178,7 @@ MonoBehaviour:
   weaponPos: {fileID: 664248516666400319}
   weaponHold: {fileID: 8509623259814515359}
   l_AttackTarget: []
+  IsDead: 0
   _joystick: {fileID: 0}
 --- !u!195 &4617855062696380396
 NavMeshAgent:
