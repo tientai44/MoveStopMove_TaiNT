@@ -28,7 +28,7 @@ public class UIManager : GOSingleton<UIManager>
     }
     public void UnActiveAllPanel()
     {
-        winPanel.SetActive(false);
+        winPanel.SetActive(false);  
         losePanel.SetActive(false);
         settingPanel.SetActive(false);
         mainMenuPanel.SetActive(false);

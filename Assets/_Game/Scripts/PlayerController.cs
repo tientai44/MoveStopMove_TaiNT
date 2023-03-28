@@ -28,13 +28,23 @@ public class PlayerController : CharacterController
     public override void OnInit()
     {
         base.OnInit();
-        _joystick = GameController.GetInstance().joystick;
-        _joystick.OnInit();
+        _joystick = FindObjectOfType<FixedJoystick>();
+        if(_joystick !=null)
+            _joystick.OnInit();
         GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
         timerDeath = 0;
         myState = PlayerState.Idle;
         ChangeAnim(Constant.ANIM_IDLE);
-        ChangeEquipment(WeaponType.Knife);
+        ChangeEquipment(StaticData.WeaponEnum[SaveLoadManager.GetInstance().Data1.WeaponCurrent]);
+        int index = SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent;
+        if(index>0)
+            SetPant(GameObjectPools.GetInstance().pantMaterials[index-1]);
+        else
+        {
+            SetPant(GameObjectPools.GetInstance().pantMaterials[0]);
+        }
+         
+        SetHead(StaticData.HeadEnum[SaveLoadManager.GetInstance().Data1.HeadCurrent]);
     }
 
     // Update is called once per frame
@@ -54,7 +64,14 @@ public class PlayerController : CharacterController
         {
             return;
         }
-       
+        if (targetAttack != null)
+        {
+            targetAttack.GetComponent<BotController>().EnableCircleTarget();
+        }
+        if (!L_AttackTarget.Contains(targetAttack)&targetAttack!=null)
+        {
+            targetAttack.GetComponent<BotController>().UnEnableCircleTarget();
+        }
         Run();
         if (targetAttack != null && targetAttack.GetComponent<CharacterController>().IsDead)
         {
@@ -65,7 +82,10 @@ public class PlayerController : CharacterController
         if (l_AttackTarget.Count > 0  )
         {
             if (!l_AttackTarget.Contains(targetAttack))
+            {
+                
                 targetAttack = l_AttackTarget[Random.Range(0, l_AttackTarget.Count)];
+            }
         }
         
         if (l_AttackTarget.Contains(targetAttack) && timer>=delayAttack)
@@ -77,6 +97,10 @@ public class PlayerController : CharacterController
     }
     public override void Run()
     {
+        if (_joystick == null)
+        {
+            return;
+        }
         base.Run();
         moveVector = Vector3.zero;
         moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
@@ -126,6 +150,8 @@ public class PlayerController : CharacterController
             return;
         }
         myState = PlayerState.Death;
+
+        SoundManager2.GetInstance().PlaySound(Constant.LOSE_MUSIC_NAME);
         base.OnDeath();
         
         

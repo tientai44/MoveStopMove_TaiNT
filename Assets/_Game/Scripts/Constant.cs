@@ -17,5 +17,6 @@ public class Constant
     public const string ATTACK_MUSIC_NAME = "Nem vu khi";
     public const string BACKGROUND_MUSIC_NAME = "Nhac nen";
     public const string DEATH_MUSIC_NAME = "Chet 3";
+    public const string LOSE_MUSIC_NAME = "Lose";
 
 }

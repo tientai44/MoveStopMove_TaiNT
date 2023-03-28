@@ -42,13 +42,13 @@ public class SoundManager2 : GOSingleton<SoundManager2>
             if (hiteffect[i].clip.name == name)
                 hiteffect[i].Stop();
     }
-    public void SwitchSound(AudioSource audio)
+    public void SwitchSoundBackGround()
     {
   
-          if (audio.isPlaying)
-              audio.Stop();
+          if (audioBackGround.isPlaying)
+              audioBackGround.Stop();
           else
-              audio.Play();
+              audioBackGround.Play();
     }
     public void ChangeVolumeBackground(float volume)
     {

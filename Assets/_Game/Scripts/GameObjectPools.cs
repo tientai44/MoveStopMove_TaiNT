@@ -14,6 +14,18 @@ public enum WeaponHold
     Candy0Hold,
     //UziHold
 };
+public enum WeaponShow
+{
+    AxeShow,KnifeShow,BoomerangShow,Candy0Show,
+}
+public enum Pant
+{
+    Pant1,Pant2
+}
+public enum Head
+{
+    Head1,Head2
+}
 public class GameObjectPools : GOSingleton<GameObjectPools>
 {
     [System.Serializable]
@@ -30,7 +42,9 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
     Dictionary<string, List<GameObject>> activeObjectPools = new Dictionary<string, List<GameObject>>();
     public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
-
+    public Dictionary<WeaponType, WeaponShow> weaponShows = new Dictionary<WeaponType, WeaponShow>();
+    public List<Material> pantMaterials;
+    public Dictionary<Pant,Material> pantMaterial = new Dictionary<Pant, Material>();
     void Start()
     {
         GetInstance();
@@ -42,6 +56,12 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         weaponHolds[WeaponType.Knife] = WeaponHold.KnifeHold;
         weaponHolds[WeaponType.Boomerang] = WeaponHold.BoomerangHold;
         weaponHolds[WeaponType.Candy0] = WeaponHold.Candy0Hold;
+        weaponShows[WeaponType.Axe] = WeaponShow.AxeShow;
+        weaponShows[WeaponType.Knife] = WeaponShow.KnifeShow;
+        weaponShows[WeaponType.Boomerang] = WeaponShow.BoomerangShow;
+        weaponShows[WeaponType.Candy0] = WeaponShow.Candy0Show;
+        pantMaterial[Pant.Pant1] = pantMaterials[0];
+        pantMaterial[Pant.Pant2] = pantMaterials[1];
         //weaponHolds[WeaponType.Uzi] = WeaponHold.UziHold;
         foreach (Pool pool in poolList)
         {
@@ -59,7 +79,9 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         }
         //LevelManager.GetInstance().LoadLevel();
         //GameController.GetInstance().L_character = SpawnManager.GetInstance().SpawnBot(GameController.GetInstance().numBot);
-        
+        //GetFromPool("Player", Vector3.zero);
+        NewUIManager.GetInstance().OpenUI<MainMenu>();
+
     }
 
     public GameObject GetFromPool(string tag)
@@ -171,8 +193,22 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             case "Axe":
                 WeaponReset(tag, go, tempPool);
                 break;
-            default:
+            case "AxeShow":
+            case "BoomerangShow":
+            case "KnifeShow":
+            case "Candy0Show":
+                activeObjectPools[tag].Remove(go);
+                objectPools[tag].Add(go);
+                go.SetActive(false);
+                break;
+            case "AxeHold":
+            case "BoomerangHold":
+            case "KnifeHold":
+            case "Candy0Hold":
                 BasicReset(tag, go, tempPool);
+                break;
+            default:
+                BasicReset(tag,go,tempPool);
                 break;
         }   
     }

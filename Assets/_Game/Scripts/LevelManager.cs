@@ -32,4 +32,8 @@ public class LevelManager : GOSingleton<LevelManager>
         Destroy(currentLevel.gameObject);
         LoadLevel();
     }
+    public void ClearCurrentLevel()
+    {
+        Destroy(currentLevel.gameObject);
+    }
 }

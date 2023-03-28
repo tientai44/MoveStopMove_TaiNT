@@ -8,11 +8,13 @@ public class BotController : CharacterController
 {
     [SerializeField] Transform spawnPosTrans;
     [SerializeField] GameObject skin;
+    [SerializeField] GameObject circleTarget;
     Vector3 spawnPos;
     private NavMeshAgent agent;
     private Vector3 destination;
     public Transform targetFollow;
     private IState currentState;
+
     private List<Transform> l_targetFollow = new List<Transform>();
 
     public IState CurrentState { get => currentState; set => currentState = value; }
@@ -32,7 +34,7 @@ public class BotController : CharacterController
         //TODO: neu co the thi dung fot thay foreach
         for(int i = 0; i < l_targetFollow.Count; i++)
         {
-            if (!l_targetFollow[i].GetComponent<CharacterController>().IsDead)
+            if (!l_targetFollow[i].GetComponent<CharacterController>().IsDead && l_targetFollow[i].gameObject.activeSelf)
             {
                 targets.Add(l_targetFollow[i]);
             }
@@ -134,5 +136,13 @@ public class BotController : CharacterController
         }
         return false;
         
+    }
+    public void EnableCircleTarget()
+    {
+        circleTarget.SetActive(true);
+    }
+    public void UnEnableCircleTarget()
+    {
+        circleTarget.SetActive(false);
     }
 }

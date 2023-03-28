@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bot
   - Obstacle
+  - ShowWeaponCamera
   layers:
   - Default
   - TransparentFX

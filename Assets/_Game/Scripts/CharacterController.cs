@@ -18,6 +18,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] protected Transform throwPoint;
     [SerializeField] protected WeaponType currentWeapon;
+    
+    protected Material currentPantMaterial;
     private Collider characterCollider;
     protected CharacterController targetAttack;
     protected float delayAttack = 0.1f;
@@ -31,6 +33,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField] SphereCollider sightZone;
     [SerializeField] protected Transform weaponPos;
     [SerializeField] protected GameObject weaponHold;
+    [SerializeField] protected Head currentHead;
+    [SerializeField] protected GameObject headShow;   
+    [SerializeField]protected Transform headPos;
+    [SerializeField] protected SkinnedMeshRenderer pantMeshRender;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -154,14 +160,35 @@ public class CharacterController : MonoBehaviour
     }
     public void SetWeapon(WeaponType weapon)
     {
-        
-         GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
+        GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
         this.currentWeapon = weapon; 
         this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
         //TODO: cache transform
         this.weaponHold.transform.SetParent(weaponPos);
+        this.weaponHold.transform.rotation = new Quaternion(0, 0, 0, 0);
         //this.WeaponHoldTransform.SetParent(weaponPos);
         SightZoneTransform.localScale =new Vector3(1f,1f,1f)*StaticData.RangeWeapon[weapon];
+    }
+    public void SetPant(Material material)
+    {
+        currentPantMaterial = material;
+        pantMeshRender.material = material;
+    }
+    public void SetHead(Head head)
+    {
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentHead.ToString(), headShow);
+        }
+        catch
+        {
+            //Debug.Log("L?i Thu h?i Head");
+        }
+        this.currentHead = head;
+        this.headShow = GameObjectPools.GetInstance().GetFromPool(currentHead.ToString(), headPos.position);
+        headShow.transform.SetParent(headPos);
+        headShow.transform.rotation = new Quaternion(0, 0, 0, 0);
+        
     }
     public void UpPoint(int point)
     {
