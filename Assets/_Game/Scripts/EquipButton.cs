@@ -17,7 +17,7 @@ public class EquipButton : MonoBehaviour
     ChoiceButton choiceButton;
     SkinMenu Menu;
     public MeshRenderer MeshRenderer { get => meshRenderer; set => meshRenderer = value; }
-    
+    [SerializeField] RawImage equipImage;
     public Button Button
     {
         get
@@ -33,6 +33,7 @@ public class EquipButton : MonoBehaviour
     public Equipment EquipmentInfor { get => equipmentInfor; set => equipmentInfor = value; }
     public TextMeshProUGUI PriceText { get => priceText; set => priceText = value; }
     internal ChoiceButton ChoiceButton { get => choiceButton; set => choiceButton = value; }
+    public RawImage EquipImage { get => equipImage; set => equipImage = value; }
 
     public void Awake()
     {
@@ -52,7 +53,7 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(true);
                 Menu.ButtonEquip.SetActive(false);
-                SetPriceText(equipmentInfor.Price);
+                Menu.SetPriceText(equipmentInfor.Price);
             }
         }
         if (choiceButton is ChoiceButton.Head)
@@ -67,7 +68,7 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(true);
                 Menu.ButtonEquip.SetActive(false);
-                SetPriceText(equipmentInfor.Price);
+                Menu.SetPriceText(equipmentInfor.Price);
             }
         }
         if (choiceButton is ChoiceButton.Shield)
@@ -82,14 +83,24 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(true);
                 Menu.ButtonEquip.SetActive(false);
-                SetPriceText(equipmentInfor.Price);
+                Menu.SetPriceText(equipmentInfor.Price);
             }
         }
         if(choiceButton is ChoiceButton.Set)
         {
-            Menu.ButtonBuy.SetActive(true);
-            Menu.ButtonEquip.SetActive(false);
-            SetPriceText(equipmentInfor.Price);
+            GameController.GetInstance().currentPlayer.SetFullSet(StaticData.SetEnum[equipmentInfor.Name]);
+
+            if (SaveLoadManager.GetInstance().Data1.SetOwners.Contains(equipmentInfor.Name))
+            {
+                Menu.ButtonBuy.SetActive(false);
+                Menu.ButtonEquip.SetActive(true);
+            }
+            else
+            {
+                Menu.ButtonBuy.SetActive(true);
+                Menu.ButtonEquip.SetActive(false);
+                Menu.SetPriceText(equipmentInfor.Price);
+            }
         }
         Menu.CurrentEquipment = equipmentInfor;
     }

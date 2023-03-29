@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 900, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1601,9 +1601,35 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: Shield2
+  - poolObjectPrefab: {fileID: 1348209747443007928, guid: 1b2815952da5eb842b77f32e3d481207, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Horn
+  - poolObjectPrefab: {fileID: 2892737614129499155, guid: a2cf720190c08d44091d4e8f26405746, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: wing_devil
+  - poolObjectPrefab: {fileID: 4633889670604410063, guid: 6ad660af5f8407840a5acb4499d88914, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: tail_devil
+  - poolObjectPrefab: {fileID: 4806071379508009908, guid: 8801d62c0e22b3d49944246384247e32, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: head_angel
+  - poolObjectPrefab: {fileID: 7389963362630611650, guid: 8203503a98c639740aaa156b59adb3ac, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: bow_angel
+  - poolObjectPrefab: {fileID: 7387457199084308014, guid: 0c2ed61c35d67be4c8530ead78d1cc0d, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: wing_angel
   pantMaterials:
   - {fileID: 2100000, guid: fdd1705118ee76641a362635c6ff4e78, type: 2}
   - {fileID: 2100000, guid: 04ec82f02e222794dbf82b6ba14a9e3c, type: 2}
+  - {fileID: 2100000, guid: 63745822910882f438f687f70807a039, type: 2}
+  - {fileID: 2100000, guid: 018847adfcc211243962393f7f8f50fe, type: 2}
 --- !u!114 &1909673599
 MonoBehaviour:
   m_ObjectHideFlags: 0

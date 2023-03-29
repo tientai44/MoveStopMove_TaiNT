@@ -23,15 +23,27 @@ public static class StaticData
             {"Axe",WeaponType.Axe },
             {"Candy0",WeaponType.Candy0 }
         };
-    public static readonly Dictionary<String, Head> HeadEnum = new Dictionary<String, Head>{
-            {"Head1",Head.Head1},
-            {"Head2",Head.Head2},
+    public static readonly Dictionary<String, HeadType> HeadEnum = new Dictionary<String, HeadType>{
+            {"Head1",HeadType.Head1},
+            {"Head2",HeadType.Head2},
+            {"Horn",HeadType.Horn },
+            {"head_angel",HeadType.head_angel}
        
         };
-    public static readonly Dictionary<String, Shield> ShieldEnum = new Dictionary<String, Shield>{
-            {"Shield1",Shield.Shield1},
-            {"Shield2",Shield.Shield2},
-
+    public static readonly Dictionary<String, ShieldType> ShieldEnum = new Dictionary<String, ShieldType>{
+            {"Shield1",ShieldType.Shield1},
+            {"Shield2",ShieldType.Shield2},
+            {"bow_angel",ShieldType.bow_angel }
+        };
+    public static readonly Dictionary<String, SetType> SetEnum = new Dictionary<String, SetType>{
+            {"Set1",SetType.Set1 },{"Set2",SetType.Set2 } 
+        };
+    public static readonly Dictionary<String, WingType> WingEnum = new Dictionary<String, WingType>{
+            {"wing_devil",WingType.wing_devil},
+            {"wing_angel",WingType.wing_angel}
+        };
+    public static readonly Dictionary<String, TailType> TailEnum = new Dictionary<String, TailType>{
+            {"tail_devil",TailType.tail_devil}
         };
     public static readonly List<Equipment> pantEquipments = new List<Equipment>
     {
@@ -47,6 +59,7 @@ public static class StaticData
     };
     public static readonly List<Equipment> setEquipments = new List<Equipment>
     {
-            new Equipment(1,"Set1",1000,"wing_devil","Horn","tail_devil",null),new Equipment(2,"Set2",2000)
+        new Equipment(1,"Set1",1000,"wing_devil","Horn","tail_devil",null,3),
+        new Equipment(2,"Set2",2000,"wing_angel","head_angel",null,"bow_angel",4)
     };
 }

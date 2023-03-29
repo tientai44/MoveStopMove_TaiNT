@@ -14,13 +14,14 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         public Data()
         {
             Coin = 0;
-            WeaponCurrent = "Axe";
+            //WeaponCurrent = "Axe";
             IdPantMaterialCurrent = 1;
-            HeadCurrent = "Head1";
+            //HeadCurrent = "Head1";
             WeaponOwners = new List<WeaponType>();
             PantOwners = new List<int>();
             HeadOwners = new List<string>();
             ShieldOwners = new List<string>();
+            SetOwners = new List<string>();
             EquipOwners = new List<Equipment>();
             LevelID = 1;
         }
@@ -29,11 +30,12 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
 
         public string HeadCurrent { get; set; }
         public string ShieldCurent { get; set; }
-
+        public string SetCurrent { get; set; }
         public List<WeaponType> WeaponOwners { get; set; }
         public List<int> PantOwners { get; set; }
         public List<string> HeadOwners { get; set; }
         public List<string> ShieldOwners { get; set; }
+        public List<string> SetOwners { get; set; }
         public List<Equipment> EquipOwners;
         public int Coin { get ; set; }
 
@@ -103,6 +105,10 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
                 if (data.ShieldOwners == null)
                 {
                     data.ShieldOwners = new List<string>();
+                }
+                if (data.SetOwners == null)
+                {
+                    data.SetOwners = new List<string>();
                 }
                 Debug.Log(data.Coin);
                 Debug.Log(data.WeaponCurrent);

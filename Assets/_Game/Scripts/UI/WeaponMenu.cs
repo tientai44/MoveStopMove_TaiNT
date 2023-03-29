@@ -13,6 +13,8 @@ public class WeaponMenu : UICanvas
     [SerializeField] private TextMeshProUGUI weaponName;
     [SerializeField] private TextMeshProUGUI weaponPrice;
     [SerializeField] private Transform weaponShowPos;
+    [SerializeField] private GameObject ButtonBuy;
+    [SerializeField] private GameObject ButtonEquip;
     private int page=0;
     private Camera cameraShowWeapon;
     protected override void OnInit()
@@ -38,6 +40,16 @@ public class WeaponMenu : UICanvas
         weaponShow.transform.SetParent(weaponShowPos);
         weaponShow.transform.localScale = Vector3.one;
         SetWeaponPrice(StaticData.PriceWeapon[weaponTypeShowing]);
+        if (SaveLoadManager.GetInstance().Data1.WeaponOwners.Contains(weaponTypes[page]))
+        {
+            ButtonBuy.SetActive(false);
+            ButtonEquip.SetActive(true);
+        }
+        else
+        {
+            ButtonBuy.SetActive(true);
+            ButtonEquip.SetActive(false);
+        }
     }
     public void SetWeaponPrice(float price)
     {
@@ -117,6 +129,6 @@ public class WeaponMenu : UICanvas
     }
     public void SetCoinText(int coin)
     {
-        coinText.text = "Coin : " + coin.ToString();
+        coinText.text = coin.ToString();
     }
 }

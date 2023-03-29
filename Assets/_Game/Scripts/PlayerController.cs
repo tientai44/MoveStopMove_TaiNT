@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 enum PlayerState
 {
@@ -36,9 +38,25 @@ public class PlayerController : CharacterController
         myState = PlayerState.Idle;
         ChangeAnim(Constant.ANIM_IDLE);
         ChangeEquipment(StaticData.WeaponEnum[SaveLoadManager.GetInstance().Data1.WeaponCurrent]);
+        Equip();
+        
+    }
+
+    public void Equip()
+    {
+        RemoveAllEquip();
+        try
+        {
+            SetFullSet(StaticData.SetEnum[SaveLoadManager.GetInstance().Data1.SetCurrent]);
+        }
+        catch
+        {
+            Debug.Log("No Set");
+        }
         int index = SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent;
-        if(index>0)
-            SetPant(GameObjectPools.GetInstance().pantMaterials[index-1]);
+
+        if (index > 0)
+            SetPant(GameObjectPools.GetInstance().pantMaterials[index - 1]);
         else
         {
             Debug.Log("No Pant");
@@ -55,12 +73,11 @@ public class PlayerController : CharacterController
         {
             SetShield(StaticData.ShieldEnum[SaveLoadManager.GetInstance().Data1.ShieldCurent]);
         }
-        catch {
+        catch
+        {
             Debug.Log("No Shield");
         }
-
     }
-
     // Update is called once per frame
     protected override void  Update()
     {

@@ -78,6 +78,10 @@ public class SkinMenu : UICanvas
                 SaveLoadManager.GetInstance().Data1.ShieldOwners.Add(currentEquipment.Name);
 
             }
+            if(choiceButton is ChoiceButton.Set)
+            {
+                SaveLoadManager.GetInstance().Data1.SetOwners.Add(currentEquipment.Name);
+            }
             buttonBuy.SetActive(false);
             buttonEquip.SetActive(true);
             SaveLoadManager.GetInstance().Save();
@@ -102,6 +106,13 @@ public class SkinMenu : UICanvas
         if (choiceButton is ChoiceButton.Shield)
         {
             SaveLoadManager.GetInstance().Data1.ShieldCurent = currentEquipment.Name;
+        }
+        if(choiceButton is ChoiceButton.Set)
+        {
+            SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent = currentEquipment.IdPant;
+            SaveLoadManager.GetInstance().Data1.HeadCurrent = currentEquipment.HeadName;
+            SaveLoadManager.GetInstance().Data1.ShieldCurent = currentEquipment.ShieldName;
+            SaveLoadManager.GetInstance().Data1.SetCurrent = currentEquipment.Name;
         }
         SaveLoadManager.GetInstance().Save();
     }
@@ -134,8 +145,9 @@ public class SkinMenu : UICanvas
         ClearButton();
         for (int i = 0; i < textures.Count; i++)
         {
-            equipButtonPrefabs.GetComponent<RawImage>().texture = textures[i];
+            //equipButtonPrefabs.GetComponent<RawImage>().texture = textures[i];
             EquipButton button = Instantiate(equipButtonPrefabs, scrollView).GetComponent<EquipButton>();
+            button.EquipImage.texture = textures[i];
             button.SetSkinMenu(this);
             equipButtons.Add(button);
             equipButtons[i].EquipmentInfor = equipments[i];

@@ -33,13 +33,20 @@ public class CharacterController : MonoBehaviour
     [SerializeField] SphereCollider sightZone;
     [SerializeField] protected Transform weaponPos;
     [SerializeField] protected GameObject weaponHold;
-    [SerializeField] protected Head currentHead;
+    [SerializeField] protected HeadType currentHead;
     [SerializeField] protected GameObject headShow;
-    [SerializeField] protected Shield currentShield;
+    [SerializeField] protected ShieldType currentShield;
     [SerializeField] protected GameObject shieldShow;
     [SerializeField]protected Transform headPos;
     [SerializeField] protected SkinnedMeshRenderer pantMeshRender;
     [SerializeField] protected Transform shieldPos;
+    [SerializeField] protected Transform wingPos;
+    [SerializeField] protected GameObject wingShow;
+    [SerializeField] protected WingType currentWingType;
+    [SerializeField] protected TailType currentTailType;
+    [SerializeField] protected GameObject tailShow;
+    [SerializeField] protected Transform tailPos;
+    [SerializeField] protected SetType currentSetType;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -177,7 +184,7 @@ public class CharacterController : MonoBehaviour
         currentPantMaterial = material;
         pantMeshRender.material = material;
     }
-    public void SetHead(Head head)
+    public void SetHead(HeadType head)
     {
         try
         {
@@ -192,7 +199,7 @@ public class CharacterController : MonoBehaviour
         headShow.transform.SetParent(headPos);
         headShow.transform.rotation = new Quaternion(0, 0, 0, 0);   
     }
-    public void SetShield(Shield shield)
+    public void SetShield(ShieldType shield)
     {
         try
         {
@@ -207,9 +214,87 @@ public class CharacterController : MonoBehaviour
         shieldShow.transform.SetParent(shieldPos);
         shieldShow.transform.rotation = new Quaternion(0, 0, 0, 0);
     }
-    public void SetFullSet(Set)
+    public void SetWing(WingType wing) {
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentWingType.ToString(), wingShow);
+        }
+        catch
+        {
+        }
+        this.currentWingType = wing;
+        this.wingShow = GameObjectPools.GetInstance().GetFromPool(currentWingType.ToString(), wingPos.position);
+        wingShow.transform.SetParent(wingPos);
+        wingShow.transform.rotation =new Quaternion(0, 0, 0, 0);
+    }
+    public void SetTail(TailType tail)
     {
-
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentTailType.ToString(), tailShow);
+        }
+        catch
+        {
+        }
+        this.currentTailType = tail;
+        this.tailShow = GameObjectPools.GetInstance().GetFromPool(currentTailType.ToString(), tailPos.position);
+        tailShow.transform.SetParent(tailPos);
+        tailShow.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    public void SetFullSet(SetType set)
+    {
+        currentSetType = set;
+        Equipment infor = GameObjectPools.GetInstance().SetValue[set];
+        SetPant(GameObjectPools.GetInstance().pantMaterials[infor.IdPant-1]);
+        if (infor.HeadName != null)
+        {
+            SetHead(StaticData.HeadEnum[infor.HeadName]);
+        }
+        if (infor.WingName != null)
+        {
+            SetWing(StaticData.WingEnum[infor.WingName]);
+        }
+        if (infor.TailName != null)
+        {
+            SetTail(StaticData.TailEnum[infor.TailName]);
+        }
+        if (infor.ShieldName != null)
+        {
+            SetShield(StaticData.ShieldEnum[infor.ShieldName]);
+        }
+    }
+    public void RemoveAllEquip()
+    {
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentTailType.ToString(), tailShow);
+        }
+        catch
+        {
+        }
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentWingType.ToString(), wingShow);
+        }
+        catch
+        {
+        }
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentShield.ToString(), shieldShow);
+        }
+        catch
+        {
+            //Debug.Log("Can not Return Shield");
+        }
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentHead.ToString(), headShow);
+        }
+        catch
+        {
+            //Debug.Log("L?i Thu h?i Head");
+        }
     }
     public void UpPoint(int point)
     {
