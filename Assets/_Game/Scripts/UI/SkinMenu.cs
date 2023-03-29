@@ -71,9 +71,12 @@ public class SkinMenu : UICanvas
             }
             if(choiceButton is ChoiceButton.Head)
             {
-                Debug.Log(currentEquipment.Name);
                 SaveLoadManager.GetInstance().Data1.HeadOwners.Add(currentEquipment.Name);
-                Debug.Log(SaveLoadManager.GetInstance().Data1.HeadOwners[SaveLoadManager.GetInstance().Data1.HeadOwners.Count-1]);
+            }
+            if(choiceButton is ChoiceButton.Shield)
+            {
+                SaveLoadManager.GetInstance().Data1.ShieldOwners.Add(currentEquipment.Name);
+
             }
             buttonBuy.SetActive(false);
             buttonEquip.SetActive(true);
@@ -95,6 +98,10 @@ public class SkinMenu : UICanvas
         if(choiceButton is ChoiceButton.Head)
         {
             SaveLoadManager.GetInstance().Data1.HeadCurrent = currentEquipment.Name;
+        }
+        if (choiceButton is ChoiceButton.Shield)
+        {
+            SaveLoadManager.GetInstance().Data1.ShieldCurent = currentEquipment.Name;
         }
         SaveLoadManager.GetInstance().Save();
     }

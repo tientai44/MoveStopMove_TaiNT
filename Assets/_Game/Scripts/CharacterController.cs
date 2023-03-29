@@ -34,9 +34,12 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected Transform weaponPos;
     [SerializeField] protected GameObject weaponHold;
     [SerializeField] protected Head currentHead;
-    [SerializeField] protected GameObject headShow;   
+    [SerializeField] protected GameObject headShow;
+    [SerializeField] protected Shield currentShield;
+    [SerializeField] protected GameObject shieldShow;
     [SerializeField]protected Transform headPos;
     [SerializeField] protected SkinnedMeshRenderer pantMeshRender;
+    [SerializeField] protected Transform shieldPos;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -187,8 +190,26 @@ public class CharacterController : MonoBehaviour
         this.currentHead = head;
         this.headShow = GameObjectPools.GetInstance().GetFromPool(currentHead.ToString(), headPos.position);
         headShow.transform.SetParent(headPos);
-        headShow.transform.rotation = new Quaternion(0, 0, 0, 0);
-        
+        headShow.transform.rotation = new Quaternion(0, 0, 0, 0);   
+    }
+    public void SetShield(Shield shield)
+    {
+        try
+        {
+            GameObjectPools.GetInstance().ReturnToPool(currentShield.ToString(), shieldShow);
+        }
+        catch
+        {
+            //Debug.Log("Can not Return Shield");
+        }
+        this.currentShield = shield;
+        this.shieldShow = GameObjectPools.GetInstance().GetFromPool(currentShield.ToString(), shieldPos.position);
+        shieldShow.transform.SetParent(shieldPos);
+        shieldShow.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    public void SetFullSet(Set)
+    {
+
     }
     public void UpPoint(int point)
     {

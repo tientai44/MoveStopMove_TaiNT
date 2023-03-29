@@ -70,7 +70,27 @@ public class EquipButton : MonoBehaviour
                 SetPriceText(equipmentInfor.Price);
             }
         }
-
+        if (choiceButton is ChoiceButton.Shield)
+        {
+            GameController.GetInstance().currentPlayer.SetShield(StaticData.ShieldEnum[equipmentInfor.Name]);
+            if (SaveLoadManager.GetInstance().Data1.ShieldOwners.Contains(equipmentInfor.Name))
+            {
+                Menu.ButtonBuy.SetActive(false);
+                Menu.ButtonEquip.SetActive(true);
+            }
+            else
+            {
+                Menu.ButtonBuy.SetActive(true);
+                Menu.ButtonEquip.SetActive(false);
+                SetPriceText(equipmentInfor.Price);
+            }
+        }
+        if(choiceButton is ChoiceButton.Set)
+        {
+            Menu.ButtonBuy.SetActive(true);
+            Menu.ButtonEquip.SetActive(false);
+            SetPriceText(equipmentInfor.Price);
+        }
         Menu.CurrentEquipment = equipmentInfor;
     }
     public void SetPriceText(int price)

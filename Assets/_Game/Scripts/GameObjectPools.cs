@@ -18,13 +18,29 @@ public enum WeaponShow
 {
     AxeShow,KnifeShow,BoomerangShow,Candy0Show,
 }
-public enum Pant
+public enum PantType
 {
     Pant1,Pant2
 }
 public enum Head
 {
-    Head1,Head2
+    Head1,Head2,Horn
+}
+public enum Shield
+{
+    Shield1,Shield2
+}
+public enum Wing
+{
+    wing_devil
+}
+public enum Tail
+{
+    tail_devil
+}
+public enum Set
+{
+    Set1,Set2
 }
 public class GameObjectPools : GOSingleton<GameObjectPools>
 {
@@ -44,7 +60,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
     public Dictionary<WeaponType, WeaponShow> weaponShows = new Dictionary<WeaponType, WeaponShow>();
     public List<Material> pantMaterials;
-    public Dictionary<Pant,Material> pantMaterial = new Dictionary<Pant, Material>();
+    public Dictionary<PantType,Material> pantMaterial = new Dictionary<PantType, Material>();
     void Start()
     {
         GetInstance();
@@ -60,8 +76,8 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         weaponShows[WeaponType.Knife] = WeaponShow.KnifeShow;
         weaponShows[WeaponType.Boomerang] = WeaponShow.BoomerangShow;
         weaponShows[WeaponType.Candy0] = WeaponShow.Candy0Show;
-        pantMaterial[Pant.Pant1] = pantMaterials[0];
-        pantMaterial[Pant.Pant2] = pantMaterials[1];
+        pantMaterial[PantType.Pant1] = pantMaterials[0];
+        pantMaterial[PantType.Pant2] = pantMaterials[1];
         //weaponHolds[WeaponType.Uzi] = WeaponHold.UziHold;
         foreach (Pool pool in poolList)
         {

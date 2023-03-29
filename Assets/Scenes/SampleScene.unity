@@ -1593,6 +1593,14 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: Head1
+  - poolObjectPrefab: {fileID: 223254795401568807, guid: 52a5bbc26d016844787c3b72966f0795, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Shield1
+  - poolObjectPrefab: {fileID: 2774883577483236865, guid: 603223f0eababb445ad08ad003121f3d, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Shield2
   pantMaterials:
   - {fileID: 2100000, guid: fdd1705118ee76641a362635c6ff4e78, type: 2}
   - {fileID: 2100000, guid: 04ec82f02e222794dbf82b6ba14a9e3c, type: 2}

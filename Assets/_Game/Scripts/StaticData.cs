@@ -28,6 +28,11 @@ public static class StaticData
             {"Head2",Head.Head2},
        
         };
+    public static readonly Dictionary<String, Shield> ShieldEnum = new Dictionary<String, Shield>{
+            {"Shield1",Shield.Shield1},
+            {"Shield2",Shield.Shield2},
+
+        };
     public static readonly List<Equipment> pantEquipments = new List<Equipment>
     {
             new Equipment(1,"Pant1",100),new Equipment(2,"Pant2",200)
@@ -42,6 +47,6 @@ public static class StaticData
     };
     public static readonly List<Equipment> setEquipments = new List<Equipment>
     {
-            new Equipment(1,"Set1",1000),new Equipment(2,"Set2",2000)
+            new Equipment(1,"Set1",1000,"wing_devil","Horn","tail_devil",null),new Equipment(2,"Set2",2000)
     };
 }

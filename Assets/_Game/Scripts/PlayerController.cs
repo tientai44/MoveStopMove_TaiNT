@@ -41,16 +41,34 @@ public class PlayerController : CharacterController
             SetPant(GameObjectPools.GetInstance().pantMaterials[index-1]);
         else
         {
-            SetPant(GameObjectPools.GetInstance().pantMaterials[0]);
+            Debug.Log("No Pant");
         }
-         
-        SetHead(StaticData.HeadEnum[SaveLoadManager.GetInstance().Data1.HeadCurrent]);
+        try
+        {
+            SetHead(StaticData.HeadEnum[SaveLoadManager.GetInstance().Data1.HeadCurrent]);
+        }
+        catch
+        {
+            Debug.Log("No Head ");
+        }
+        try
+        {
+            SetShield(StaticData.ShieldEnum[SaveLoadManager.GetInstance().Data1.ShieldCurent]);
+        }
+        catch {
+            Debug.Log("No Shield");
+        }
+
     }
 
     // Update is called once per frame
     protected override void  Update()
     {
-        if( myState is PlayerState.Death)
+        if (_joystick == null)
+        {
+            return;
+        }
+        if ( myState is PlayerState.Death)
         {
             timerDeath +=Time.deltaTime;
             if (timerDeath > 2f)
@@ -97,10 +115,7 @@ public class PlayerController : CharacterController
     }
     public override void Run()
     {
-        if (_joystick == null)
-        {
-            return;
-        }
+        
         base.Run();
         moveVector = Vector3.zero;
         moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;

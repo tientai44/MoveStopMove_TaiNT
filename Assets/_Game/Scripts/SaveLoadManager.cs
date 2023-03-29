@@ -20,6 +20,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
             WeaponOwners = new List<WeaponType>();
             PantOwners = new List<int>();
             HeadOwners = new List<string>();
+            ShieldOwners = new List<string>();
             EquipOwners = new List<Equipment>();
             LevelID = 1;
         }
@@ -27,9 +28,12 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         public string WeaponCurrent { get; set; } 
 
         public string HeadCurrent { get; set; }
+        public string ShieldCurent { get; set; }
+
         public List<WeaponType> WeaponOwners { get; set; }
         public List<int> PantOwners { get; set; }
         public List<string> HeadOwners { get; set; }
+        public List<string> ShieldOwners { get; set; }
         public List<Equipment> EquipOwners;
         public int Coin { get ; set; }
 
@@ -95,6 +99,10 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
                 if(data.HeadCurrent == null)
                 {
                     data.HeadCurrent = "Head1";
+                }
+                if (data.ShieldOwners == null)
+                {
+                    data.ShieldOwners = new List<string>();
                 }
                 Debug.Log(data.Coin);
                 Debug.Log(data.WeaponCurrent);
