@@ -32,6 +32,7 @@ public class SkinMenu : UICanvas
         base.Open();
         SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
         CameraFollow.GetInstance().ZoomIn();
+        
         ButtonBuy.SetActive(false);
         ButtonEquip.SetActive(false);
     }

@@ -87,7 +87,7 @@ public class BulletController : MonoBehaviour
             //other.GetComponent<PlayerController>().OnDeath();
             Cache.GetCharacter(other).OnDeath();
             //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
-
+            Cache.GetCharacter(other).BloodSystem.Play();
 
         }
         if(other.CompareTag(Constant.TAG_BOT))
@@ -101,6 +101,7 @@ public class BulletController : MonoBehaviour
                 SaveLoadManager.GetInstance().Data1.Coin += 1;
                 SaveLoadManager.GetInstance().Save();
             }
+            Cache.GetCharacter(other).BloodSystem.Play();
 
         }
     }

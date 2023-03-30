@@ -102,6 +102,7 @@ public class EquipButton : MonoBehaviour
                 Menu.SetPriceText(equipmentInfor.Price);
             }
         }
+        GameController.GetInstance().currentPlayer.ChangeAnim(Constant.ANIM_DANCE);
         Menu.CurrentEquipment = equipmentInfor;
     }
     public void SetPriceText(int price)

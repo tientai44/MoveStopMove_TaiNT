@@ -23,4 +23,11 @@ public class SettingMenu : UICanvas
     {
         SoundManager2.GetInstance().SwitchMusicEffect();
     }
+    public void HomeButton()
+    {
+        GameController.GetInstance().Lose();
+        NewUIManager.GetInstance().CloseAll();
+        NewUIManager.GetInstance().OpenUI<MainMenu>();
+        
+    }
 }

@@ -47,6 +47,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected GameObject tailShow;
     [SerializeField] protected Transform tailPos;
     [SerializeField] protected SetType currentSetType;
+    [SerializeField] protected ParticleSystem bloodSystem;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -90,6 +91,9 @@ public class CharacterController : MonoBehaviour
             return sightZoneTransform;
         }
     }
+
+    public ParticleSystem BloodSystem { get => bloodSystem; set => bloodSystem = value; }
+
     public bool IsDead = false;
 
     // Start is called before the first frame update

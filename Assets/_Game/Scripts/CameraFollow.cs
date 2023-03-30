@@ -29,10 +29,12 @@ public class CameraFollow : GOSingleton<CameraFollow>
     }
     public void ZoomOut()
     {
+        GameController.GetInstance().currentPlayer.transform.rotation = new Quaternion(0, 0, 0, 0);
         offset = intialOffset;
     }
     public void ZoomIn()
     {
+        GameController.GetInstance().currentPlayer.transform.rotation = new Quaternion(0, 180, 0, 0);
         offset = zoomInOffset;
     }
 
