@@ -168,7 +168,7 @@ MonoBehaviour:
   - {fileID: 0}
   joystick: {fileID: 0}
   cameraFollow: {fileID: 963194229}
-  numBot: 10
+  numBot: 1
   numSpawn: 0
   currentPlayer: {fileID: 0}
 --- !u!4 &45522857
@@ -1720,6 +1720,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d7656fd27b55f2e4f925fee63b309d50, type: 2}
   - {fileID: 2100000, guid: b09aa1ea175802c44af70f50d8685342, type: 2}
   - {fileID: 2100000, guid: e4cc39ad0b5f7cb45be4192cc4164991, type: 2}
+  - {fileID: 2100000, guid: f026099768b9f534c92f608531ebeab8, type: 2}
 --- !u!114 &1909673599
 MonoBehaviour:
   m_ObjectHideFlags: 0

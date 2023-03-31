@@ -203,6 +203,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentHead.ToString(), headShow);
+            headShow = null;
         }
         catch
         {
@@ -218,6 +219,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentShield.ToString(), shieldShow);
+            shieldShow = null;
         }
         catch
         {
@@ -232,6 +234,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentWingType.ToString(), wingShow);
+            wingShow = null;
         }
         catch
         {
@@ -246,6 +249,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentTailType.ToString(), tailShow);
+            tailShow = null;
         }
         catch
         {
@@ -298,6 +302,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentTailType.ToString(), tailShow);
+            tailShow = null;
         }
         catch
         {
@@ -305,6 +310,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentWingType.ToString(), wingShow);
+            wingShow = null;
         }
         catch
         {
@@ -312,6 +318,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentShield.ToString(), shieldShow);
+            shieldShow = null;
         }
         catch
         {
@@ -320,6 +327,7 @@ public class CharacterController : MonoBehaviour
         try
         {
             GameObjectPools.GetInstance().ReturnToPool(currentHead.ToString(), headShow);
+            headShow = null;
         }
         catch
         {

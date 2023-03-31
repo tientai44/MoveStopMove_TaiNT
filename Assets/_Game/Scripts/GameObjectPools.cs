@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using static UnityEditor.PlayerSettings;
+
 public enum WeaponHold
 {
     AxeHold,
@@ -55,7 +57,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     public List<WeaponType> weapons;
     public List<Pool> poolList = new List<Pool>();
     BulletController bullet;
-    Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
+    Dictionary<string, List<GameObject>> deActiveObjectPools = new Dictionary<string, List<GameObject>>();
     Dictionary<string, List<GameObject>> activeObjectPools = new Dictionary<string, List<GameObject>>();
     public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
     public Dictionary<WeaponType, WeaponShow> weaponShows = new Dictionary<WeaponType, WeaponShow>();
@@ -99,7 +101,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
                 l.Add(obj);
                 
             }
-            objectPools[pool.tag] = l;
+            deActiveObjectPools[pool.tag] = l;
             activeObjectPools[pool.tag] = new List<GameObject>();
             //objectPools.Add(pool.tag, l);
         }
@@ -122,17 +124,21 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             }
         }
 
-        if (objectPools[tag].Count > 0)
+        if (deActiveObjectPools[tag].Count > 0)
         {
-            GameObject go = objectPools[tag][0];
-            objectPools[tag].RemoveAt(0);
+            GameObject go = deActiveObjectPools[tag][0];
+            go.SetActive(true);
+            deActiveObjectPools[tag].Remove(go);
+            activeObjectPools[tag].Add(go);
             return go;
         }
         else if (tempPool.canGrow)
         {
-            GameObject obj = Instantiate(tempPool.poolObjectPrefab);
-
-            return obj;
+            GameObject go = Instantiate(tempPool.poolObjectPrefab);
+            go.SetActive(true);
+            activeObjectPools[tag].Add(go);
+    
+            return go;
         }
         else
         {
@@ -151,13 +157,12 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             }
         }
 
-
-        if (objectPools[tag].Count > 0)
+        if (deActiveObjectPools[tag].Count > 0)
         {
-            GameObject go = objectPools[tag][0];
+            GameObject go = deActiveObjectPools[tag][0];
             go.transform.position = pos;
             go.SetActive(true);
-            objectPools[tag].RemoveAt(0);
+            deActiveObjectPools[tag].Remove(go);
             activeObjectPools[tag].Add(go);
             switch(tag)
             {
@@ -173,14 +178,12 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             GameObject go = Instantiate(tempPool.poolObjectPrefab);
             go.transform.position=pos;
             go.SetActive(true);
-            objectPools[tag].Remove(go);
             activeObjectPools[tag].Add(go);
             switch (tag)
             {
                 case "Boomerang":
                     go.GetComponent<BoomerangController>().SetFirstPoint(pos);
                     break;
-                
             }
             return go;
         }
@@ -224,7 +227,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
             case "KnifeShow":
             case "Candy0Show":
                 activeObjectPools[tag].Remove(go);
-                objectPools[tag].Add(go);
+                deActiveObjectPools[tag].Add(go);
                 go.SetActive(false);
                 break;
             case "AxeHold":
@@ -243,7 +246,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         go.transform.rotation = tempPool.poolObjectPrefab.transform.rotation;
         go.transform.localScale = tempPool.poolObjectPrefab.transform.localScale;
         activeObjectPools[tag].Remove(go);
-        objectPools[tag].Add(go);
+        deActiveObjectPools[tag].Add(go);
         go.SetActive(false);
     }
     public void WeaponReset(string tag,GameObject go, Pool tempPool)
