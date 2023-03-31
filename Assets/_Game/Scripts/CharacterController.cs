@@ -187,6 +187,14 @@ public class CharacterController : MonoBehaviour
     }
     public void SetPant(Material material)
     {
+        if (material == null)
+        {
+            pantMeshRender.gameObject.SetActive(false);
+        }
+        else
+        {
+            pantMeshRender.gameObject.SetActive(true);
+        }
         currentPantMaterial = material;
         pantMeshRender.material = material;
     }
@@ -249,9 +257,17 @@ public class CharacterController : MonoBehaviour
     }
     public void SetFullSet(SetType set)
     {
+        RemoveAllEquip();
         currentSetType = set;
         Equipment infor = GameObjectPools.GetInstance().SetValue[set];
-        SetPant(GameObjectPools.GetInstance().pantMaterials[infor.IdPant-1]);
+        try
+        {
+            SetPant(GameObjectPools.GetInstance().pantMaterials[infor.IdPant - 1]);
+        }
+        catch
+        {
+            SetPant(null);
+        }
         if (infor.HeadName != null)
         {
             SetHead(StaticData.HeadEnum[infor.HeadName]);
