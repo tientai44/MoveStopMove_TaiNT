@@ -48,6 +48,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected Transform tailPos;
     [SerializeField] protected SetType currentSetType;
     [SerializeField] protected ParticleSystem bloodSystem;
+    [SerializeField]protected SkinnedMeshRenderer colorSkin;
+    [SerializeField] protected Material defaultMaterial;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -266,6 +268,14 @@ public class CharacterController : MonoBehaviour
         {
             SetShield(StaticData.ShieldEnum[infor.ShieldName]);
         }
+        if(infor.IdColor >0)
+        {
+            SetColorSkin(GameObjectPools.GetInstance().characterMaterial[infor.IdColor - 1]);
+        }
+    }
+    public void SetColorSkin( Material material)
+    {
+        colorSkin.material = material;
     }
     public void RemoveAllEquip()
     {
@@ -299,6 +309,7 @@ public class CharacterController : MonoBehaviour
         {
             //Debug.Log("L?i Thu h?i Head");
         }
+        colorSkin.material = defaultMaterial;
     }
     public void UpPoint(int point)
     {

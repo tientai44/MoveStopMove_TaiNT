@@ -12,6 +12,8 @@ public class Constant
     public const string ANIM_ATTACK = "attack";
     public const string ANIM_DIE = "die";
     public const string ANIM_DANCE = "dance";
+    public const string ANIM_OPEN = "open";
+    public const string ANIM_CLOSE = "close";
     public const string SAVE_FILE_NAME ="savegame.ss";
     public const string BACKGROUND_VOLUME = "BackgroundVolume";
     public const string EFFECT_VOLUME = "EffectVolume";

@@ -1499,8 +1499,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5288391795651146446}
   m_HandleRect: {fileID: 5288391795651146447}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 1.0000147
+  m_Size: 0.9830143
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2598,6 +2598,12 @@ MonoBehaviour:
   headTextures:
   - {fileID: 2800000, guid: bbabf1f25190c9145871bf4b582bfd7a, type: 3}
   - {fileID: 2800000, guid: 627246872ed4c8b4da3f5aac3d37e265, type: 3}
+  - {fileID: 2800000, guid: c4d896691829b2642a2bedbf10af4d37, type: 3}
+  - {fileID: 2800000, guid: 46fc94cb60da5f7429ea519116b534aa, type: 3}
+  - {fileID: 2800000, guid: 76098fa11ef7fa9449e675c30be77076, type: 3}
+  - {fileID: 2800000, guid: 9a97ad42f7641644ba75be8a05f3f9f5, type: 3}
+  - {fileID: 2800000, guid: e39521d3b640a5d4aabdcb304904430e, type: 3}
+  - {fileID: 2800000, guid: de9be8f1f2c31804bbc0ca2fb8899338, type: 3}
   pantTextures:
   - {fileID: 2800000, guid: 7d4735c7f2ab5374dba601a82df07a86, type: 3}
   - {fileID: 2800000, guid: 808967a805aae574a9b33d8207587170, type: 3}
@@ -2669,7 +2675,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 3, y: -379}
-  m_SizeDelta: {x: 899.7441, y: 558.9695}
+  m_SizeDelta: {x: 900, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5288391796982385925
 CanvasRenderer:

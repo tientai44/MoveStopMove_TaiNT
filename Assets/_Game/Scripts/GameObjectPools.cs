@@ -24,7 +24,7 @@ public enum PantType
 }
 public enum HeadType
 {
-    Head1,Head2,Horn,head_angel
+    Head1,Head2,Horn,head_angel,ArrowHead,Cowboy,Crown,HatCap,HatYellow,HeadPhone
 }
 public enum ShieldType
 {
@@ -60,6 +60,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
     public Dictionary<WeaponType,WeaponHold> weaponHolds = new Dictionary<WeaponType, WeaponHold>();
     public Dictionary<WeaponType, WeaponShow> weaponShows = new Dictionary<WeaponType, WeaponShow>();
     public List<Material> pantMaterials;
+    public List<Material> characterMaterial;
     public Dictionary<PantType,Material> pantMaterial = new Dictionary<PantType, Material>();
     public Dictionary<SetType, Equipment> SetValue = new Dictionary<SetType, Equipment> { 
         { SetType.Set1, StaticData.setEquipments[0]},

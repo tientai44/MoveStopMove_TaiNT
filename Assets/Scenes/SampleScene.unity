@@ -701,112 +701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasParentTF: {fileID: 1738901309}
---- !u!1001 &903226865
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1738901309}
-    m_Modifications:
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575188, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_Name
-      value: Canvas-MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404670566290575188, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
---- !u!224 &903226866 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8404670566290575179, guid: b7986ce7c6b08d741a1af0a05534bf5e, type: 3}
-  m_PrefabInstance: {fileID: 903226865}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,7 +1355,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1459842653}
-  - {fileID: 903226866}
   m_Father: {fileID: 843405696}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1769,11 +1662,39 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: ClickButtonEffect
+  - poolObjectPrefab: {fileID: 5772878297111866723, guid: 9012899a57c2afa47a4e8b61e4728054, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: ArrowHead
+  - poolObjectPrefab: {fileID: 1549169716396490359, guid: de519d8b118f5f24ea5492f6b5c5df56, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Cowboy
+  - poolObjectPrefab: {fileID: 5749358820633570813, guid: 2f80d52bde9de3d4fa792dd657b01bc8, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: Crown
+  - poolObjectPrefab: {fileID: 5700764724151321689, guid: 637316c71b8d4944693066da5757d976, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: HatCap
+  - poolObjectPrefab: {fileID: 4338693738066407271, guid: eb8f37a6d41accb49ad0398a3e617297, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: HatYellow
+  - poolObjectPrefab: {fileID: 4612745422889140746, guid: 58cfe598b1b353046b795c00473e969a, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: HeadPhone
   pantMaterials:
   - {fileID: 2100000, guid: fdd1705118ee76641a362635c6ff4e78, type: 2}
   - {fileID: 2100000, guid: 04ec82f02e222794dbf82b6ba14a9e3c, type: 2}
   - {fileID: 2100000, guid: 63745822910882f438f687f70807a039, type: 2}
   - {fileID: 2100000, guid: 018847adfcc211243962393f7f8f50fe, type: 2}
+  characterMaterial:
+  - {fileID: 2100000, guid: 2c501afb60724434fb6390c648805913, type: 2}
+  - {fileID: 2100000, guid: 88a03a6425b7da246bcdffc626bec157, type: 2}
+  - {fileID: 2100000, guid: d7656fd27b55f2e4f925fee63b309d50, type: 2}
 --- !u!114 &1909673599
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
 {
     [System.Serializable] public class Data
     {
-
         public Data()
         {
             Coin = 0;
@@ -74,9 +73,9 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
             try
             {
                 data = (Data)formatter.Deserialize(file);
-                if (data.Coin <300)
+                if (data.Coin <1000)
                 {
-                    data.Coin = 999;
+                    data.Coin = 9999;
                 }
                 if (data.WeaponCurrent == "")
                 {

@@ -14,6 +14,7 @@ public class Equipment
     private string tailName;
     private string shieldName;
     private int idPant;
+    private int idColor;
     public Equipment(int id, string name, int price)
     {
         this.id = id;
@@ -21,13 +22,14 @@ public class Equipment
         this.price = price;
     }
 
-    public Equipment(int id, string name, int price, string wingName, string headName, string tailName, string shieldName, int idPant) : this(id, name, price)
+    public Equipment(int id, string name, int price, string wingName, string headName, string tailName, string shieldName, int idPant, int idColor) : this(id, name, price)
     {
         this.wingName = wingName;
         this.headName = headName;
         this.tailName = tailName;
         this.shieldName = shieldName;
         this.idPant = idPant;
+        this.idColor = idColor;
     }
 
     public int Id { get => id; set => id = value; }
@@ -38,4 +40,5 @@ public class Equipment
     public string TailName { get => tailName; set => tailName = value; }
     public string ShieldName { get => shieldName; set => shieldName = value; }
     public int IdPant { get => idPant; set => idPant = value; }
+    public int IdColor { get => idColor; set => idColor = value; }
 }

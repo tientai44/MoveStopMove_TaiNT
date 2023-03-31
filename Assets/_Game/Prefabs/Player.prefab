@@ -288,6 +288,8 @@ MonoBehaviour:
   tailPos: {fileID: 4952638248782413045}
   currentSetType: 0
   bloodSystem: {fileID: 5896542709379578138}
+  colorSkin: {fileID: 7819867705047971899}
+  defaultMaterial: {fileID: 2100000, guid: 2c501afb60724434fb6390c648805913, type: 2}
   l_AttackTarget: []
   IsDead: 0
   _joystick: {fileID: 0}
@@ -1776,5 +1778,10 @@ Transform:
 --- !u!4 &7635336699536359956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -9064325173771588411, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 7765091971557289681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7819867705047971899 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8699012472884554006, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 7765091971557289681}
   m_PrefabAsset: {fileID: 0}

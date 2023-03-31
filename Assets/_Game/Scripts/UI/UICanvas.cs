@@ -60,7 +60,7 @@ public class UICanvas : MonoBehaviour
     public virtual void Open()
     {
         gameObject.SetActive(true);
-        ChangeAnim("open");
+        ChangeAnim(Constant.ANIM_OPEN);
     }
 
     //close canvas directly
@@ -82,7 +82,7 @@ public class UICanvas : MonoBehaviour
     {
   
         Invoke(nameof(CloseDirectly), delayTime);
-        ChangeAnim("close");
+        ChangeAnim(Constant.ANIM_CLOSE);
     }
     public void UnEnableEffectButton()
     {
