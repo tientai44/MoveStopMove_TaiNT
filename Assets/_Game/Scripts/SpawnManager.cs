@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : GOSingleton<SpawnManager>
 {
-    private List<SetType> sets = new List<SetType> { SetType.Set1, SetType.Set2, SetType.Set3, SetType.Set4, SetType.Set5 };
-    private List<HeadType> heads = new List<HeadType> { HeadType.Head1, HeadType.Head2, HeadType.Cowboy, HeadType.Crown, HeadType.Crown, HeadType.HatCap, HeadType.HeadPhone, HeadType.ArrowHead };
+    private List<SetType> setTypes = new List<SetType> { SetType.Set1, SetType.Set2, SetType.Set3, SetType.Set4, SetType.Set5 };
+    private List<HeadType> headTypes = new List<HeadType> { HeadType.Head1, HeadType.Head2, HeadType.Cowboy, HeadType.Crown, HeadType.Crown, HeadType.HatCap, HeadType.HeadPhone, HeadType.ArrowHead };
     private List<ShieldType> shieldTypes = new List<ShieldType>{ShieldType.Shield1,ShieldType.Shield2};
     
     public List<Transform> SpawnBot(int numBot)
@@ -26,19 +26,20 @@ public class SpawnManager : GOSingleton<SpawnManager>
 
             //random weapon
             bot.ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0, GameObjectPools.GetInstance().weapons.Count)]);
-            int select = Random.Range(0, 2);
+            int select = Random.Range(0, 5);
 
             if (select == 0)
             {
                 //random skin
-                bot.SetFullSet(sets[Random.Range(0, sets.Count)]);
+                bot.SetFullSet(setTypes[Random.Range(0, setTypes.Count)]);
             }
             else
             {
                 //random equip
-                bot.SetHead(heads[Random.Range(0,heads.Count)]);
+                bot.SetHead(headTypes[Random.Range(0,headTypes.Count)]);
                 bot.SetPant(GameObjectPools.GetInstance().pantMaterials[Random.Range(0, GameObjectPools.GetInstance().pantMaterials.Count)]);
                 bot.SetShield(shieldTypes[Random.Range(0,shieldTypes.Count)]);
+                bot.SetColorSkin(GameObjectPools.GetInstance().characterMaterial[Random.Range(0, GameObjectPools.GetInstance().characterMaterial.Count)]);
             }
 
             transforms.Add(bot.TF);
