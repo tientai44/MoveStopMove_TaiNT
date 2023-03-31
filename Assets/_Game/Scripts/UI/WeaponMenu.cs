@@ -63,7 +63,7 @@ public class WeaponMenu : UICanvas
     public void HomeButton()
     {
         NewUIManager.GetInstance().OpenUI<MainMenu>();
-        Close(0);
+        Close(0.5f);
     }
     public void EquipButton()
     {

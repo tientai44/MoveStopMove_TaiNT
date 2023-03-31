@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 7437194270618911990}
   - component: {fileID: 7437194270618911991}
   - component: {fileID: 4430496179930493844}
+  - component: {fileID: 8084001594096069553}
   m_Layer: 5
   m_Name: Canvas-Weapon
   m_TagString: Untagged
@@ -775,7 +776,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &7437194270618911990
 MonoBehaviour:
@@ -836,6 +837,26 @@ MonoBehaviour:
   weaponShowPos: {fileID: 7013062388981636872}
   ButtonBuy: {fileID: 7437194270977238536}
   ButtonEquip: {fileID: 7437194271741511078}
+--- !u!95 &8084001594096069553
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437194270618911977}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65e9111380215e04a984e7521687a83c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7437194270977238536
 GameObject:
   m_ObjectHideFlags: 0

@@ -2488,6 +2488,7 @@ GameObject:
   - component: {fileID: 5288391796947427101}
   - component: {fileID: 5288391796947427102}
   - component: {fileID: 5288391796947427099}
+  - component: {fileID: 5841669731594534272}
   m_Layer: 5
   m_Name: Canvas - SkinMenu
   m_TagString: Untagged
@@ -2530,12 +2531,12 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &5288391796947427101
 MonoBehaviour:
@@ -2608,6 +2609,26 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 6d9c7e4ec43c47c448de57c1e44f6853, type: 3}
   buttonBuy: {fileID: 5288391796742074604}
   buttonEquip: {fileID: 1763932241831854078}
+--- !u!95 &5841669731594534272
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288391796947427168}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65e9111380215e04a984e7521687a83c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5288391796982385929
 GameObject:
   m_ObjectHideFlags: 0

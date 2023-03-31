@@ -122,7 +122,7 @@ public class SkinMenu : UICanvas
     {
         ClearButton();
         NewUIManager.GetInstance().OpenUI<MainMenu>();
-        Close(0);
+        Close(0.5f);
     }
     public void SetCoinText(int coin)
     {
