@@ -59,7 +59,7 @@ public class PlayerController : CharacterController
             SetPant(GameObjectPools.GetInstance().pantMaterials[index - 1]);
         else
         {
-            Debug.Log("No Pant");
+            SetPant(null);
         }
         try
         {

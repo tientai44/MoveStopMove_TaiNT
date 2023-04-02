@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class SaveLoadManager : GOSingleton<SaveLoadManager>
@@ -12,9 +10,9 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
     {
         public Data()
         {
-            Coin = 0;
-            //WeaponCurrent = "Axe";
-            IdPantMaterialCurrent = 1;
+            Coin = 99999;
+            WeaponCurrent = "Axe";
+            IdPantMaterialCurrent = 0;
             //HeadCurrent = "Head1";
             WeaponOwners = new List<WeaponType>();
             PantOwners = new List<int>();
@@ -41,7 +39,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         public int LevelID { get; set; }
     }
 
-    [SerializeField] private string saveFileName = Constant.SAVE_FILE_NAME;
+     private string saveFileName = Constant.SAVE_FILE_NAME;
     [SerializeField] private bool loadOnStart = true;
     private Data data;
     private BinaryFormatter formatter;
@@ -73,11 +71,12 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
             try
             {
                 data = (Data)formatter.Deserialize(file);
+                //data = new Data();
                 if (data.Coin <1000)
                 {
                     data.Coin = 9999;
                 }
-                if (data.WeaponCurrent == "")
+                if (data.WeaponCurrent == null)
                 {
                     data.WeaponCurrent = "Axe";
                 }
@@ -97,10 +96,10 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
                 {
                     data.EquipOwners = new List<Equipment>();
                 }
-                if(data.HeadCurrent == null)
-                {
-                    data.HeadCurrent = "Head1";
-                }
+                //if(data.HeadCurrent == null)
+                //{
+                //    data.HeadCurrent = "Head1";
+                //}
                 if (data.ShieldOwners == null)
                 {
                     data.ShieldOwners = new List<string>();

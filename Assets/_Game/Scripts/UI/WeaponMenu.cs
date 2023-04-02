@@ -103,6 +103,8 @@ public class WeaponMenu : UICanvas
             SaveLoadManager.GetInstance().Save();
             Debug.Log("Success Buy");
             SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
+            ButtonBuy.SetActive(false);
+            ButtonEquip.SetActive(true);
         }
         else
         {
