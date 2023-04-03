@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
-
+using Image = UnityEngine.UI.Image;
 
 public class SkinMenu : UICanvas
 {
@@ -20,78 +20,131 @@ public class SkinMenu : UICanvas
     List<EquipButton> equipButtons = new List<EquipButton>();
     [SerializeField] GameObject buttonBuy;
     [SerializeField] GameObject buttonEquip;
+    [SerializeField] List<Image> buttonImages;
     ChoiceButton choiceButton;
     Equipment currentEquipment;
+    EquipButton currentButton;
 
     public Equipment CurrentEquipment { get => currentEquipment; set => currentEquipment = value; }
     public GameObject ButtonBuy { get => buttonBuy; set => buttonBuy = value; }
     public GameObject ButtonEquip { get => buttonEquip; set => buttonEquip = value; }
+    public EquipButton CurrentButton { get => currentButton; set => currentButton = value; }
 
     public override void Open()
     {
         base.Open();
         SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
         CameraFollow.GetInstance().ZoomIn();
-        
+
         ButtonBuy.SetActive(false);
         ButtonEquip.SetActive(false);
     }
+    public void SetOffPrevButton()
+    {
+        if (choiceButton is ChoiceButton.Head)
+        {
+            buttonImages[0].color = Color.black;
+        }
+        else if (choiceButton is ChoiceButton.Pant)
+        {
+            buttonImages[1].color = Color.black;
+        }
+        else if (choiceButton is ChoiceButton.Shield)
+        {
+            buttonImages[2].color = Color.black;
+        }
+        if (choiceButton is ChoiceButton.Set)
+        {
+            buttonImages[3].color = Color.black;
+        }
+    }
+    public void SetOnCurrentButton()
+    {
+        if (choiceButton is ChoiceButton.Head)
+        {
+            buttonImages[0].color = Color.black;
+        }
+        else if (choiceButton is ChoiceButton.Pant)
+        {
+            buttonImages[1].color = Color.black;
+        }
+        else if (choiceButton is ChoiceButton.Shield)
+        {
+            buttonImages[2].color = Color.black;
+        }
+        if (choiceButton is ChoiceButton.Set)
+        {
+            buttonImages[3].color = Color.black;
+        }
+    }
     public void HeadButton()
     {
-        SetUpButton(headTextures, StaticData.headEquipments,ChoiceButton.Head);
+        SetOffPrevButton();
+        SetUpButton(headTextures, StaticData.headEquipments, ChoiceButton.Head);
         choiceButton = ChoiceButton.Head;
+        buttonImages[0].color = Color.gray;
     }
 
     public void PantsButton()
     {
-        SetUpButton(pantTextures, StaticData.pantEquipments,ChoiceButton.Pant);
+        SetOffPrevButton();
+        SetUpButton(pantTextures, StaticData.pantEquipments, ChoiceButton.Pant);
         choiceButton = ChoiceButton.Pant;
+        buttonImages[1].color = Color.gray;
+
     }
 
     public void ArmSkinButton()
     {
-        SetUpButton(armSkinTextures, StaticData.shieldEquipments,ChoiceButton.Shield);
+        SetOffPrevButton();
+        SetUpButton(armSkinTextures, StaticData.shieldEquipments, ChoiceButton.Shield);
         choiceButton = ChoiceButton.Shield;
+        buttonImages[2].color = Color.gray;
     }
     public void SkinButton()
     {
-        SetUpButton(skinTextures, StaticData.setEquipments,ChoiceButton.Set);
+        SetOffPrevButton();
+        SetUpButton(skinTextures, StaticData.setEquipments, ChoiceButton.Set);
         choiceButton = ChoiceButton.Set;
+        buttonImages[3].color = Color.gray;
+
     }
-    public void BuyButton() {
+    public void BuyButton()
+    {
         int currentCoin = SaveLoadManager.GetInstance().Data1.Coin;
         int price = currentEquipment.Price;
-        if (currentCoin>= price )
+        if (currentCoin >= price)
         {
-            currentCoin-= price;
+            currentCoin -= price;
             SetCoinText(currentCoin);
             SaveLoadManager.GetInstance().Data1.Coin = currentCoin;
             if (choiceButton is ChoiceButton.Pant)
             {
                 SaveLoadManager.GetInstance().Data1.PantOwners.Add(currentEquipment.Id);
             }
-            if(choiceButton is ChoiceButton.Head)
+            if (choiceButton is ChoiceButton.Head)
             {
                 SaveLoadManager.GetInstance().Data1.HeadOwners.Add(currentEquipment.Name);
             }
-            if(choiceButton is ChoiceButton.Shield)
+            if (choiceButton is ChoiceButton.Shield)
             {
                 SaveLoadManager.GetInstance().Data1.ShieldOwners.Add(currentEquipment.Name);
 
             }
-            if(choiceButton is ChoiceButton.Set)
+            if (choiceButton is ChoiceButton.Set)
             {
                 SaveLoadManager.GetInstance().Data1.SetOwners.Add(currentEquipment.Name);
             }
             buttonBuy.SetActive(false);
             buttonEquip.SetActive(true);
+            currentButton.SetUnlock();
             SaveLoadManager.GetInstance().Save();
         }
         else
         {
             return;
-        }          
-        
+        }
+
     }
     public void EquipButton()
     {
@@ -100,7 +153,7 @@ public class SkinMenu : UICanvas
             SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent = currentEquipment.Id;
 
         }
-        if(choiceButton is ChoiceButton.Head)
+        if (choiceButton is ChoiceButton.Head)
         {
             SaveLoadManager.GetInstance().Data1.HeadCurrent = currentEquipment.Name;
         }
@@ -108,7 +161,7 @@ public class SkinMenu : UICanvas
         {
             SaveLoadManager.GetInstance().Data1.ShieldCurent = currentEquipment.Name;
         }
-        if(choiceButton is ChoiceButton.Set)
+        if (choiceButton is ChoiceButton.Set)
         {
             SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent = currentEquipment.IdPant;
             SaveLoadManager.GetInstance().Data1.HeadCurrent = currentEquipment.HeadName;
@@ -117,10 +170,11 @@ public class SkinMenu : UICanvas
         }
         SaveLoadManager.GetInstance().Save();
     }
-    
+
     public void ReturnButton()
     {
         ClearButton();
+        SetOffPrevButton();
         NewUIManager.GetInstance().OpenUI<MainMenu>();
         Close(0.5f);
     }
@@ -141,9 +195,10 @@ public class SkinMenu : UICanvas
 
         }
     }
-    public void SetUpButton(List<Texture2D> textures, List<Equipment> equipments,ChoiceButton choiceButton)
+    public void SetUpButton(List<Texture2D> textures, List<Equipment> equipments, ChoiceButton choiceButton)
     {
         ClearButton();
+        
         for (int i = 0; i < textures.Count; i++)
         {
             //equipButtonPrefabs.GetComponent<RawImage>().texture = textures[i];
@@ -154,6 +209,7 @@ public class SkinMenu : UICanvas
             equipButtons[i].EquipmentInfor = equipments[i];
             equipButtons[i].PriceText = priceText;
             equipButtons[i].ChoiceButton = choiceButton;
+            equipButtons[i].CheckLock();
         }
     }
     public override void Close(float delayTime)

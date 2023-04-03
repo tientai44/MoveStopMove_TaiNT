@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelManager : GOSingleton<LevelManager>
 {
@@ -16,11 +17,31 @@ public class LevelManager : GOSingleton<LevelManager>
     }
     public void LoadLevel()
     {
+        if(currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+        }
         GameController.GetInstance().cameraFollow.ResetOffset();
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
         GameController.GetInstance().OnInit(currentLevel);
+            //
+        //NavMesh.RemoveAllNavMeshData();
+        //NavMesh.AddNavMeshData(meshData);
     }
+    public void LoadBackGround()
+    {
+        if(currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+        }
+        GameController.GetInstance().cameraFollow.ResetOffset();
+        GameController.GetInstance().ClearObjectSpawn();
+        currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
+
+    }
+    [SerializeField] NavMeshData meshData;
+
     public void NextLevel()
     {
         Destroy(currentLevel.gameObject);

@@ -8,7 +8,8 @@ public class GameController : GOSingleton<GameController>
     [SerializeField] private int Alive;
     [SerializeField] private List<Transform> l_character = new List<Transform>();
     [SerializeField] private List<Transform> l_SpawnBot = new List<Transform>();
-    public FixedJoystick joystick;
+    //public FixedJoystick joystick;
+    public FloatingJoystick joystick;
     public CameraFollow cameraFollow;
     public int numBot = 10;
     public int numSpawn;

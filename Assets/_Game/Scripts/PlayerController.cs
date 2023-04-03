@@ -13,7 +13,8 @@ enum PlayerState
 public class PlayerController : CharacterController
 {
     private Vector3 moveVector;
-    [SerializeField]private FixedJoystick _joystick;
+    //[SerializeField]private FixedJoystick _joystick;
+    private FloatingJoystick _joystick;
     PlayerState myState;
     float timerDeath = 0f;
     internal PlayerState MyState { get => myState; set => myState = value; }
@@ -30,7 +31,8 @@ public class PlayerController : CharacterController
     public override void OnInit()
     {
         base.OnInit();
-        _joystick = FindObjectOfType<FixedJoystick>();
+        //_joystick = FindObjectOfType<FixedJoystick>();
+        _joystick = FindObjectOfType<FloatingJoystick>();
         if(_joystick !=null)
             _joystick.OnInit();
         GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
@@ -101,11 +103,11 @@ public class PlayerController : CharacterController
         }
         if (targetAttack != null)
         {
-            targetAttack.GetComponent<BotController>().EnableCircleTarget();
+            (targetAttack as BotController).EnableCircleTarget();
         }
         if (!L_AttackTarget.Contains(targetAttack)&targetAttack!=null)
         {
-            targetAttack.GetComponent<BotController>().UnEnableCircleTarget();
+            (targetAttack as BotController).UnEnableCircleTarget();
         }
         Run();
         if (targetAttack != null && targetAttack.GetComponent<CharacterController>().IsDead)
