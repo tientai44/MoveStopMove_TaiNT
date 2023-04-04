@@ -8,7 +8,7 @@ public class LevelManager : GOSingleton<LevelManager>
     private int levelId=0;
     [SerializeField] private LevelController currentLevel;
     [SerializeField] List<GameObject> allLevelPrefabs;
-
+    //[SerializeField] NavMeshData meshData;
     public LevelController CurrentLevel { get => currentLevel; set => currentLevel = value; }
 
     void Goto(int level)
@@ -25,22 +25,22 @@ public class LevelManager : GOSingleton<LevelManager>
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
         GameController.GetInstance().OnInit(currentLevel);
-            //
+            
         //NavMesh.RemoveAllNavMeshData();
         //NavMesh.AddNavMeshData(meshData);
     }
     public void LoadBackGround()
     {
-        if(currentLevel != null)
-        {
-            Destroy(currentLevel.gameObject);
-        }
+        //if(currentLevel != null)
+        //{
+        //    Destroy(currentLevel.gameObject);
+        //}
         GameController.GetInstance().cameraFollow.ResetOffset();
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
 
     }
-    [SerializeField] NavMeshData meshData;
+    
 
     public void NextLevel()
     {

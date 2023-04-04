@@ -10,9 +10,10 @@ public class CameraFollow : GOSingleton<CameraFollow>
     [SerializeField] AnimationCurve curve;
     [SerializeField] Transform player;
     Vector3 intialOffset = new Vector3(0, 15, -30);
-    Vector3 offset = new Vector3(0, 15, -30);
+    [SerializeField]Vector3 offset = new Vector3(0, 15, -30);
     [SerializeField]Vector3 zoomInOffset = new Vector3(0,5,-15);
-    float speedCamera = 0.5f;
+    float speedCamera = 0.2f;
+    private Vector3 velocity = Vector3.zero;
 
     public Vector3 Offset { get => offset; set => offset = value; }
     private void Start()
@@ -21,10 +22,13 @@ public class CameraFollow : GOSingleton<CameraFollow>
         curve.Evaluate(0.5f);
     }
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(player != null)
-            transform.position = Vector3.Lerp(transform.position, player.position+offset,speedCamera);
+        if (player != null)
+        {
+            //transform.position = Vector3.SmoothDamp(transform.position, player.position + offset, ref velocity, speedCamera);
+            transform.position = Vector3.Lerp(transform.position, player.position + offset, speedCamera);
+        }
     }
     public void SetTargetFollow(Transform target)
     {
@@ -38,7 +42,7 @@ public class CameraFollow : GOSingleton<CameraFollow>
     {
         GameController.GetInstance().currentPlayer.transform.rotation = new Quaternion(0, 0, 0, 0);
         offset = intialOffset;
-        speedCamera = 0.5f;
+        speedCamera = 0.2f;
     }
     public void ZoomIn()
     {

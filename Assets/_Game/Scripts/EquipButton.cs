@@ -128,7 +128,6 @@ public class EquipButton : MonoBehaviour
     {
         if (choiceButton is ChoiceButton.Pant)
         {
-            GameController.GetInstance().currentPlayer.SetPant(GameObjectPools.GetInstance().pantMaterials[equipmentInfor.Id - 1]);
             if (SaveLoadManager.GetInstance().Data1.PantOwners.Contains(equipmentInfor.Id))
             {
                 SetUnlock();
@@ -140,7 +139,6 @@ public class EquipButton : MonoBehaviour
         }
         if (choiceButton is ChoiceButton.Head)
         {
-            GameController.GetInstance().currentPlayer.SetHead(StaticData.HeadEnum[equipmentInfor.Name]);
             if (SaveLoadManager.GetInstance().Data1.HeadOwners.Contains(equipmentInfor.Name))
             {
                 SetUnlock();
@@ -152,7 +150,6 @@ public class EquipButton : MonoBehaviour
         }
         if (choiceButton is ChoiceButton.Shield)
         {
-            GameController.GetInstance().currentPlayer.SetShield(StaticData.ShieldEnum[equipmentInfor.Name]);
             if (SaveLoadManager.GetInstance().Data1.ShieldOwners.Contains(equipmentInfor.Name))
             {
                 SetUnlock();
@@ -164,7 +161,6 @@ public class EquipButton : MonoBehaviour
         }
         if (choiceButton is ChoiceButton.Set)
         {
-            GameController.GetInstance().currentPlayer.SetFullSet(StaticData.SetEnum[equipmentInfor.Name]);
 
             if (SaveLoadManager.GetInstance().Data1.SetOwners.Contains(equipmentInfor.Name))
             {

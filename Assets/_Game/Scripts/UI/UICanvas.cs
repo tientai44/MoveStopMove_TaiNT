@@ -86,13 +86,13 @@ public class UICanvas : MonoBehaviour
     }
     public void UnEnableEffectButton()
     {
-        GameObjectPools.GetInstance().ReturnToPool("ClickButtonEffect", effectButton.gameObject);  
+        //GameObjectPools.GetInstance().ReturnToPool("ClickButtonEffect", effectButton.gameObject);  
     } 
     public void EnableEffectButton(Button button)
     {
-        effectButton = GameObjectPools.GetInstance().GetFromPool("ClickButtonEffect", button.transform.position).GetComponent<ParticleSystem>();
-        effectButton.transform.SetParent(FindObjectOfType<CanvasVFX>().transform);
-        effectButton.Play();
+        //effectButton = GameObjectPools.GetInstance().GetFromPool("ClickButtonEffect", button.transform.position).GetComponent<ParticleSystem>();
+        //effectButton.transform.SetParent(FindObjectOfType<CanvasVFX>().transform);
+        //effectButton.Play();
     }
     public void ChangeAnim(string animName)
     {

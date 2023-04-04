@@ -85,6 +85,7 @@ public class PlayerController : CharacterController
     {
         if (_joystick == null)
         {
+            
             return;
         }
         if ( myState is PlayerState.Death)

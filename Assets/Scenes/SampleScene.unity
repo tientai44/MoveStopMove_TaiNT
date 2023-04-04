@@ -475,7 +475,6 @@ MonoBehaviour:
   allLevelPrefabs:
   - {fileID: 6562342110880548484, guid: 45d73728bb5530d4a8036c8f785360a6, type: 3}
   - {fileID: 7307055988044713888, guid: 0eaedd99c9202ab4bb9d0451a539b4d8, type: 3}
-  meshData: {fileID: 0}
 --- !u!4 &303611065
 Transform:
   m_ObjectHideFlags: 0
@@ -604,7 +603,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -824,6 +823,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   player: {fileID: 0}
+  offset: {x: 0, y: 15, z: -30}
   zoomInOffset: {x: 0, y: 5, z: -15}
 --- !u!114 &963194230
 MonoBehaviour:
