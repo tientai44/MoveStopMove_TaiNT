@@ -198,9 +198,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 5.300475
+  m_Height: 2.6214943
   m_Direction: 1
-  m_Center: {x: 0, y: 1.4447985, z: 0}
+  m_Center: {x: 0, y: 0.105308056, z: 0}
 --- !u!54 &4617855062696380406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 2c501afb60724434fb6390c648805913, type: 2}
   l_AttackTarget: []
   IsDead: 0
+  myState: 0
 --- !u!195 &4617855062696380396
 NavMeshAgent:
   m_ObjectHideFlags: 0

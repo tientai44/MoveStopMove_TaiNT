@@ -154,7 +154,7 @@ public class CharacterController : MonoBehaviour
         BulletController bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position).GetComponent<BulletController>();
         bullet/*.GetComponent<BulletController>()*/.tagWeapon = currentWeapon;
         bullet.TF.rotation = transform.rotation;
-        bullet/*.GetComponent<Rigidbody>()*/.AddForce(direct.x * force_Throw, 0, direct.z * force_Throw);
+        bullet/*.GetComponent<Rigidbody>()*/.AddForce(direct.x * force_Throw, direct.y*force_Throw, direct.z * force_Throw);
         bullet/*.GetComponent<BulletController>()*/.SetOwner(this);
         bullet.TF.localScale *= (1 + 0.1f * point);
         yield return new WaitForSeconds(attackTime*0.5f);

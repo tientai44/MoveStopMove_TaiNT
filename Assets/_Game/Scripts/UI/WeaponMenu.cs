@@ -15,6 +15,8 @@ public class WeaponMenu : UICanvas
     [SerializeField] private Transform weaponShowPos;
     [SerializeField] private GameObject ButtonBuy;
     [SerializeField] private GameObject ButtonEquip;
+    [SerializeField] TextMeshProUGUI equipText;
+
     private int page=0;
     private Camera cameraShowWeapon;
     protected override void OnInit()
@@ -44,6 +46,14 @@ public class WeaponMenu : UICanvas
         {
             ButtonBuy.SetActive(false);
             ButtonEquip.SetActive(true);
+            if (SaveLoadManager.GetInstance().Data1.WeaponCurrent != weaponTypes[page].ToString())
+            {
+                SetEquipText(Constant.EQUIP_STRING);
+            }
+            else
+            {
+                SetEquipText(Constant.EQUIPED_STRING);
+            }
         }
         else
         {
@@ -76,6 +86,7 @@ public class WeaponMenu : UICanvas
             SaveLoadManager.GetInstance().Data1.WeaponCurrent = weaponTypeShowing.ToString();
             Debug.Log("Equip " + weaponTypeShowing.ToString());
             GameController.GetInstance().currentPlayer.OnInit();
+            SetEquipText(Constant.EQUIPED_STRING);
             SaveLoadManager.GetInstance().Save();
         }
         else
@@ -105,6 +116,7 @@ public class WeaponMenu : UICanvas
             SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
             ButtonBuy.SetActive(false);
             ButtonEquip.SetActive(true);
+            SetEquipText(Constant.EQUIP_STRING);
         }
         else
         {
@@ -115,6 +127,8 @@ public class WeaponMenu : UICanvas
     {
         if (page >= weaponTypes.Count - 1)
         {
+            page = 0;
+            SetPageInformation(page);
             return;
         }
         page++;
@@ -124,6 +138,8 @@ public class WeaponMenu : UICanvas
     {
         if (page <= 0)
         {
+            page = weaponTypes.Count-1;
+            SetPageInformation(page);
             return;
         }
         page--;
@@ -132,5 +148,9 @@ public class WeaponMenu : UICanvas
     public void SetCoinText(int coin)
     {
         coinText.text = coin.ToString();
+    }
+    public void SetEquipText(string text)
+    {
+        equipText.text = text;
     }
 }

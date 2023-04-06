@@ -21,6 +21,7 @@ public class Constant
     public const string BACKGROUND_MUSIC_NAME = "Nhac nen";
     public const string DEATH_MUSIC_NAME = "Chet 3";
     public const string LOSE_MUSIC_NAME = "Lose";
+    public const string WIN_MUSIC_NAME = "Victory";
     public const string EQUIP_STRING = "Equip";
     public const string EQUIPED_STRING = "Equiped";
     public const string POINT_TAG = "PointTag";

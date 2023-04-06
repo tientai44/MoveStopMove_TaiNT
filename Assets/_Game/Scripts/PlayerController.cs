@@ -213,6 +213,7 @@ public class PlayerController : CharacterController
     {
         myState = PlayerState.Win;
         ChangeAnim(Constant.ANIM_DANCE);
+        SoundManager2.GetInstance().PlaySound(Constant.WIN_MUSIC_NAME);
         StopAllCoroutines();
     }
 }

@@ -20,7 +20,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
             ShieldOwners = new List<string>();
             SetOwners = new List<string>();
             EquipOwners = new List<Equipment>();
-            LevelID = 1;
+            LevelID = 0;
         }
         public int IdPantMaterialCurrent { get; set; }
         public string WeaponCurrent { get; set; } 
@@ -72,10 +72,10 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
             {
                 data = (Data)formatter.Deserialize(file);
                 //data = new Data();
-                if (data.Coin <1000)
-                {
-                    data.Coin = 9999;
-                }
+                //if (data.Coin <1000)
+                //{
+                //    data.Coin = 9999;
+                //}
                 if (data.WeaponCurrent == null)
                 {
                     data.WeaponCurrent = "Axe";

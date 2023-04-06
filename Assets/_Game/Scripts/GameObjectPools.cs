@@ -103,6 +103,7 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         //LevelManager.GetInstance().LoadLevel();
         //GameController.GetInstance().L_character = SpawnManager.GetInstance().SpawnBot(GameController.GetInstance().numBot);
         //GetFromPool("Player", Vector3.zero);
+        
         LevelManager.GetInstance().LoadBackGround();
         NewUIManager.GetInstance().OpenUI<MainMenu>();
     }

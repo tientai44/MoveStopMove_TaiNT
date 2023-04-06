@@ -35,6 +35,7 @@ public class LevelManager : GOSingleton<LevelManager>
         //{
         //    Destroy(currentLevel.gameObject);
         //}
+        levelId = SaveLoadManager.GetInstance().Data1.LevelID;
         GameController.GetInstance().cameraFollow.ResetOffset();
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
@@ -46,6 +47,8 @@ public class LevelManager : GOSingleton<LevelManager>
     {
         Destroy(currentLevel.gameObject);
         levelId++;
+        SaveLoadManager.GetInstance().Data1.LevelID = levelId;
+        SaveLoadManager.GetInstance().Save();
         LoadLevel();
     }
     public void Replay()
