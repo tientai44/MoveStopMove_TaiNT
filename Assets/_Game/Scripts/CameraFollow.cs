@@ -9,9 +9,9 @@ public class CameraFollow : GOSingleton<CameraFollow>
 {
     [SerializeField] AnimationCurve curve;
     [SerializeField] Transform player;
-    Vector3 intialOffset = new Vector3(0, 15, -30);
-    [SerializeField]Vector3 offset = new Vector3(0, 15, -30);
-    [SerializeField]Vector3 zoomInOffset = new Vector3(0,5,-15);
+    Vector3 intialOffset = new Vector3(0, 15, -20);
+    [SerializeField]Vector3 offset = new Vector3(0, 15, -20);
+    [SerializeField]Vector3 zoomInOffset = new Vector3(0,5,-10);
     float speedCamera = 0.2f;
     private Vector3 velocity = Vector3.zero;
 

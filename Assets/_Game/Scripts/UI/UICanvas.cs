@@ -26,17 +26,17 @@ public class UICanvas : MonoBehaviour
         m_Animator = GetComponent<Animator>();
 
         // xu ly tai tho
-        float ratio = (float)Screen.height / (float)Screen.width;
-        if (ratio > 2.1f)
-        {
-            Vector2 leftBottom = m_RectTransform.offsetMin;
-            Vector2 rightTop = m_RectTransform.offsetMax;
-            rightTop.y = -100f;
-            m_RectTransform.offsetMax = rightTop;
-            leftBottom.y = 0f;
-            m_RectTransform.offsetMin = leftBottom;
-            m_OffsetY = 100f;
-        }
+        //float ratio = (float)Screen.height / (float)Screen.width;
+        //if (ratio > 2.1f)
+        //{
+        //    Vector2 leftBottom = m_RectTransform.offsetMin;
+        //    Vector2 rightTop = m_RectTransform.offsetMax;
+        //    rightTop.y = -100f;
+        //    m_RectTransform.offsetMax = rightTop;
+        //    leftBottom.y = 0f;
+        //    m_RectTransform.offsetMin = leftBottom;
+        //    m_OffsetY = 100f;
+        //}
     }
 
     //Setup canvas to avoid flash UI
@@ -86,13 +86,16 @@ public class UICanvas : MonoBehaviour
     }
     public void UnEnableEffectButton()
     {
-        //GameObjectPools.GetInstance().ReturnToPool("ClickButtonEffect", effectButton.gameObject);  
+        if (effectButton != null)
+        {
+            GameObjectPools.GetInstance().ReturnToPool("ClickButtonEffect", effectButton.gameObject);
+        }
     } 
     public void EnableEffectButton(Button button)
     {
-        //effectButton = GameObjectPools.GetInstance().GetFromPool("ClickButtonEffect", button.transform.position).GetComponent<ParticleSystem>();
-        //effectButton.transform.SetParent(FindObjectOfType<CanvasVFX>().transform);
-        //effectButton.Play();
+        effectButton = GameObjectPools.GetInstance().GetFromPool("ClickButtonEffect", button.transform.position).GetComponent<ParticleSystem>();
+        effectButton.transform.SetParent(FindObjectOfType<CanvasVFX>().transform);
+        effectButton.Play();
     }
     public void ChangeAnim(string animName)
     {

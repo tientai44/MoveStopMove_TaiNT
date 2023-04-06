@@ -475,6 +475,9 @@ MonoBehaviour:
   allLevelPrefabs:
   - {fileID: 6562342110880548484, guid: 45d73728bb5530d4a8036c8f785360a6, type: 3}
   - {fileID: 7307055988044713888, guid: 0eaedd99c9202ab4bb9d0451a539b4d8, type: 3}
+  - {fileID: 1555737195675055050, guid: 8937ab04f8380f74a8013b1e6d575619, type: 3}
+  - {fileID: 2980079127962847927, guid: df57eb13eaee22b4da85bee6e8f3c55d, type: 3}
+  - {fileID: 8168129564851606144, guid: 3989733e5485af94ba5bcc5069ffcc4c, type: 3}
 --- !u!4 &303611065
 Transform:
   m_ObjectHideFlags: 0
@@ -778,14 +781,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 15, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,8 +826,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   player: {fileID: 0}
-  offset: {x: 0, y: 15, z: -30}
-  zoomInOffset: {x: 0, y: 5, z: -15}
+  offset: {x: 0, y: 15, z: -20}
+  zoomInOffset: {x: 0, y: 5, z: -10}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,6 +1192,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1300203956475821809, guid: 86c47edc7abf870419b27db0c639d6ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1300203956475821811, guid: 86c47edc7abf870419b27db0c639d6ed, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1300203956475821812, guid: 86c47edc7abf870419b27db0c639d6ed, type: 3}
@@ -1726,6 +1733,10 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: Hat_Thor
+  - poolObjectPrefab: {fileID: 8092529037681194183, guid: 994f12bc529bad245807197a5723a59c, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: PointTag
   pantMaterials:
   - {fileID: 2100000, guid: fdd1705118ee76641a362635c6ff4e78, type: 2}
   - {fileID: 2100000, guid: 04ec82f02e222794dbf82b6ba14a9e3c, type: 2}
@@ -1745,6 +1756,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b09aa1ea175802c44af70f50d8685342, type: 2}
   - {fileID: 2100000, guid: e4cc39ad0b5f7cb45be4192cc4164991, type: 2}
   - {fileID: 2100000, guid: f026099768b9f534c92f608531ebeab8, type: 2}
+  - {fileID: 2100000, guid: e4e7c84c26b0e8a4196e7be9423ab3c6, type: 2}
+  - {fileID: 2100000, guid: a3235092c550a0f46a15544af4e5fc2e, type: 2}
+  - {fileID: 2100000, guid: 852013d7532a78549beda799d0fb04dc, type: 2}
 --- !u!114 &1909673599
 MonoBehaviour:
   m_ObjectHideFlags: 0

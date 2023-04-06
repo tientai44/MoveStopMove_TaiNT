@@ -27,7 +27,7 @@ public class CharacterController : MonoBehaviour
     protected float timer = 0;
     protected bool isReadyAttack=false;
     protected float waitThrow = 0.4f;
-    protected int point=0;
+    private int point = 0;
     [SerializeField]private float rangeDetect;
     private float intialRadiusSightZone;
     [SerializeField] SphereCollider sightZone;
@@ -48,7 +48,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected Transform tailPos;
     [SerializeField] protected SetType currentSetType;
     [SerializeField] protected ParticleSystem bloodSystem;
-    [SerializeField]protected SkinnedMeshRenderer colorSkin;
+    [SerializeField] private SkinnedMeshRenderer colorSkin;
     [SerializeField] protected Material defaultMaterial;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
@@ -95,6 +95,8 @@ public class CharacterController : MonoBehaviour
     }
 
     public ParticleSystem BloodSystem { get => bloodSystem; set => bloodSystem = value; }
+    public int Point { get => point; set => point = value; }
+    public SkinnedMeshRenderer ColorSkin { get => colorSkin; set => colorSkin = value; }
 
     public bool IsDead = false;
 
@@ -335,14 +337,14 @@ public class CharacterController : MonoBehaviour
         }
         colorSkin.material = defaultMaterial;
     }
-    public void UpPoint(int point)
+    public virtual void UpPoint(int point)
     {
         this.point += point;
-        if(this is PlayerController)
-        {
-            //TODO: vi phong nguyen tac dong goi
-            GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
-        }
+        //if(this is PlayerController)
+        //{
+        //    //TODO: vi phong nguyen tac dong goi
+        //    GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
+        //}
         TF.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
         
     }

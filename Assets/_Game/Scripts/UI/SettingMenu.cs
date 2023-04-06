@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SettingMenu : UICanvas
 {
+    //[SerializeField] private ToggleController _toggleController;
     public void ReturnButton()
     {
         NewUIManager.GetInstance().OpenUI<PlayingMenu>();
@@ -22,6 +23,7 @@ public class SettingMenu : UICanvas
     public void CheckBoxEffect()
     {
         SoundManager2.GetInstance().SwitchMusicEffect();
+        //_toggleController.SwitchAnim();
     }
     public void HomeButton()
     {

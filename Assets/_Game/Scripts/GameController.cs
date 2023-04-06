@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using UnityEngine;
 
 public class GameController : GOSingleton<GameController>
@@ -14,6 +15,7 @@ public class GameController : GOSingleton<GameController>
     public int numBot = 10;
     public int numSpawn;
     public PlayerController currentPlayer;
+    private float timeWait=5f;
     public List<Transform> L_character { get => l_character; set => l_character = value; }
     public int NumSpawn { get => numSpawn; set => numSpawn = value; }
     public List<Transform> L_SpawnBot { get => l_SpawnBot; set => l_SpawnBot = value; }
@@ -64,8 +66,20 @@ public class GameController : GOSingleton<GameController>
         NewUIManager.GetInstance().GetUI<PlayingMenu>().SetAliveText(Alive);
         if (Alive == 0)
         {
-            Win();
+            StartCoroutine(ReadyWin(timeWait));            
+            
         }
+    }
+    public IEnumerator ReadyWin(float time)
+    {
+        cameraFollow.ZoomIn();
+        currentPlayer.Win();
+        currentPlayer.ChangeAnim(Constant.ANIM_DANCE);
+        yield return new WaitForSeconds(time);
+        cameraFollow.ZoomOut();
+        Win();
+
+        
     }
     public Vector3 GetRandomSpawnPos()
     {
@@ -90,6 +104,7 @@ public class GameController : GOSingleton<GameController>
     {
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
+        ClearObjectSpawn();
         //UIManager.GetInstance().DisplayWinPanel();
         NewUIManager.GetInstance().CloseAll();
         NewUIManager.GetInstance().OpenUI<WinMenu>();
@@ -104,6 +119,7 @@ public class GameController : GOSingleton<GameController>
     {
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Player.ToString());
+        ClearObjectSpawn();
         //UIManager.GetInstance().DisplayLosePanel();
         NewUIManager.GetInstance().CloseAll();
         NewUIManager.GetInstance().OpenUI<LoseMenu>();
@@ -119,5 +135,6 @@ public class GameController : GOSingleton<GameController>
         GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Boomerang.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Candy0.ToString());
         GameObjectPools.GetInstance().ClearObjectActive(WeaponType.Axe.ToString());
+        GameObjectPools.GetInstance().ClearObjectActive(Constant.POINT_TAG);
     }
 }

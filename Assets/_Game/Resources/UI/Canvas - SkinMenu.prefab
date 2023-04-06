@@ -2707,6 +2707,7 @@ MonoBehaviour:
   - {fileID: 7133020238999057971}
   - {fileID: 7590721224835139699}
   - {fileID: 120011925469652038}
+  equipText: {fileID: 4517664789509148689}
 --- !u!95 &5841669731594534272
 Animator:
   serializedVersion: 4
@@ -2849,7 +2850,7 @@ GameObject:
   - component: {fileID: 8644598052186495756}
   - component: {fileID: 4517664789509148689}
   m_Layer: 5
-  m_Name: PriceText
+  m_Name: EquipText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

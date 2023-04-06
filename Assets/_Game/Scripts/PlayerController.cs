@@ -8,14 +8,14 @@ using Random = UnityEngine.Random;
 
 enum PlayerState
 {
-    Attacked,Attacking,Death,Run,Idle
+    Attacked,Attacking,Death,Run,Idle,Win
 }
 public class PlayerController : CharacterController
 {
     private Vector3 moveVector;
     //[SerializeField]private FixedJoystick _joystick;
     private FloatingJoystick _joystick;
-    PlayerState myState;
+    [SerializeField]PlayerState myState;
     float timerDeath = 0f;
     internal PlayerState MyState { get => myState; set => myState = value; }
 
@@ -83,9 +83,8 @@ public class PlayerController : CharacterController
     // Update is called once per frame
     protected override void  Update()
     {
-        if (_joystick == null)
+        if (_joystick == null || myState == PlayerState.Win )
         {
-            
             return;
         }
         if ( myState is PlayerState.Death)
@@ -152,7 +151,7 @@ public class PlayerController : CharacterController
         }
         else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
         {
-            if (myState == PlayerState.Attacked || myState == PlayerState.Attacking)
+            if (myState == PlayerState.Attacked || myState == PlayerState.Attacking || myState == PlayerState.Win)
             {
 
             }
@@ -170,7 +169,8 @@ public class PlayerController : CharacterController
         yield return new WaitForSeconds(attackTime);
         //isAttack = false;
         //isAttacking = false;
-        myState = PlayerState.Idle;
+        //if (myState != PlayerState.Win)
+            myState = PlayerState.Idle;
     }
     IEnumerator ActiveAttack()
     {
@@ -204,5 +204,15 @@ public class PlayerController : CharacterController
         StartCoroutine(ResetAttack());
     }
 
-
+    public override void UpPoint(int point)
+    {
+        base.UpPoint(point);
+        GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1);
+    }
+    public void Win()
+    {
+        myState = PlayerState.Win;
+        ChangeAnim(Constant.ANIM_DANCE);
+        StopAllCoroutines();
+    }
 }

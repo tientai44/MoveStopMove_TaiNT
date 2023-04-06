@@ -21,6 +21,7 @@ public class SkinMenu : UICanvas
     [SerializeField] GameObject buttonBuy;
     [SerializeField] GameObject buttonEquip;
     [SerializeField] List<Image> buttonImages;
+    [SerializeField] TextMeshProUGUI equipText;
     ChoiceButton choiceButton;
     Equipment currentEquipment;
     EquipButton currentButton;
@@ -137,6 +138,7 @@ public class SkinMenu : UICanvas
             }
             buttonBuy.SetActive(false);
             buttonEquip.SetActive(true);
+            SetEquipText(Constant.EQUIP_STRING);
             currentButton.SetUnlock();
             SaveLoadManager.GetInstance().Save();
         }
@@ -168,6 +170,7 @@ public class SkinMenu : UICanvas
             SaveLoadManager.GetInstance().Data1.ShieldCurent = currentEquipment.ShieldName;
             SaveLoadManager.GetInstance().Data1.SetCurrent = currentEquipment.Name;
         }
+        SetEquipText(Constant.EQUIPED_STRING);
         SaveLoadManager.GetInstance().Save();
     }
 
@@ -178,6 +181,7 @@ public class SkinMenu : UICanvas
         NewUIManager.GetInstance().OpenUI<MainMenu>();
         Close(0.5f);
     }
+  
     public void SetCoinText(int coin)
     {
         coinText.text = coin.ToString();
@@ -186,13 +190,21 @@ public class SkinMenu : UICanvas
     {
         priceText.text = price.ToString();
     }
+    public void SetEquipText(string text)
+    {
+        equipText.text =text;
+    }
     public void ClearButton()
     {
-        while (equipButtons.Count != 0)
-        {
-            Destroy(equipButtons[0].gameObject);
-            equipButtons.RemoveAt(0);
+        //while (equipButtons.Count != 0)
+        //{
+        //    Destroy(equipButtons[0].gameObject);
+        //    equipButtons.RemoveAt(0);
 
+        //}
+        for(int i = 0; i < equipButtons.Count; i++)
+        {
+            equipButtons[i].gameObject.SetActive(false);
         }
     }
     public void SetUpButton(List<Texture2D> textures, List<Equipment> equipments, ChoiceButton choiceButton)
@@ -202,14 +214,27 @@ public class SkinMenu : UICanvas
         for (int i = 0; i < textures.Count; i++)
         {
             //equipButtonPrefabs.GetComponent<RawImage>().texture = textures[i];
-            EquipButton button = Instantiate(equipButtonPrefabs, scrollView).GetComponent<EquipButton>();
-            button.EquipImage.texture = textures[i];
-            button.SetSkinMenu(this);
-            equipButtons.Add(button);
-            equipButtons[i].EquipmentInfor = equipments[i];
-            equipButtons[i].PriceText = priceText;
-            equipButtons[i].ChoiceButton = choiceButton;
-            equipButtons[i].CheckLock();
+            if (i >= equipButtons.Count)
+            {
+                EquipButton button = Instantiate(equipButtonPrefabs, scrollView).GetComponent<EquipButton>();
+                button.EquipImage.texture = textures[i];
+                button.SetSkinMenu(this);
+                equipButtons.Add(button);
+                equipButtons[i].EquipmentInfor = equipments[i];
+                equipButtons[i].PriceText = priceText;
+                equipButtons[i].ChoiceButton = choiceButton;
+                equipButtons[i].CheckLock();
+            }
+            else
+            {
+                equipButtons[i].EquipImage.texture = textures[i];
+                equipButtons[i].SetSkinMenu(this);
+                equipButtons[i].EquipmentInfor=equipments[i];
+                equipButtons[i].PriceText = priceText;
+                equipButtons[i].ChoiceButton=choiceButton;
+                equipButtons[i].CheckLock();
+                equipButtons[i].gameObject.SetActive(true);
+            }
         }
     }
     public override void Close(float delayTime)

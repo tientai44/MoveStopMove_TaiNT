@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PointTagFollow : MonoBehaviour
+{
+    CharacterController characterController;
+    [SerializeField] TextMeshProUGUI pointText;
+    [SerializeField] Image BackGround;
+    private Transform tf;
+    private Vector3 offset = new Vector3(0,2.1f,0);
+    public Transform TF
+    {
+        get
+        {
+            //tf ??= GetComponent<Transform>();
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
+    }
+
+    public void SetOwner(CharacterController character)
+    {
+        characterController = character;
+        Color c = character.ColorSkin.material.color;
+        if (c != Color.white)
+        {
+            BackGround.color = c;
+        }
+        else
+        {
+            BackGround.color = Color.magenta;
+        }
+    }
+    private void Update()
+    {
+        if (characterController == null || !characterController.gameObject.activeSelf) {
+            GameObjectPools.GetInstance().ReturnToPool(Constant.POINT_TAG, this.gameObject);
+            return; 
+        }
+
+        pointText.text = characterController.Point.ToString();
+        TF.position = characterController.TF.position + offset + characterController.Point*new Vector3(0,0.2f,0);
+    }
+}

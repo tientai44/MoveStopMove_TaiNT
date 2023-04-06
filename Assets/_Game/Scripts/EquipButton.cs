@@ -51,7 +51,7 @@ public class EquipButton : MonoBehaviour
         if(Menu.CurrentButton!=null)
             Menu.CurrentButton.RawImage.color = Color.gray;
         Menu.CurrentButton = this;
-        rawImage.color = Color.white;
+        rawImage.color = Color.green;
         if (choiceButton is ChoiceButton.Pant)
         {
             GameController.GetInstance().currentPlayer.SetPant(GameObjectPools.GetInstance().pantMaterials[equipmentInfor.Id - 1]);
@@ -59,6 +59,14 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(false);
                 Menu.ButtonEquip.SetActive(true);
+                if (equipmentInfor.Id == SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent)
+                {
+                    Menu.SetEquipText(Constant.EQUIPED_STRING);
+                }
+                else
+                {
+                    Menu.SetEquipText(Constant.EQUIP_STRING);
+                }
             }
             else
             {
@@ -74,6 +82,14 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(false);
                 Menu.ButtonEquip.SetActive(true);
+                if(equipmentInfor.Name == SaveLoadManager.GetInstance().Data1.HeadCurrent)
+                {
+                    Menu.SetEquipText(Constant.EQUIPED_STRING);
+                }
+                else
+                {
+                    Menu.SetEquipText(Constant.EQUIP_STRING);
+                }
             }
             else
             {
@@ -89,6 +105,14 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(false);
                 Menu.ButtonEquip.SetActive(true);
+                if (equipmentInfor.Name == SaveLoadManager.GetInstance().Data1.ShieldCurent)
+                {
+                    Menu.SetEquipText(Constant.EQUIPED_STRING);
+                }
+                else
+                {
+                    Menu.SetEquipText(Constant.EQUIP_STRING);
+                }
             }
             else
             {
@@ -105,6 +129,14 @@ public class EquipButton : MonoBehaviour
             {
                 Menu.ButtonBuy.SetActive(false);
                 Menu.ButtonEquip.SetActive(true);
+                if (equipmentInfor.Name == SaveLoadManager.GetInstance().Data1.SetCurrent)
+                {
+                    Menu.SetEquipText(Constant.EQUIPED_STRING);
+                }
+                else
+                {
+                    Menu.SetEquipText(Constant.EQUIP_STRING);
+                }
             }
             else
             {
