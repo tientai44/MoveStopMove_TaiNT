@@ -8,7 +8,8 @@ public class LevelManager : GOSingleton<LevelManager>
     private int levelId=0;
     [SerializeField] private LevelController currentLevel;
     [SerializeField] List<GameObject> allLevelPrefabs;
-    //[SerializeField] NavMeshData meshData;
+    [SerializeField] List<NavMeshData> allNavMeshDatas = new List<NavMeshData>();
+    [SerializeField] NavMeshData meshData;
     public LevelController CurrentLevel { get => currentLevel; set => currentLevel = value; }
 
     void Goto(int level)
@@ -25,9 +26,10 @@ public class LevelManager : GOSingleton<LevelManager>
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
         GameController.GetInstance().OnInit(currentLevel);
-            
-        //NavMesh.RemoveAllNavMeshData();
-        //NavMesh.AddNavMeshData(meshData);
+
+        NavMesh.RemoveAllNavMeshData();
+        meshData = allNavMeshDatas[levelId];
+        NavMesh.AddNavMeshData(allNavMeshDatas[levelId]);
     }
     public void LoadBackGround()
     {
@@ -39,7 +41,10 @@ public class LevelManager : GOSingleton<LevelManager>
         GameController.GetInstance().cameraFollow.ResetOffset();
         GameController.GetInstance().ClearObjectSpawn();
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
-
+        //nav mesh
+        NavMesh.RemoveAllNavMeshData();
+        meshData = allNavMeshDatas[levelId];
+        NavMesh.AddNavMeshData(allNavMeshDatas[levelId]);
     }
     
 

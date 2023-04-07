@@ -12,10 +12,10 @@ public class BotController : CharacterController
     Vector3 spawnPos;
     private NavMeshAgent agent;
     private Vector3 destination;
-    public Transform targetFollow;
+    public CharacterController targetFollow;
     private IState currentState;
 
-    private List<Transform> l_targetFollow = new List<Transform>();
+    private List<CharacterController> l_targetFollow = new List<CharacterController>();
 
     public IState CurrentState { get => currentState; set => currentState = value; }
 
@@ -30,11 +30,11 @@ public class BotController : CharacterController
     {
         //TODO: cach string
         ChangeAnim(Constant.ANIM_RUN);
-        List<Transform> targets = new List<Transform>();
+        List<CharacterController> targets = new List<CharacterController>();
         //TODO: neu co the thi dung fot thay foreach
         for(int i = 0; i < l_targetFollow.Count; i++)
         {
-            if (!l_targetFollow[i].GetComponent<CharacterController>().IsDead && l_targetFollow[i].gameObject.activeSelf)
+            if (!l_targetFollow[i].IsDead && l_targetFollow[i].gameObject.activeSelf)
             {
                 targets.Add(l_targetFollow[i]);
             }
@@ -42,14 +42,14 @@ public class BotController : CharacterController
         if (targets.Count > 0)
         {
             targetFollow = targets[Random.Range(0, targets.Count)];
-            destination = targetFollow.position;
+            destination = targetFollow.TF.position;
             agent.destination = destination;
         }
     }
     public override void OnInit()
     {
         base.OnInit();
-        foreach (Transform t in GameController.GetInstance().L_character)
+        foreach (CharacterController t in GameController.GetInstance().L_character)
         {
             if (!t.Equals(transform) && !l_targetFollow.Contains(t))
                 l_targetFollow.Add(t);
@@ -72,9 +72,9 @@ public class BotController : CharacterController
         {
             SetRandomTargetFollow();
         }
-        if (Vector3.Distance(destination, targetFollow.position) > 1.0f)
+        if (Vector3.Distance(destination, targetFollow.TF.position) > 1.0f)
         {
-            destination = targetFollow.position;
+            destination = targetFollow.TF.position;
             agent.destination = destination;
         }
     }

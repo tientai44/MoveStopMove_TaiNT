@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameController : GOSingleton<GameController>
 {
     [SerializeField] private int Alive;
-    [SerializeField] private List<Transform> l_character = new List<Transform>();
+    [SerializeField] private List<CharacterController> l_character = new List<CharacterController>();
     [SerializeField] private List<Transform> l_SpawnBot = new List<Transform>();
     //public FixedJoystick joystick;
     public FloatingJoystick joystick;
@@ -16,7 +16,7 @@ public class GameController : GOSingleton<GameController>
     public int numSpawn;
     public PlayerController currentPlayer;
     private float timeWait=5f;
-    public List<Transform> L_character { get => l_character; set => l_character = value; }
+    public List<CharacterController> L_character { get => l_character; set => l_character = value; }
     public int NumSpawn { get => numSpawn; set => numSpawn = value; }
     public List<Transform> L_SpawnBot { get => l_SpawnBot; set => l_SpawnBot = value; }
     public PlayerController CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }

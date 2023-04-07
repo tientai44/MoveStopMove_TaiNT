@@ -13,7 +13,7 @@ public class SightController : MonoBehaviour
         {
             if (characterOwner is BotController)
             {
-                (characterOwner as BotController).targetFollow = character.transform;
+                (characterOwner as BotController).targetFollow = character;
             }
             characterOwner.L_AttackTarget.Add(character);
         }

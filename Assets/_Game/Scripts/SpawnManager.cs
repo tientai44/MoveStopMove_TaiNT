@@ -8,11 +8,11 @@ public class SpawnManager : GOSingleton<SpawnManager>
     private List<HeadType> headTypes = new List<HeadType> { HeadType.Head1, HeadType.Head2, HeadType.Cowboy, HeadType.Crown, HeadType.Crown, HeadType.HatCap, HeadType.HeadPhone, HeadType.ArrowHead };
     private List<ShieldType> shieldTypes = new List<ShieldType>{ShieldType.Shield1,ShieldType.Shield2};
     
-    public List<Transform> SpawnBot(int numBot)
+    public List<CharacterController> SpawnBot(int numBot)
     {
-        List<Transform> transforms = new List<Transform>();
+        List<CharacterController> characters = new List<CharacterController>();
         PlayerController playerController = GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(), LevelManager.GetInstance().CurrentLevel.L_SpawnPos[numBot].position).GetComponent<PlayerController>();
-        transforms.Add(playerController.transform);
+        characters.Add(playerController);
         playerController.OnInit();
         GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(playerController);
         GameController.GetInstance().CurrentPlayer = playerController;
@@ -44,8 +44,8 @@ public class SpawnManager : GOSingleton<SpawnManager>
             }
             GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(bot);
 
-            transforms.Add(bot.TF);
+            characters.Add(bot);
         }
-        return transforms;
+        return characters;
     }
 }

@@ -16,7 +16,7 @@ public class BoomerangController : BulletController
         {
             if(timer <timeExist+0.1f)
                 ResetForce();
-            transform.position = Vector3.Lerp(transform.position, firstPoint, Time.deltaTime*speedBack);
+            TF.position = Vector3.Lerp(transform.position, firstPoint, Time.deltaTime*speedBack);
         }
         if (timer > timeExist*2)
         {

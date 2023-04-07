@@ -24,13 +24,13 @@ public class Indicator : MonoBehaviour
         indicators.Clear();
 
         // T?o các ?i?m hi?n th? cho các ??i t??ng trong màn hình
-        foreach (Transform trans in GameController.GetInstance().L_character)
+        foreach (CharacterController character in GameController.GetInstance().L_character)
         {
-            if(trans.GetComponent<CharacterController>().IsDead || !trans.gameObject.activeSelf )
+            if(character.GetComponent<CharacterController>().IsDead || !character.gameObject.activeSelf )
             {
                 continue;
             }
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(trans.position);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(character.TF.position);
             if (screenPos.z < 0 || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height)
             {
                 float x, y, z= 0;
