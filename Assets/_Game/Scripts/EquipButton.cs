@@ -46,6 +46,10 @@ public class EquipButton : MonoBehaviour
         
 
     }
+    public void OnInit()
+    {
+        rawImage.color = Color.gray;
+    }
     public void TaskOnClick()
     {
         if(Menu.CurrentButton!=null)

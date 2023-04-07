@@ -7,9 +7,6 @@ public class BoomerangController : BulletController
     // Start is called before the first frame update
     Vector3 firstPoint;
     [SerializeField]float speedBack;
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     protected override void  Update()

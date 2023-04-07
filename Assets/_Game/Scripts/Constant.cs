@@ -14,7 +14,7 @@ public class Constant
     public const string ANIM_DANCE = "dance";
     public const string ANIM_OPEN = "open";
     public const string ANIM_CLOSE = "close";
-    public const string SAVE_FILE_NAME ="Assets/_Game/SaveFile/savegame.ss";
+    public const string SAVE_FILE_NAME ="savegame.ss";
     public const string BACKGROUND_VOLUME = "BackgroundVolume";
     public const string EFFECT_VOLUME = "EffectVolume";
     public const string ATTACK_MUSIC_NAME = "Nem vu khi";

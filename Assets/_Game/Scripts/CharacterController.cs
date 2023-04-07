@@ -244,7 +244,7 @@ public class CharacterController : MonoBehaviour
         this.currentWingType = wing;
         this.wingShow = GameObjectPools.GetInstance().GetFromPool(currentWingType.ToString(), wingPos.position);
         wingShow.transform.SetParent(wingPos);
-        wingShow.transform.rotation =new Quaternion(0, 0, 0, 0);
+        wingShow.transform.rotation = Quaternion.identity;
     }
     public void SetTail(TailType tail)
     {

@@ -32,6 +32,7 @@ public class PlayerController : CharacterController
     {
         base.OnInit();
         //_joystick = FindObjectOfType<FixedJoystick>();
+        //TODO: can than
         _joystick = FindObjectOfType<FloatingJoystick>();
         if(_joystick !=null)
             _joystick.OnInit();

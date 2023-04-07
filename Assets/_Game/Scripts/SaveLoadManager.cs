@@ -40,6 +40,8 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
     }
 
      private string saveFileName = Constant.SAVE_FILE_NAME;
+    private string saveFilePath; // ???ng d?n ??n file l?u d? li?u
+
     [SerializeField] private bool loadOnStart = true;
     private Data data;
     private BinaryFormatter formatter;
@@ -48,6 +50,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
 
     public void OnInit()
     {
+        saveFilePath = Path.Combine(Application.persistentDataPath, saveFileName);
         formatter = new BinaryFormatter();
 
         if (loadOnStart)
@@ -67,7 +70,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         
         try
         {
-            FileStream file = new FileStream(saveFileName, FileMode.Open, FileAccess.Read);
+            FileStream file = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read);
             try
             {
                 data = (Data)formatter.Deserialize(file);
@@ -134,7 +137,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         }
         try
         {
-            FileStream file = new FileStream(saveFileName, FileMode.OpenOrCreate, FileAccess.Write);
+            FileStream file = new FileStream(saveFilePath, FileMode.OpenOrCreate, FileAccess.Write);
             formatter.Serialize(file, data);
             file.Close();
         }

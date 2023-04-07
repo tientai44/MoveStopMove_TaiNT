@@ -58,6 +58,18 @@ public class SkinMenu : UICanvas
         {
             buttonImages[3].color = Color.black;
         }
+
+
+        //TODO: Advantage
+        int i = choiceButton switch
+        {
+            ChoiceButton.Head => 0,
+            ChoiceButton.Pant => 1,
+            ChoiceButton.Shield => 2,
+            ChoiceButton.Set => 3,
+            _ => 0,
+        };
+        buttonImages[i].color = Color.black;
     }
     public void SetOnCurrentButton()
     {
@@ -204,11 +216,14 @@ public class SkinMenu : UICanvas
         //}
         for(int i = 0; i < equipButtons.Count; i++)
         {
+            equipButtons[i].OnInit();
             equipButtons[i].gameObject.SetActive(false);
         }
     }
     public void SetUpButton(List<Texture2D> textures, List<Equipment> equipments, ChoiceButton choiceButton)
     {
+        ButtonBuy.SetActive(false);
+        ButtonEquip.SetActive(false);
         ClearButton();
         
         for (int i = 0; i < textures.Count; i++)
