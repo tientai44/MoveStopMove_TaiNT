@@ -109,6 +109,7 @@ public class BotController : CharacterController
     }
     public override void OnDeath()
     {
+        //StopMoving();
         base.OnDeath();
         GameController.GetInstance().UpdateAliveText();
 
@@ -118,6 +119,7 @@ public class BotController : CharacterController
         ChangeAnim(Constant.ANIM_IDLE);
         destination = TF.position;
         agent.destination = destination;
+        _rigidbody.angularVelocity = Vector3.zero;
     }
 
     public void ChangeState(IState newState)

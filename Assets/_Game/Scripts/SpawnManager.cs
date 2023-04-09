@@ -14,6 +14,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
         PlayerController playerController = GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(), LevelManager.GetInstance().CurrentLevel.L_SpawnPos[numBot].position).GetComponent<PlayerController>();
         characters.Add(playerController);
         playerController.OnInit();
+        playerController.Point = 0;
         GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(playerController);
         GameController.GetInstance().CurrentPlayer = playerController;
         for (int i = 0; i < numBot; i++)
@@ -43,7 +44,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
                 bot.SetColorSkin(GameObjectPools.GetInstance().characterMaterial[Random.Range(0, GameObjectPools.GetInstance().characterMaterial.Count)]);
             }
             GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(bot);
-
+            bot.Point = 0;
             characters.Add(bot);
         }
         return characters;

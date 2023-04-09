@@ -115,7 +115,7 @@ public class CharacterController : MonoBehaviour
     }
     public virtual void OnInit()
     {
-        point = 0;
+        
         ChangeEquipment(currentWeapon);
         weaponHold.SetActive(true);
         L_AttackTarget.Clear();
@@ -134,6 +134,7 @@ public class CharacterController : MonoBehaviour
         SoundManager2.GetInstance().PlaySound(Constant.DEATH_MUSIC_NAME);
         ChangeAnim(Constant.ANIM_DIE);
         IsDead = true;
+        
     }
     public virtual void Attack() {
         
@@ -244,7 +245,9 @@ public class CharacterController : MonoBehaviour
         this.currentWingType = wing;
         this.wingShow = GameObjectPools.GetInstance().GetFromPool(currentWingType.ToString(), wingPos.position);
         wingShow.transform.SetParent(wingPos);
-        wingShow.transform.rotation = Quaternion.identity;
+        //wingShow.transform.rotation = Quaternion.identity;
+        wingShow.transform.rotation = new Quaternion(0, 0, 0, 0);
+
     }
     public void SetTail(TailType tail)
     {

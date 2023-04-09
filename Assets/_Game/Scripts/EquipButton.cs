@@ -21,6 +21,7 @@ public class EquipButton : MonoBehaviour
     [SerializeField] RawImage equipImage;
     [SerializeField] GameObject Lock;
     [SerializeField] GameObject UnLock;
+    [SerializeField] GameObject checkImage;
     public Button Button
     {
         get
@@ -38,6 +39,7 @@ public class EquipButton : MonoBehaviour
     internal ChoiceButton ChoiceButton { get => choiceButton; set => choiceButton = value; }
     public RawImage EquipImage { get => equipImage; set => equipImage = value; }
     public RawImage RawImage { get => rawImage; set => rawImage = value; }
+    public GameObject CheckImage { get => checkImage; set => checkImage = value; }
 
     public void Awake()
     {
@@ -48,6 +50,8 @@ public class EquipButton : MonoBehaviour
     }
     public void OnInit()
     {
+        SetLock();
+        CheckImage.SetActive(false);
         rawImage.color = Color.gray;
     }
     public void TaskOnClick()
@@ -61,6 +65,7 @@ public class EquipButton : MonoBehaviour
             GameController.GetInstance().currentPlayer.SetPant(GameObjectPools.GetInstance().pantMaterials[equipmentInfor.Id - 1]);
             if (SaveLoadManager.GetInstance().Data1.PantOwners.Contains(equipmentInfor.Id))
             {
+                
                 Menu.ButtonBuy.SetActive(false);
                 Menu.ButtonEquip.SetActive(true);
                 if (equipmentInfor.Id == SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent)
@@ -167,6 +172,15 @@ public class EquipButton : MonoBehaviour
             if (SaveLoadManager.GetInstance().Data1.PantOwners.Contains(equipmentInfor.Id))
             {
                 SetUnlock();
+                if(SaveLoadManager.GetInstance().Data1.IdPantMaterialCurrent == equipmentInfor.Id)
+                {
+                    checkImage.SetActive(true);
+                    Menu.PrevEquipButton = this;
+                }
+                else
+                {
+                    checkImage.SetActive(false);
+                }
             }
             else
             {
@@ -178,6 +192,15 @@ public class EquipButton : MonoBehaviour
             if (SaveLoadManager.GetInstance().Data1.HeadOwners.Contains(equipmentInfor.Name))
             {
                 SetUnlock();
+                if (SaveLoadManager.GetInstance().Data1.HeadCurrent == equipmentInfor.Name)
+                {
+                    checkImage.SetActive(true);
+                    Menu.PrevEquipButton = this;
+                }
+                else
+                {
+                    checkImage.SetActive(false);
+                }
             }
             else
             {
@@ -189,6 +212,15 @@ public class EquipButton : MonoBehaviour
             if (SaveLoadManager.GetInstance().Data1.ShieldOwners.Contains(equipmentInfor.Name))
             {
                 SetUnlock();
+                if (SaveLoadManager.GetInstance().Data1.ShieldCurent == equipmentInfor.Name)
+                {
+                    checkImage.SetActive(true);
+                    Menu.PrevEquipButton = this;
+                }
+                else
+                {
+                    checkImage.SetActive(false);
+                }
             }
             else
             {
@@ -201,6 +233,15 @@ public class EquipButton : MonoBehaviour
             if (SaveLoadManager.GetInstance().Data1.SetOwners.Contains(equipmentInfor.Name))
             {
                 SetUnlock();
+                if (SaveLoadManager.GetInstance().Data1.SetCurrent == equipmentInfor.Name)
+                {
+                    checkImage.SetActive(true);
+                    Menu.PrevEquipButton = this;
+                }
+                else
+                {
+                    checkImage.SetActive(false);
+                }
             }
             else
             {
@@ -218,4 +259,5 @@ public class EquipButton : MonoBehaviour
         Lock.SetActive(true);
         UnLock.SetActive(false);
     }
+    
 }

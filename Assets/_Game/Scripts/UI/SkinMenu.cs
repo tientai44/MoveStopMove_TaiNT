@@ -25,11 +25,12 @@ public class SkinMenu : UICanvas
     ChoiceButton choiceButton;
     Equipment currentEquipment;
     EquipButton currentButton;
-
+    EquipButton prevEquipButton;
     public Equipment CurrentEquipment { get => currentEquipment; set => currentEquipment = value; }
     public GameObject ButtonBuy { get => buttonBuy; set => buttonBuy = value; }
     public GameObject ButtonEquip { get => buttonEquip; set => buttonEquip = value; }
     public EquipButton CurrentButton { get => currentButton; set => currentButton = value; }
+    public EquipButton PrevEquipButton { get => prevEquipButton; set => prevEquipButton = value; }
 
     public override void Open()
     {
@@ -183,6 +184,9 @@ public class SkinMenu : UICanvas
             SaveLoadManager.GetInstance().Data1.SetCurrent = currentEquipment.Name;
         }
         SetEquipText(Constant.EQUIPED_STRING);
+        currentButton.CheckImage.SetActive(true);
+        prevEquipButton.CheckImage.SetActive(false);
+        prevEquipButton = currentButton;
         SaveLoadManager.GetInstance().Save();
     }
 

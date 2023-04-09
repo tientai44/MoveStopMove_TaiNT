@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class PlayerController : CharacterController
     }
     public override void OnInit()
     {
+        
         base.OnInit();
         //_joystick = FindObjectOfType<FixedJoystick>();
         //TODO: can than
@@ -106,23 +108,31 @@ public class PlayerController : CharacterController
         {
             (targetAttack as BotController).EnableCircleTarget();
         }
-        if (!L_AttackTarget.Contains(targetAttack)&targetAttack!=null)
+        if (!L_AttackTarget.Contains(targetAttack) && targetAttack != null)
         {
             (targetAttack as BotController).UnEnableCircleTarget();
         }
         Run();
-        if (targetAttack != null && targetAttack.GetComponent<CharacterController>().IsDead)
+        if (targetAttack != null && targetAttack.IsDead)
         {
+            (targetAttack as BotController).UnEnableCircleTarget();
             L_AttackTarget.Remove(targetAttack);
             if (l_AttackTarget.Count > 0)
+            {
                 targetAttack = l_AttackTarget[Random.Range(0, l_AttackTarget.Count)];
+                (targetAttack as BotController).EnableCircleTarget();
+            }
         }
         if (l_AttackTarget.Count > 0  )
         {
             if (!l_AttackTarget.Contains(targetAttack))
             {
-                
+                if (targetAttack != null)
+                {
+                    (targetAttack as BotController).UnEnableCircleTarget();
+                }
                 targetAttack = l_AttackTarget[Random.Range(0, l_AttackTarget.Count)];
+                (targetAttack as BotController).EnableCircleTarget();
             }
         }
         

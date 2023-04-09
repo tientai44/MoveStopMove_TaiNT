@@ -94,7 +94,7 @@ public class BulletController : MonoBehaviour
         {
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
-            other.GetComponent<BotController>().ChangeState(new DieState());
+            (Cache.GetCharacter(other) as BotController).ChangeState(new DieState());
             //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
             if(owner is PlayerController)
             {
