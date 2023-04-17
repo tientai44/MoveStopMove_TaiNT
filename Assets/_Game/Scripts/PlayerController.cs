@@ -36,8 +36,12 @@ public class PlayerController : CharacterController
         //_joystick = FindObjectOfType<FixedJoystick>();
         //TODO: can than
         _joystick = FindObjectOfType<FloatingJoystick>();
-        if(_joystick !=null)
+        if (_joystick != null)
+        {
             _joystick.OnInit();
+            //Debug.Log("Appear");
+            appearSystem.Play();
+        }
         GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
         timerDeath = 0;
         myState = PlayerState.Idle;
@@ -218,7 +222,8 @@ public class PlayerController : CharacterController
     public override void UpPoint(int point)
     {
         base.UpPoint(point);
-        GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1);
+        if(this.Point% numBottoLevelUp == 0)
+            GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1);
     }
     public void Win()
     {

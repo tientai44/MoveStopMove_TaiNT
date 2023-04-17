@@ -14,7 +14,8 @@ public class LevelManager : GOSingleton<LevelManager>
 
     void Goto(int level)
     {
-        SpawnManager.GetInstance().SpawnBot(10);
+        levelId = level;
+        LoadLevel();
     }
     public void LoadLevel()
     {

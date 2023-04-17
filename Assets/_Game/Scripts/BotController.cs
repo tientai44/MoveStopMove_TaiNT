@@ -49,6 +49,7 @@ public class BotController : CharacterController
     public override void OnInit()
     {
         base.OnInit();
+        appearSystem.Play();
         foreach (CharacterController t in GameController.GetInstance().L_character)
         {
             if (!t.Equals(transform) && !l_targetFollow.Contains(t))

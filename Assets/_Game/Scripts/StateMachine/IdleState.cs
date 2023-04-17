@@ -10,6 +10,7 @@ public class IdleState : IState
     {
         ranTime = Random.Range(0.5f, 1f);
         bot.ChangeAnim(Constant.ANIM_IDLE);
+       
         bot.StopMoving();
     }
 

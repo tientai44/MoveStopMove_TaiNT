@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
@@ -8,7 +10,12 @@ public class ObstacleController : MonoBehaviour
     public List<CharacterController> l_charac = new List<CharacterController>();
     public bool ISHAVEPLAYER = false;
     [SerializeField] Material material;
-   
+    [SerializeField] GameObject Obstacle;
+    float timer = 0;
+    private void Start()
+    {
+        material = Obstacle.GetComponent<MeshRenderer>().material;
+    }
     private void Update()
     {
         List<CharacterController> list = new List<CharacterController>();
@@ -24,24 +31,34 @@ public class ObstacleController : MonoBehaviour
             l_charac.Remove(c);
         }
         ISHAVEPLAYER = l_charac.Count > 0;
-        if (ISHAVEPLAYER)
+        timer += Time.deltaTime;
+        if (timer > 1f)
         {
-            if(material != null)
+            if (ISHAVEPLAYER)
             {
-                Color c = material.color;
-                if (c.a == 0.3f) return;
-                c.a = 0.3f;
-                material.color = c;
+                if (material != null)
+                {
+                    Color c = material.color;
+                    if (c.a == 0.3f) return;
+                    float dis = c.a - 0.3f;
+                    if (Math.Abs(dis) < 0.01f) return ;
+                    c.a = 0.3f;
+                    material.color = c;
+                    timer = 0;
+                }
             }
-        }
-        else
-        {
-            if (material != null)
+            else
             {
-                Color c = material.color;
-                if (c.a == 1f) return;
-                c.a = 1f;
-                material.color = c;
+                if (material != null)
+                {
+                    Color c = material.color;
+                    float dis = c.a - 1f;
+                    if (Math.Abs(dis) < 0.01f) return;
+                    c.a = 1f;
+                    material.color = c;
+                    timer = 0;
+                    
+                }
             }
         }
     }

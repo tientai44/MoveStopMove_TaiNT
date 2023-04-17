@@ -30,6 +30,7 @@ public class CharacterController : MonoBehaviour
     private int point = 0;
     [SerializeField]private float rangeDetect;
     private float intialRadiusSightZone;
+    [SerializeField] protected int numBottoLevelUp=3;
     [SerializeField] SphereCollider sightZone;
     [SerializeField] protected Transform weaponPos;
     [SerializeField] protected GameObject weaponHold;
@@ -48,8 +49,11 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected Transform tailPos;
     [SerializeField] protected SetType currentSetType;
     [SerializeField] protected ParticleSystem bloodSystem;
+    [SerializeField] protected ParticleSystem levelUpSystem;
+    [SerializeField] protected ParticleSystem appearSystem;
     [SerializeField] private SkinnedMeshRenderer colorSkin;
     [SerializeField] protected Material defaultMaterial;
+    [SerializeField] protected Transform foot;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -97,6 +101,7 @@ public class CharacterController : MonoBehaviour
     public ParticleSystem BloodSystem { get => bloodSystem; set => bloodSystem = value; }
     public int Point { get => point; set => point = value; }
     public SkinnedMeshRenderer ColorSkin { get => colorSkin; set => colorSkin = value; }
+    public Transform Foot { get => foot; set => foot = value; }
 
     public bool IsDead = false;
 
@@ -348,7 +353,21 @@ public class CharacterController : MonoBehaviour
         //    //TODO: vi phong nguyen tac dong goi
         //    GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
         //}
-        TF.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
+        if (this.point % numBottoLevelUp == 0)
+        {
+            TF.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
+            levelUpSystem.Play();
+            //GameObject effect= GameObjectPools.GetInstance().GetFromPool("LevelUp", foot.position);
+            //effect.transform.SetParent(this.TF);
+            //effect.transform.localScale *= TF.localScale.x;
+            //StartCoroutine(IEBackEffect(2f, effect, "LevelUp"));
+        }
         
     }
+    IEnumerator IEBackEffect(float time,GameObject go,string tag)
+    {
+        yield return new WaitForSeconds(time);
+        GameObjectPools.GetInstance().ReturnToPool(tag, go);
+    }
+    
 }

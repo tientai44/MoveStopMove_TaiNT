@@ -25,7 +25,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
                 break;
             }
             BotController bot= GameObjectPools.GetInstance().GetFromPool(CharacterType.Bot.ToString(), LevelManager.GetInstance().CurrentLevel.L_SpawnPos[i].position).GetComponent<BotController>();
-
+           
             //random weapon
             bot.ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0, GameObjectPools.GetInstance().weapons.Count)]);
             int select = Random.Range(0, 5);
@@ -45,6 +45,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
             }
             GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(bot);
             bot.Point = 0;
+            
             characters.Add(bot);
         }
         return characters;

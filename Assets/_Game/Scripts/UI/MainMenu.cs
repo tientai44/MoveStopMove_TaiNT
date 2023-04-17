@@ -13,6 +13,7 @@ public class MainMenu : UICanvas
         SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
         if( GameController.GetInstance().currentPlayer == null||!GameController.GetInstance().currentPlayer.gameObject.activeSelf )
             GameController.GetInstance().currentPlayer= GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(),Vector3.zero).GetComponent<PlayerController>();
+        GameController.GetInstance().currentPlayer.OnInit();
     }
     public TextMeshProUGUI CoinText { get => coinText; set => coinText = value; }
     
