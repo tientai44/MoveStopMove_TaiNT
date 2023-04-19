@@ -9,6 +9,8 @@ public class PlayingMenu : UICanvas
     public override void Open()
     {
         base.Open();
+        GameController.GetInstance().cameraFollow.ZoomOut();
+       
     }
     public void SettingButton()
     {

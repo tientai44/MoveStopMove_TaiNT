@@ -18,6 +18,7 @@ public class PlayerController : CharacterController
     private FloatingJoystick _joystick;
     [SerializeField]PlayerState myState;
     float timerDeath = 0f;
+    [SerializeField]CombatText combatTextPrefab;
     internal PlayerState MyState { get => myState; set => myState = value; }
 
     //bool isAttack = false;
@@ -38,11 +39,16 @@ public class PlayerController : CharacterController
         _joystick = FindObjectOfType<FloatingJoystick>();
         if (_joystick != null)
         {
+            SightZoneTransform.gameObject.SetActive(true);
             _joystick.OnInit();
             //Debug.Log("Appear");
             appearSystem.Play();
         }
-        GameController.GetInstance().cameraFollow.SetTargetFollow(transform);
+        else
+        {
+            SightZoneTransform.gameObject.SetActive(false);
+        }
+        GameController.GetInstance().cameraFollow.SetTargetFollow(this);
         timerDeath = 0;
         myState = PlayerState.Idle;
         ChangeAnim(Constant.ANIM_IDLE);
@@ -222,8 +228,11 @@ public class PlayerController : CharacterController
     public override void UpPoint(int point)
     {
         base.UpPoint(point);
-        if(this.Point% numBottoLevelUp == 0)
-            GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1);
+        if (this.Point % numBottoLevelUp == 0)
+        {
+            GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1)*numBottoLevelUp;
+            Instantiate(combatTextPrefab, TF.position + new Vector3(1f*TF.localScale.x, 1f * TF.localScale.y, 0), Quaternion.identity).OnInit(1+Point/(10));
+        }
     }
     public void Win()
     {

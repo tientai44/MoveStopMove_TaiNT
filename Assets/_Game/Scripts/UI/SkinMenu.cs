@@ -259,7 +259,7 @@ public class SkinMenu : UICanvas
     public override void Close(float delayTime)
     {
         GameController.GetInstance().currentPlayer.OnInit();
-        CameraFollow.GetInstance().ZoomOut();
+        //CameraFollow.GetInstance().ZoomOut();
         base.Close(delayTime);
     }
 }

@@ -14,6 +14,9 @@ public class MainMenu : UICanvas
         if( GameController.GetInstance().currentPlayer == null||!GameController.GetInstance().currentPlayer.gameObject.activeSelf )
             GameController.GetInstance().currentPlayer= GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(),Vector3.zero).GetComponent<PlayerController>();
         GameController.GetInstance().currentPlayer.OnInit();
+        GameController.GetInstance().cameraFollow.ZoomIn();
+        GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 2, -1);
+        
     }
     public TextMeshProUGUI CoinText { get => coinText; set => coinText = value; }
     

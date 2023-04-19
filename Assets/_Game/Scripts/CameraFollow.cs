@@ -8,7 +8,7 @@ enum CameraState
 public class CameraFollow : GOSingleton<CameraFollow>
 {
     [SerializeField] AnimationCurve curve;
-    [SerializeField] Transform player;
+    [SerializeField] CharacterController player;
     Vector3 intialOffset = new Vector3(0, 15, -20);
     [SerializeField]Vector3 offset = new Vector3(0, 15, -20);
     [SerializeField]Vector3 zoomInOffset = new Vector3(0,5,-10);
@@ -27,10 +27,10 @@ public class CameraFollow : GOSingleton<CameraFollow>
         if (player != null)
         {
             //transform.position = Vector3.SmoothDamp(transform.position, player.position + offset, ref velocity, speedCamera);
-            transform.position = Vector3.Lerp(transform.position, player.position + offset, speedCamera);
+            transform.position = Vector3.Lerp(transform.position, player.TF.position + offset  , speedCamera);
         }
     }
-    public void SetTargetFollow(Transform target)
+    public void SetTargetFollow(CharacterController target)
     {
         player = target;
     }
@@ -47,7 +47,7 @@ public class CameraFollow : GOSingleton<CameraFollow>
     public void ZoomIn()
     {
         GameController.GetInstance().currentPlayer.transform.rotation = new Quaternion(0, 180, 0, 0);
-        offset = zoomInOffset;
+        offset = zoomInOffset + new Vector3(0, 1, -1) *player.Point;
         speedCamera = 0.1f;
     }
 

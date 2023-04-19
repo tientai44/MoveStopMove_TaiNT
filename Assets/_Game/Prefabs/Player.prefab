@@ -299,6 +299,7 @@ MonoBehaviour:
   l_AttackTarget: []
   IsDead: 0
   myState: 0
+  combatTextPrefab: {fileID: 4668816441898640210, guid: 8d66e59e78f790c4b9da7bbb28001b24, type: 3}
 --- !u!195 &4617855062696380396
 NavMeshAgent:
   m_ObjectHideFlags: 0

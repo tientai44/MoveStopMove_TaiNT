@@ -64,15 +64,15 @@ public class BotController : CharacterController
     public void FollowTarget()
     {
         ChangeAnim(Constant.ANIM_RUN);
-        if(targetFollow ==null)
+        if(targetFollow ==null || targetFollow.IsDead)
         {
             SetRandomTargetFollow();
             return;
         }
-        if (targetFollow.GetComponent<CharacterController>().IsDead)
-        {
-            SetRandomTargetFollow();
-        }
+        //if (targetFollow.GetComponent<CharacterController>().IsDead)
+        //{
+        //    SetRandomTargetFollow();
+        //}
         if (Vector3.Distance(destination, targetFollow.TF.position) > 1.0f)
         {
             destination = targetFollow.TF.position;
