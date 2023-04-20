@@ -10,6 +10,9 @@ public class SoundManager2 : GOSingleton<SoundManager2>
     public AudioSource audioBackGround;
     bool flagEffect = true;
     public List<AudioSource> hiteffect;
+
+    public bool FlagEffect { get => flagEffect; set => flagEffect = value; }
+
     public void Awake()
     {
         Init(80,80);
@@ -62,6 +65,10 @@ public class SoundManager2 : GOSingleton<SoundManager2>
     public void SwitchMusicEffect()
     {
         flagEffect=!flagEffect;
+    }
+    public void SetMusicEffect(bool isOn)
+    {
+        flagEffect = isOn;
     }
     public void UpdateVolume( Slider slider)
     {

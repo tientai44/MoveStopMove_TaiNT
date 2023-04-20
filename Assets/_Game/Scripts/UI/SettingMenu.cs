@@ -6,10 +6,23 @@ using UnityEngine.UI;
 public class SettingMenu : UICanvas
 {
     //[SerializeField] private ToggleController _toggleController;
+    [SerializeField] private Toggle effectSoundToggle;
+    [SerializeField] private Toggle vibrateToggle;
+    public override void Open()
+    {
+        base.Open();
+        Time.timeScale = 0;
+        effectSoundToggle.isOn = SoundManager2.GetInstance().FlagEffect;
+        Debug.Log(VibrateController.GetInstance().Flag);
+        vibrateToggle.isOn = VibrateController.GetInstance().Flag;
+        
+        Debug.Log(vibrateToggle.isOn);
+    }
     public void ReturnButton()
     {
         NewUIManager.GetInstance().OpenUI<PlayingMenu>();
         Close(0);
+        
     }
     
     public void MusicButton()
@@ -20,9 +33,14 @@ public class SettingMenu : UICanvas
     {
         SoundManager2.GetInstance().UpdateVolume(slider);
     }
-    public void CheckBoxEffect()
+    public void EffectToggleClick()
     {
-        SoundManager2.GetInstance().SwitchMusicEffect();
+        SoundManager2.GetInstance().SetMusicEffect(effectSoundToggle.isOn);
+        //_toggleController.SwitchAnim();
+    }
+    public void VibrateToggleClick()
+    {
+        VibrateController.GetInstance().Flag = vibrateToggle.isOn;
         //_toggleController.SwitchAnim();
     }
     public void HomeButton()
@@ -31,5 +49,11 @@ public class SettingMenu : UICanvas
         NewUIManager.GetInstance().CloseAll();
         NewUIManager.GetInstance().OpenUI<MainMenu>();
         
+    }
+
+    public override void CloseDirectly()
+    {
+        base.CloseDirectly();
+        Time.timeScale = 1;
     }
 }

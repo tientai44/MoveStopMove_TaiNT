@@ -64,7 +64,7 @@ public class BotController : CharacterController
     public void FollowTarget()
     {
         ChangeAnim(Constant.ANIM_RUN);
-        if(targetFollow ==null || targetFollow.IsDead)
+        if(targetFollow ==null || targetFollow.IsDead || !targetFollow.gameObject.activeSelf)
         {
             SetRandomTargetFollow();
             return;

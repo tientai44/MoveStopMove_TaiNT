@@ -228,6 +228,7 @@ public class PlayerController : CharacterController
     public override void UpPoint(int point)
     {
         base.UpPoint(point);
+        VibrateController.GetInstance().Vibrate(0.1f);
         if (this.Point % numBottoLevelUp == 0)
         {
             GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1)*numBottoLevelUp;

@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class MainMenu : UICanvas
 {
     [SerializeField]private TextMeshProUGUI coinText;
+    [SerializeField] private Toggle effectSoundtoggle;
+    [SerializeField] private Toggle vibrateToggle;
+    int count = 0;
     public override void Open()
     {
         base.Open();
@@ -16,10 +19,37 @@ public class MainMenu : UICanvas
         GameController.GetInstance().currentPlayer.OnInit();
         GameController.GetInstance().cameraFollow.ZoomIn();
         GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 2, -1);
+        //if (SoundManager2.GetInstance().FlagEffect)
+        //    count = 0;
+        //else
+        //    count = 0;
+        count = 0;
+        effectSoundtoggle.isOn = !SoundManager2.GetInstance().FlagEffect;
+        vibrateToggle.isOn = VibrateController.GetInstance().Flag;
         
     }
     public TextMeshProUGUI CoinText { get => coinText; set => coinText = value; }
-    
+    public void QuestionButtonClick()
+    {
+        NewUIManager.GetInstance().OpenUI<HowToPlay>();
+        Close(0.5f);
+    }
+    public void EffectSoundButton()
+    {
+        Debug.Log(count);
+        if (count == 0)
+        {
+            count += 1;
+            return;
+        }
+        SoundManager2.GetInstance().SetMusicEffect(!effectSoundtoggle.isOn);
+        SoundManager2.GetInstance().PlaySound(Constant.ATTACK_MUSIC_NAME);
+    }
+    public void VibrateToggleClick()
+    {
+        VibrateController.GetInstance().Flag = vibrateToggle.isOn;
+        VibrateController.GetInstance().Vibrate(0.1f);
+    }
     public void WeaponButton()
     {
         NewUIManager.GetInstance().OpenUI<WeaponMenu>();

@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: b0b5f79c36a774046b0af60b5bd4f7e3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4ce397d12cdc48548a30979e49764592, type: 2}
 --- !u!1 &45522855
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,10 +480,10 @@ MonoBehaviour:
   - {fileID: 8168129564851606144, guid: 3989733e5485af94ba5bcc5069ffcc4c, type: 3}
   allNavMeshDatas:
   - {fileID: 23800000, guid: c22805db2e295ac4799eb3fa5ab11aa4, type: 2}
-  - {fileID: 23800000, guid: e9f1045b89e20a644ab15fbd0fdd08c4, type: 2}
-  - {fileID: 23800000, guid: 96b397c8b2c5cce4f850e459bcd614a5, type: 2}
-  - {fileID: 23800000, guid: e9f1045b89e20a644ab15fbd0fdd08c4, type: 2}
-  - {fileID: 23800000, guid: e9f1045b89e20a644ab15fbd0fdd08c4, type: 2}
+  - {fileID: 23800000, guid: 0e4d5f541ad7dde48b76303681b4d5ff, type: 2}
+  - {fileID: 23800000, guid: f88f557dd41be584186459c8a7868c12, type: 2}
+  - {fileID: 23800000, guid: 18bb88b7984845946b684343a880a025, type: 2}
+  - {fileID: 23800000, guid: 4ce397d12cdc48548a30979e49764592, type: 2}
   meshData: {fileID: 0}
 --- !u!4 &303611065
 Transform:
