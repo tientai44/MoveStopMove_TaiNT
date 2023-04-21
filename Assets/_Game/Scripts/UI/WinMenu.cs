@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WinMenu : UICanvas
 {
-   public void NextLevelButton()
+    [SerializeField] TextMeshProUGUI coinText;
+    public override void Open()
+    {
+        base.Open();
+        coinText.text = StaticData.CoinGet.ToString();
+    }
+    public void NextLevelButton()
     {
         NewUIManager.GetInstance().OpenUI<PlayingMenu>();
         LevelManager.GetInstance().NextLevel();

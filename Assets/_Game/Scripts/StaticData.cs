@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class StaticData
 {
+    public static string Killer = "Zombie";
+    public static int CoinGet =0;
     public static readonly Dictionary<WeaponType, float> RangeWeapon = new Dictionary<WeaponType, float>{
             {WeaponType.Knife,4},
             {WeaponType.Boomerang,6 },

@@ -9,7 +9,7 @@ public enum CharacterType
 }
 public class CharacterController : MonoBehaviour
 {
-    string name ;
+    string nameCharacter ;
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _rotateSpeed;
@@ -103,7 +103,7 @@ public class CharacterController : MonoBehaviour
     public int Point { get => point; set => point = value; }
     public SkinnedMeshRenderer ColorSkin { get => colorSkin; set => colorSkin = value; }
     public Transform Foot { get => foot; set => foot = value; }
-    public string Name { get => name; set => name = value; }
+    public string Name { get => nameCharacter; set => nameCharacter = value; }
 
     public bool IsDead = false;
 

@@ -206,7 +206,7 @@ public class PlayerController : CharacterController
             return;
         }
         myState = PlayerState.Death;
-
+        StaticData.CoinGet = Point;
         SoundManager2.GetInstance().PlaySound(Constant.LOSE_MUSIC_NAME);
         base.OnDeath();
         
@@ -237,8 +237,10 @@ public class PlayerController : CharacterController
     }
     public void Win()
     {
+        StaticData.CoinGet = Point;
         myState = PlayerState.Win;
         ChangeAnim(Constant.ANIM_DANCE);
+        
         SoundManager2.GetInstance().PlaySound(Constant.WIN_MUSIC_NAME);
         StopAllCoroutines();
     }

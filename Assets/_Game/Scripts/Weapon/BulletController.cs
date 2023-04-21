@@ -88,6 +88,7 @@ public class BulletController : MonoBehaviour
             Cache.GetCharacter(other).OnDeath();
             //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().killSound);
             Cache.GetCharacter(other).BloodSystem.Play();
+            StaticData.Killer = this.owner.Name;
 
         }
         if(other.CompareTag(Constant.TAG_BOT))

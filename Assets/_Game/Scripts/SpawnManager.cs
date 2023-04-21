@@ -47,9 +47,10 @@ public class SpawnManager : GOSingleton<SpawnManager>
             }
             p = GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>();
             p.SetOwner(bot);
-            p.SetNameText("Zombie " + i.ToString());
+            bot.Name = "Zombie " + i.ToString();
+            p.SetNameText(bot.Name);
             bot.Point = 0;
-            
+           
             characters.Add(bot);
         }
         return characters;

@@ -52,7 +52,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, saveFileName);
         formatter = new BinaryFormatter();
-
+        Debug.Log(saveFilePath);
         if (loadOnStart)
         {
             Load();
