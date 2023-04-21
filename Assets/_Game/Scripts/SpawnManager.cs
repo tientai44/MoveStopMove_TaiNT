@@ -15,7 +15,9 @@ public class SpawnManager : GOSingleton<SpawnManager>
         characters.Add(playerController);
         playerController.OnInit();
         playerController.Point = 0;
-        GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(playerController);
+        PointTagFollow p = GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>();
+        p.SetOwner(playerController);
+        p.SetNameText("You");
         GameController.GetInstance().CurrentPlayer = playerController;
         for (int i = 0; i < numBot; i++)
         {
@@ -43,7 +45,9 @@ public class SpawnManager : GOSingleton<SpawnManager>
                 bot.SetShield(shieldTypes[Random.Range(0,shieldTypes.Count)]);
                 bot.SetColorSkin(GameObjectPools.GetInstance().characterMaterial[Random.Range(0, GameObjectPools.GetInstance().characterMaterial.Count)]);
             }
-            GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>().SetOwner(bot);
+            p = GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>();
+            p.SetOwner(bot);
+            p.SetNameText("Zombie " + i.ToString());
             bot.Point = 0;
             
             characters.Add(bot);

@@ -9,14 +9,18 @@ public class MainMenu : UICanvas
     [SerializeField]private TextMeshProUGUI coinText;
     [SerializeField] private Toggle effectSoundtoggle;
     [SerializeField] private Toggle vibrateToggle;
+    [SerializeField] Image processImg;
     int count = 0;
     public override void Open()
     {
         base.Open();
         SetCoinText(SaveLoadManager.GetInstance().Data1.Coin);
-        if( GameController.GetInstance().currentPlayer == null||!GameController.GetInstance().currentPlayer.gameObject.activeSelf )
+        
+        processImg.fillAmount = (SaveLoadManager.GetInstance().Data1.LevelID + 1f) / 5;
+        if ( GameController.GetInstance().currentPlayer == null||!GameController.GetInstance().currentPlayer.gameObject.activeSelf )
             GameController.GetInstance().currentPlayer= GameObjectPools.GetInstance().GetFromPool(CharacterType.Player.ToString(),Vector3.zero).GetComponent<PlayerController>();
         GameController.GetInstance().currentPlayer.OnInit();
+        GameController.GetInstance().currentPlayer.Point = 0;
         GameController.GetInstance().cameraFollow.ZoomIn();
         GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 2, -1);
         //if (SoundManager2.GetInstance().FlagEffect)
@@ -26,6 +30,7 @@ public class MainMenu : UICanvas
         count = 0;
         effectSoundtoggle.isOn = !SoundManager2.GetInstance().FlagEffect;
         vibrateToggle.isOn = VibrateController.GetInstance().Flag;
+        
         
     }
     public TextMeshProUGUI CoinText { get => coinText; set => coinText = value; }

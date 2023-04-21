@@ -52,9 +52,10 @@ public class BotController : CharacterController
         appearSystem.Play();
         foreach (CharacterController t in GameController.GetInstance().L_character)
         {
-            if (!t.Equals(transform) && !l_targetFollow.Contains(t))
+            if (!t.Equals(this) && !l_targetFollow.Contains(t))
                 l_targetFollow.Add(t);
         }
+
         weaponHold.SetActive(true);
         skin.SetActive(true);
         CharacterCollider.enabled = true;

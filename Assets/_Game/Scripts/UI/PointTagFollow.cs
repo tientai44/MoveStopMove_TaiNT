@@ -8,6 +8,7 @@ public class PointTagFollow : MonoBehaviour
 {
     CharacterController characterController;
     [SerializeField] TextMeshProUGUI pointText;
+    [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] Image BackGround;
     private Transform tf;
     private Vector3 offset = new Vector3(0,2.1f,0);
@@ -23,18 +24,25 @@ public class PointTagFollow : MonoBehaviour
             return tf;
         }
     }
-
+    public void SetNameText(string name)
+    {
+        nameText.text = name;
+    }
     public void SetOwner(CharacterController character)
     {
         characterController = character;
+        
         Color c = character.ColorSkin.material.color;
+        
         if (c != Color.white)
         {
             BackGround.color = c;
+            nameText.color = c;
         }
         else
         {
             BackGround.color = Color.magenta;
+            nameText.color = Color.magenta;
         }
     }
     private void Update()
