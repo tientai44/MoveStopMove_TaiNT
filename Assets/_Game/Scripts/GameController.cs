@@ -35,8 +35,6 @@ public class GameController : GOSingleton<GameController>
         {
             Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         }
-
-
     }
     private void Start()
     {
@@ -50,6 +48,7 @@ public class GameController : GOSingleton<GameController>
         numBot = level.NumBot;
         numSpawn = Alive - numBot;
         L_SpawnBot = level.L_SpawnPos;
+
         L_character = SpawnManager.GetInstance().SpawnBot(numBot);
         //UIManager.GetInstance().SetAliveText(Alive);
         NewUIManager.GetInstance().GetUI<PlayingMenu>().SetAliveText(Alive);

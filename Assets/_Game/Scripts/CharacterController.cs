@@ -145,25 +145,36 @@ public class CharacterController : MonoBehaviour
     }
     public virtual void Attack() {
         
-        SetTargetDirect(targetAttack.transform.position);
+        SetTargetDirect(targetAttack.TF.position);
         ChangeAnim(Constant.ANIM_ATTACK);
         isReadyAttack = false;
-        Vector3 direct = throwPoint.position - transform.position;
+        //Vector3 direct = throwPoint.position - TF.position;
+        Vector3 direct = targetAttack.TF.position - throwPoint.position;
+        float max = Mathf.Max(Mathf.Abs(direct.x),Mathf.Abs(direct.y),Mathf.Abs(direct.z));
+        direct /= max;
         StartCoroutine(IEThrow(direct));
 
     }
     public IEnumerator IEThrow(Vector3 direct)
     {
         yield return new WaitForSeconds(waitThrow);
-        weaponHold.SetActive(false);
+        if (currentWeapon is WeaponType.Uzi == false)
+        {
+            weaponHold.SetActive(false);
+        }
         //SoundManager.GetInstance().PlayOneShot(SoundManager.GetInstance().attackSound);
-        SoundManager2.GetInstance().PlaySound("Nem vu khi");
+        SoundManager2.GetInstance().PlaySound(Constant.ATTACK_MUSIC_NAME);
         //GameObject bullet = BulletPool.GetInstance().GetGameObject(throwPoint.position);
         BulletController bullet = GameObjectPools.GetInstance().GetFromPool(currentWeapon.ToString(),throwPoint.position).GetComponent<BulletController>();
-        bullet/*.GetComponent<BulletController>()*/.tagWeapon = currentWeapon;
+        bullet.tagWeapon = currentWeapon;
         bullet.TF.rotation = transform.rotation;
-        bullet/*.GetComponent<Rigidbody>()*/.AddForce(direct.x * force_Throw, direct.y*force_Throw, direct.z * force_Throw);
-        bullet/*.GetComponent<BulletController>()*/.SetOwner(this);
+        if (currentWeapon is WeaponType.Uzi)
+        {
+            bullet.AddForce(direct.x * force_Throw*10, direct.y * force_Throw*10, direct.z * force_Throw*10);
+        }
+        else 
+            bullet.AddForce(direct.x * force_Throw, direct.y*force_Throw, direct.z * force_Throw);
+        bullet.SetOwner(this);
         bullet.TF.localScale *= (1 + 0.1f * point);
         yield return new WaitForSeconds(attackTime*0.5f);
         weaponHold.SetActive(true);
@@ -186,7 +197,10 @@ public class CharacterController : MonoBehaviour
     }
     public void SetWeapon(WeaponType weapon)
     {
-        GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
+        if (weaponHold != null)
+        {
+            GameObjectPools.GetInstance().ReturnToPool(GameObjectPools.GetInstance().weaponHolds[currentWeapon].ToString(), weaponHold);
+        }
         this.currentWeapon = weapon; 
         this.weaponHold = GameObjectPools.GetInstance().GetFromPool(GameObjectPools.GetInstance().weaponHolds[weapon].ToString(), weaponPos.position);
         //TODO: cache transform

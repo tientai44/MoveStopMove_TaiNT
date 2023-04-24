@@ -24,8 +24,9 @@ public class LevelManager : GOSingleton<LevelManager>
             Destroy(currentLevel.gameObject);
         }
         GameController.GetInstance().cameraFollow.ResetOffset();
-        GameController.GetInstance().ClearObjectSpawn();
+        GameController.GetInstance().ClearObjectSpawn();// Xoa het object thuoc level cu
         currentLevel = Instantiate(allLevelPrefabs[levelId]).GetComponent<LevelController>();
+        // Goi Level moi
         GameController.GetInstance().OnInit(currentLevel);
 
         NavMesh.RemoveAllNavMeshData();

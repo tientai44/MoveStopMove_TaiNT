@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : GOSingleton<SpawnManager>
 {
+    // List do de mac cho bot
     private List<SetType> setTypes = new List<SetType> { SetType.Set1, SetType.Set2, SetType.Set3, SetType.Set4, SetType.Set5 };
     private List<HeadType> headTypes = new List<HeadType> { HeadType.Head1, HeadType.Head2, HeadType.Cowboy, HeadType.Crown, HeadType.Crown, HeadType.HatCap, HeadType.HeadPhone, HeadType.ArrowHead };
     private List<ShieldType> shieldTypes = new List<ShieldType>{ShieldType.Shield1,ShieldType.Shield2};
@@ -15,9 +16,11 @@ public class SpawnManager : GOSingleton<SpawnManager>
         characters.Add(playerController);
         playerController.OnInit();
         playerController.Point = 0;
+        //So diem va ten
         PointTagFollow p = GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>();
         p.SetOwner(playerController);
-        p.SetNameText("You");
+        p.SetNameText(SaveLoadManager.GetInstance().Data1.UserName);
+
         GameController.GetInstance().CurrentPlayer = playerController;
         for (int i = 0; i < numBot; i++)
         {
@@ -31,7 +34,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
             //random weapon
             bot.ChangeEquipment(GameObjectPools.GetInstance().weapons[Random.Range(0, GameObjectPools.GetInstance().weapons.Count)]);
             int select = Random.Range(0, 5);
-
+            // random do
             if (select == 0)
             {
                 //random skin
@@ -47,7 +50,7 @@ public class SpawnManager : GOSingleton<SpawnManager>
             }
             p = GameObjectPools.GetInstance().GetFromPool(Constant.POINT_TAG, playerController.TF.position).GetComponent<PointTagFollow>();
             p.SetOwner(bot);
-            bot.Name = "Zombie " + i.ToString();
+            bot.Name = "Bot " + i.ToString();
             p.SetNameText(bot.Name);
             bot.Point = 0;
            

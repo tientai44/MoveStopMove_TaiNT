@@ -6,7 +6,7 @@ using UnityEngine;
 public class Indicator : MonoBehaviour
 {
 
-    public GameObject indicatorPrefab;
+    public GameObject indicatorPrefab; 
     private List<GameObject> indicators = new List<GameObject>();
     [SerializeField] private Canvas indicatorCanvas;
     [SerializeField] private float offset = 20f;
@@ -16,14 +16,14 @@ public class Indicator : MonoBehaviour
         {
             return;
         }
-        // Xoá t?t c? các ?i?m hi?n th?
+        // Xoa het cac indicator cu
         foreach (GameObject indicator in indicators)
         {
             Destroy(indicator);
         }
         indicators.Clear();
 
-        // T?o các ?i?m hi?n th? cho các ??i t??ng trong màn hình
+        // Tao indicator moi
         foreach (CharacterController character in GameController.GetInstance().L_character)
         {
             if(character.GetComponent<CharacterController>().IsDead || !character.gameObject.activeSelf )
@@ -33,6 +33,7 @@ public class Indicator : MonoBehaviour
             Vector3 screenPos = Camera.main.WorldToScreenPoint(character.TF.position);
             if (screenPos.z < 0 || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height)
             {
+                // Tim vi tri dat indicator
                 float x, y, z= 0;
                 if (screenPos.z < 0)
                 {

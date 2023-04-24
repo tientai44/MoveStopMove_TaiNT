@@ -10,6 +10,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
     {
         public Data()
         {
+            UserName = "You"; 
             Coin = 99999;
             WeaponCurrent = "Axe";
             IdPantMaterialCurrent = 0;
@@ -24,7 +25,7 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
         }
         public int IdPantMaterialCurrent { get; set; }
         public string WeaponCurrent { get; set; } 
-
+        public string UserName { get; set; }
         public string HeadCurrent { get; set; }
         public string ShieldCurent { get; set; }
         public string SetCurrent { get; set; }
@@ -43,14 +44,14 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
     private string saveFilePath; // ???ng d?n ??n file l?u d? li?u
 
     [SerializeField] private bool loadOnStart = true;
-    private Data data;
-    private BinaryFormatter formatter;
+    private Data data;// Object dung de luu du lieu
+    private BinaryFormatter formatter; //Object dung ma hoa data roi luu ra file duoi dang binary
 
     public Data Data1 { get => data; set => data = value; }
 
-    public void OnInit()
+    public void OnInit()// Goi den khi ma nguoi choi vao game
     {
-        saveFilePath = Path.Combine(Application.persistentDataPath, saveFileName);
+        saveFilePath = Path.Combine(Application.persistentDataPath, saveFileName); // Lay duong dan cua file minh save
         formatter = new BinaryFormatter();
         Debug.Log(saveFilePath);
         if (loadOnStart)
@@ -79,6 +80,10 @@ public class SaveLoadManager : GOSingleton<SaveLoadManager>
                 //{
                 //    data.Coin = 9999;
                 //}
+                if (data.UserName.Trim() == "")
+                {
+                    data.UserName = "You";
+                }
                 if (data.WeaponCurrent == null)
                 {
                     data.WeaponCurrent = "Axe";

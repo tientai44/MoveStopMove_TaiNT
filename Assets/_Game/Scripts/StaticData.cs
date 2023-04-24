@@ -11,19 +11,22 @@ public static class StaticData
             {WeaponType.Knife,4},
             {WeaponType.Boomerang,6 },
             {WeaponType.Axe,4 },
-            {WeaponType.Candy0,4 }
+            {WeaponType.Candy0,4 },
+            {WeaponType.Uzi,7 }
         };
     public static readonly Dictionary<WeaponType, int> PriceWeapon = new Dictionary<WeaponType, int>{
             {WeaponType.Knife,100},
             {WeaponType.Boomerang,200 },
             {WeaponType.Axe,400 },
-            {WeaponType.Candy0,50 }
+            {WeaponType.Candy0,50 },
+            {WeaponType.Uzi,800 }
         };
     public static readonly Dictionary<String, WeaponType> WeaponEnum = new Dictionary<String, WeaponType>{
             {"Knife",WeaponType.Knife},
             {"Boomerang",WeaponType.Boomerang },
             {"Axe",WeaponType.Axe },
-            {"Candy0",WeaponType.Candy0 }
+            {"Candy0",WeaponType.Candy0 },
+            {"Uzi",WeaponType.Uzi }
         };
     public static readonly Dictionary<String, HeadType> HeadEnum = new Dictionary<String, HeadType>{
             {"Head1",HeadType.Head1},

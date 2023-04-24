@@ -10,6 +10,9 @@ public class MainMenu : UICanvas
     [SerializeField] private Toggle effectSoundtoggle;
     [SerializeField] private Toggle vibrateToggle;
     [SerializeField] Image processImg;
+    [SerializeField] private TextMeshProUGUI placeholder;
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TMP_InputField inputText;
     int count = 0;
     public override void Open()
     {
@@ -30,8 +33,23 @@ public class MainMenu : UICanvas
         count = 0;
         effectSoundtoggle.isOn = !SoundManager2.GetInstance().FlagEffect;
         vibrateToggle.isOn = VibrateController.GetInstance().Flag;
+        placeholder.text = SaveLoadManager.GetInstance().Data1.UserName;
+
+        text.text = SaveLoadManager.GetInstance().Data1.UserName;
         
-        
+    }
+    public void ChangeName()
+    {
+        if (inputText.text.Trim() == "")
+        {
+            Debug.Log("Empty");
+            text.text = SaveLoadManager.GetInstance().Data1.UserName;
+            placeholder.text = SaveLoadManager.GetInstance().Data1.UserName;
+            return;
+        }
+        placeholder.text = text.text;
+        SaveLoadManager.GetInstance().Data1.UserName = text.text;
+        SaveLoadManager.GetInstance().Save();
     }
     public TextMeshProUGUI CoinText { get => coinText; set => coinText = value; }
     public void QuestionButtonClick()

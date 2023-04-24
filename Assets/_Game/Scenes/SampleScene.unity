@@ -1858,6 +1858,14 @@ MonoBehaviour:
     poolCount: 0
     canGrow: 1
     tag: LevelUp
+  - poolObjectPrefab: {fileID: 7894006151510666191, guid: a052dd7f717c7ca49839d6132677a78f, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: UziHold
+  - poolObjectPrefab: {fileID: 704314716492764490, guid: 54b639aa55d2b9642a6521cea1d000c6, type: 3}
+    poolCount: 0
+    canGrow: 1
+    tag: UziShow
   pantMaterials:
   - {fileID: 2100000, guid: fdd1705118ee76641a362635c6ff4e78, type: 2}
   - {fileID: 2100000, guid: 04ec82f02e222794dbf82b6ba14a9e3c, type: 2}

@@ -9,11 +9,11 @@ public enum WeaponHold
     BoomerangHold,
     //ArrowHold,
     Candy0Hold,
-    //UziHold
+    UziHold
 };
 public enum WeaponShow
 {
-    AxeShow,KnifeShow,BoomerangShow,Candy0Show,
+    AxeShow,KnifeShow,BoomerangShow,Candy0Show,UziShow
 }
 public enum PantType
 {
@@ -78,10 +78,12 @@ public class GameObjectPools : GOSingleton<GameObjectPools>
         weaponHolds[WeaponType.Knife] = WeaponHold.KnifeHold;
         weaponHolds[WeaponType.Boomerang] = WeaponHold.BoomerangHold;
         weaponHolds[WeaponType.Candy0] = WeaponHold.Candy0Hold;
+        weaponHolds[WeaponType.Uzi] = WeaponHold.UziHold;
         weaponShows[WeaponType.Axe] = WeaponShow.AxeShow;
         weaponShows[WeaponType.Knife] = WeaponShow.KnifeShow;
         weaponShows[WeaponType.Boomerang] = WeaponShow.BoomerangShow;
         weaponShows[WeaponType.Candy0] = WeaponShow.Candy0Show;
+        weaponShows[WeaponType.Uzi] = WeaponShow.UziShow;
         pantMaterial[PantType.Pant1] = pantMaterials[0];
         pantMaterial[PantType.Pant2] = pantMaterials[1];
 

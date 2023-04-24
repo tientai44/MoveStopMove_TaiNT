@@ -12,7 +12,7 @@ public enum WeaponType
     Boomerang,
     //Arrow,
     Candy0,
-    //Uzi
+    Uzi
 };
 
 public class BulletController : MonoBehaviour
@@ -20,7 +20,7 @@ public class BulletController : MonoBehaviour
     private Transform tf;
     [SerializeField] protected float rotateSpeed=10f;
     protected float timer=0;
-    protected float timeExist = 1.5f;
+    [SerializeField] protected float timeExist = 1.5f;
     CharacterController character;
     CharacterController owner;
     //public string tagWeapon;
@@ -79,6 +79,10 @@ public class BulletController : MonoBehaviour
         }
         if (other.CompareTag(Constant.TAG_PLAYER))
         {
+            if(Cache.GetCharacter(other).Equals(owner))
+            {
+                return;
+            }
             //character = other.GetComponent<CharacterController>();
             //BulletPool.GetInstance().ReturnGameObject(this.gameObject);
             owner.UpPoint(1);
@@ -93,6 +97,10 @@ public class BulletController : MonoBehaviour
         }
         if(other.CompareTag(Constant.TAG_BOT))
         {
+            if (Cache.GetCharacter(other).Equals(owner))
+            {
+                return;
+            }
             owner.UpPoint(1);
             GameObjectPools.GetInstance().ReturnToPool(tagWeapon.ToString(), gameObject);
             (Cache.GetCharacter(other) as BotController).ChangeState(new DieState());

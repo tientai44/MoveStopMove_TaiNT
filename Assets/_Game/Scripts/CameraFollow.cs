@@ -24,9 +24,10 @@ public class CameraFollow : GOSingleton<CameraFollow>
     // Update is called once per frame
     void LateUpdate()
     {
-        if (player != null)
+        if (player != null)// Camera di theo player
         {
             //transform.position = Vector3.SmoothDamp(transform.position, player.position + offset, ref velocity, speedCamera);
+            //Dung Lerp cho smooth 
             transform.position = Vector3.Lerp(transform.position, player.TF.position + offset  , speedCamera);
         }
     }
@@ -34,7 +35,7 @@ public class CameraFollow : GOSingleton<CameraFollow>
     {
         player = target;
     }
-    public void ResetOffset()
+    public void ResetOffset()// Tra offset ve gia tri ban dau
     {
         offset = intialOffset;
     }

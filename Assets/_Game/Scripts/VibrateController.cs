@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class VibrateController : GOSingleton<VibrateController>
 {
-    bool flag = false;
+    bool flag = false;// dang bat che do rung hay khong
 
     public bool Flag { get => flag; set => flag = value; }
 

@@ -26,6 +26,7 @@ public class WeaponMenu : UICanvas
         weaponTypes.Add(WeaponType.Boomerang);
         weaponTypes.Add(WeaponType.Axe);
         weaponTypes.Add(WeaponType.Candy0);
+        weaponTypes.Add(WeaponType.Uzi);
         SetPageInformation(page);
         
 
