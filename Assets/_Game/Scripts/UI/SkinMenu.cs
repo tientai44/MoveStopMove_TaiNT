@@ -185,7 +185,8 @@ public class SkinMenu : UICanvas
         }
         SetEquipText(Constant.EQUIPED_STRING);
         currentButton.CheckImage.SetActive(true);
-        prevEquipButton.CheckImage.SetActive(false);
+        if(prevEquipButton!=null)
+            prevEquipButton.CheckImage.SetActive(false);
         prevEquipButton = currentButton;
         SaveLoadManager.GetInstance().Save();
     }

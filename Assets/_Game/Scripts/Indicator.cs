@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Indicator : MonoBehaviour
 {
 
     public GameObject indicatorPrefab; 
-    private List<GameObject> indicators = new List<GameObject>();
+    private List<IndicatorController> indicators = new List<IndicatorController>();
     [SerializeField] private Canvas indicatorCanvas;
     [SerializeField] private float offset = 20f;
+    
     void Update()
     {
         if (GameController.GetInstance().L_character.Count <= 0)
@@ -17,27 +19,30 @@ public class Indicator : MonoBehaviour
             return;
         }
         // Xoa het cac indicator cu
-        foreach (GameObject indicator in indicators)
+        foreach (IndicatorController indicator in indicators)
         {
-            Destroy(indicator);
+            //Destroy(indicator.gameObject);
+            indicator.gameObject.SetActive(false);
         }
-        indicators.Clear();
-
+        //indicators.Clear();
+        int count = 0;
         // Tao indicator moi
         foreach (CharacterController character in GameController.GetInstance().L_character)
         {
-            if(character.GetComponent<CharacterController>().IsDead || !character.gameObject.activeSelf )
+            if (character.GetComponent<CharacterController>().IsDead || !character.gameObject.activeSelf)
             {
                 continue;
             }
             Vector3 screenPos = Camera.main.WorldToScreenPoint(character.TF.position);
-            if (screenPos.z < 0 || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height)
+            if (screenPos.z < 0 ||screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height)
             {
+                
                 // Tim vi tri dat indicator
                 float x, y, z= 0;
                 if (screenPos.z < 0)
                 {
-                    z = 0;
+                    screenPos.y = Screen.height - screenPos.y;
+                    screenPos.x = Screen.width - screenPos.x;
                 }
                 if (screenPos.x < 0)
                 {
@@ -72,10 +77,35 @@ public class Indicator : MonoBehaviour
                     goc = -goc;
                 }
 
-                Vector3 posSpawn = new Vector3(x,y,z);
-                GameObject indicator = Instantiate(indicatorPrefab, posSpawn, Quaternion.identity, indicatorCanvas.transform) as GameObject;
-                indicator.transform.Rotate(new Vector3(0,0,goc));
-                indicators.Add(indicator);
+                Vector3 posSpawn = new Vector3(x,y,0);
+                IndicatorController indicator;
+                if (indicators.Count > count)
+                {
+                    indicator = indicators[count];
+                    indicator.gameObject.SetActive(true);
+                    indicator.TF.position = posSpawn;
+                    indicator.ResetRotate();
+                    count++;
+                }
+                else
+                {
+                    indicator = Instantiate(indicatorPrefab, posSpawn, Quaternion.identity, indicatorCanvas.transform).GetComponent<IndicatorController>();
+                    indicators.Add(indicator);
+                    count=int.MaxValue;
+                }
+                indicator.Rotate(new Vector3(0, 0, goc));
+                Color c = character.ColorSkin.material.color;
+
+                if (c != Color.white)
+                {
+                    indicator.SetColor(c);
+                }
+                else
+                {
+                    indicator.SetColor(Color.magenta);
+                }
+                indicator.SetPoint(character.Point);
+                
 
             }
         }

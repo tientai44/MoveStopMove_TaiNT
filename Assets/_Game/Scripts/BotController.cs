@@ -82,7 +82,11 @@ public class BotController : CharacterController
     }
     protected override void Update()
     {
-        //base.Update();
+        if (GameController.GetInstance().GetGameState is GameState.Wait)
+        {
+            StopMoving();
+            return;
+        }
         //TODO: lam the nao de bot phai getcomponent o day
         if (targetAttack != null)
         {

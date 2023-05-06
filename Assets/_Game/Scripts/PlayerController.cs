@@ -96,6 +96,10 @@ public class PlayerController : CharacterController
     // Update is called once per frame
     protected override void  Update()
     {
+        if (GameController.GetInstance().GetGameState is GameState.Wait)
+        {
+            return;
+        }
         if (_joystick == null || myState == PlayerState.Win )
         {
             return;
@@ -105,8 +109,8 @@ public class PlayerController : CharacterController
             timerDeath +=Time.deltaTime;
             if (timerDeath > 2f)
             {
-                GameObjectPools.GetInstance().ReturnToPool(CharacterType.Player.ToString(), this.gameObject);
-                GameController.GetInstance().Lose();
+                //GameObjectPools.GetInstance().ReturnToPool(CharacterType.Player.ToString(), this.gameObject);
+                GameController.GetInstance().GoWaiting();
             }
             return;
         }
@@ -207,6 +211,7 @@ public class PlayerController : CharacterController
         }
         myState = PlayerState.Death;
         StaticData.CoinGet = Point;
+        StaticData.Rank = GameController.GetInstance().Alive+1;
         SoundManager2.GetInstance().PlaySound(Constant.LOSE_MUSIC_NAME);
         base.OnDeath();
         
@@ -229,9 +234,9 @@ public class PlayerController : CharacterController
     {
         base.UpPoint(point);
         VibrateController.GetInstance().Vibrate(0.1f);
-        if (this.Point % numBottoLevelUp == 0)
+        if (this.Point % NumBotToLevelUp == 0)
         {
-            GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1)*numBottoLevelUp;
+            GameController.GetInstance().cameraFollow.Offset += new Vector3(0, 1, -1)*NumBotToLevelUp;
             Instantiate(combatTextPrefab, TF.position + new Vector3(1f*TF.localScale.x, 1f * TF.localScale.y, 0), Quaternion.identity).OnInit(1+Point/(10));
         }
     }
@@ -243,5 +248,11 @@ public class PlayerController : CharacterController
         
         SoundManager2.GetInstance().PlaySound(Constant.WIN_MUSIC_NAME);
         StopAllCoroutines();
+    }
+    public void DeSpawn()
+    {
+
+        OnInit();
+        TF.position= GameController.GetInstance().GetRandomSpawnPos();
     }
 }

@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour
     private int point = 0;
     [SerializeField]private float rangeDetect;
     private float intialRadiusSightZone;
-    [SerializeField] protected int numBottoLevelUp=3;
+    [SerializeField] private int numBotToLevelUp = 3;
     [SerializeField] SphereCollider sightZone;
     [SerializeField] protected Transform weaponPos;
     [SerializeField] protected GameObject weaponHold;
@@ -55,6 +55,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer colorSkin;
     [SerializeField] protected Material defaultMaterial;
     [SerializeField] protected Transform foot;
+    [SerializeField] Transform posPoinTag;
     public List<CharacterController> l_AttackTarget = new List<CharacterController>();
 
     public List<CharacterController> L_AttackTarget { get => l_AttackTarget; set => l_AttackTarget = value; }
@@ -104,6 +105,8 @@ public class CharacterController : MonoBehaviour
     public SkinnedMeshRenderer ColorSkin { get => colorSkin; set => colorSkin = value; }
     public Transform Foot { get => foot; set => foot = value; }
     public string Name { get => nameCharacter; set => nameCharacter = value; }
+    public int NumBotToLevelUp { get => numBotToLevelUp; set => numBotToLevelUp = value; }
+    public Transform PosPoinTag { get => posPoinTag; set => posPoinTag = value; }
 
     public bool IsDead = false;
 
@@ -118,7 +121,7 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
-
+        
     }
     public virtual void OnInit()
     {
@@ -369,7 +372,7 @@ public class CharacterController : MonoBehaviour
         //    //TODO: vi phong nguyen tac dong goi
         //    GameController.GetInstance().cameraFollow.Offset += new Vector3(0,1,-1);
         //}
-        if (this.point % numBottoLevelUp == 0)
+        if (this.point % numBotToLevelUp == 0)
         {
             TF.localScale = Vector3.one * this.point * 0.1f + Vector3.one;
             levelUpSystem.Play();

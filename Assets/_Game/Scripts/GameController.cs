@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using UnityEngine;
-
+public enum GameState
+{
+    Wait,Normal
+}
 public class GameController : GOSingleton<GameController>
 {
-    [SerializeField] private int Alive;
+    [SerializeField] public int Alive;
     [SerializeField] private List<CharacterController> l_character = new List<CharacterController>();
     [SerializeField] private List<Transform> l_SpawnBot = new List<Transform>();
     //public FixedJoystick joystick;
@@ -15,16 +18,19 @@ public class GameController : GOSingleton<GameController>
     public int numBot = 10;
     public int numSpawn;
     public PlayerController currentPlayer;
+    public GameState gameState;
     private float timeWait=5f;
     public List<CharacterController> L_character { get => l_character; set => l_character = value; }
     public int NumSpawn { get => numSpawn; set => numSpawn = value; }
     public List<Transform> L_SpawnBot { get => l_SpawnBot; set => l_SpawnBot = value; }
     public PlayerController CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
+    public GameState GetGameState { get => gameState; set => gameState = value; }
+
     private void Awake()
     {
         //base.Awake();
         SaveLoadManager.GetInstance().OnInit();
-
+        gameState = GameState.Normal;
         Input.multiTouchEnabled = false;
         Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -113,7 +119,11 @@ public class GameController : GOSingleton<GameController>
         Debug.Log("Now Coin: " + SaveLoadManager.GetInstance().Data1.Coin);
         Debug.Log("Now Weapon: " + SaveLoadManager.GetInstance().Data1.WeaponCurrent);
     }
-
+    public void GoWaiting()
+    {
+        GetGameState = GameState.Wait;
+        NewUIManager.GetInstance().OpenUI<UIRevive>();
+    }
     public void Lose()
     {
         GameObjectPools.GetInstance().ClearObjectActive(CharacterType.Bot.ToString());

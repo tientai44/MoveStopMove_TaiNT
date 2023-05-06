@@ -171,6 +171,7 @@ MonoBehaviour:
   numBot: 1
   numSpawn: 0
   currentPlayer: {fileID: 0}
+  gameState: 0
 --- !u!4 &45522857
 Transform:
   m_ObjectHideFlags: 0

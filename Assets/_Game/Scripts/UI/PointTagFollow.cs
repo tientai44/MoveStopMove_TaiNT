@@ -53,6 +53,8 @@ public class PointTagFollow : MonoBehaviour
         }
 
         pointText.text = characterController.Point.ToString();
-        TF.position = characterController.TF.position + offset + characterController.Point*new Vector3(0,0.2f,0);
+        int num =(int) (characterController.Point / characterController.NumBotToLevelUp);
+        //TF.position = characterController.TF.position + offset + num*new Vector3(0,0.4f,0);
+        TF.position = characterController.PosPoinTag.position;
     }
 }
